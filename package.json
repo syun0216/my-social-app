@@ -8,11 +8,20 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "0.1.5",
+    "@react-navigation/native": "^5.0.3",
+    "@react-navigation/stack": "^5.0.3",
     "expo": "~36.0.0",
+    "expo-linear-gradient": "~8.0.0",
+    "expo-svg-uri": "^1.1.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-gesture-handler": "~1.5.0",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-safe-area-context": "0.6.0",
+    "react-native-safe-area-view": "^1.0.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.1.1"
@@ -21,6 +30,7 @@
     "@babel/core": "^7.0.0",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
+    "@types/react-navigation": "^3.4.0",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "babel-preset-expo": "~8.0.0",

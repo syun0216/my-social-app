@@ -1,19 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+// views
+import Router from './router/router'
+// fonts
+import * as Font from 'expo-font';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+export default class App extends React.PureComponent {
+  
+  private componentDidMount() {
+    Font.loadAsync({
+      'SourceSansPro-Bold': require('./fonts/SourceSansPro-Bold.ttf'),
+      'SourceSansPro-Semibold': require('./fonts/SourceSansPro-SemiBold.ttf'),
+      'SourceSansPro-Regular': require('./fonts/SourceSansPro-Regular.ttf')
+    });
+  }
+
+  public render() {
+    return (
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
