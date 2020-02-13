@@ -2,14 +2,14 @@ import React from 'react'
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import Text from '../components/unScalingText'
 //utils
-import { px2dp } from '../utils/commonUtils'
+import { px2dp, iPhoneXBottom, isIphoneX } from '../utils/commonUtils'
 import Colors from '../utils/colors'
 
 const styles = StyleSheet.create({
   btnContainer: {
     backgroundColor: Colors.mainGreen,
     width: '100%',
-    height: px2dp(64),
+    height: isIphoneX() ? px2dp(64) + iPhoneXBottom : px2dp(64),
     position: 'absolute',
     bottom: 0,
     justifyContent: 'center',
