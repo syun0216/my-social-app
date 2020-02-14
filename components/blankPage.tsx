@@ -5,7 +5,7 @@ import Text from '../components/unScalingText'
 import CustomSvg from '../components/customSvg'
 //utils
 import Colors from '../utils/colors'
-import { px2dp } from '../utils/commonUtils'
+import { px2dpw } from '../utils/commonUtils'
 
 interface IBlankPage {
   text: string
@@ -16,16 +16,15 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1
+    alignItems: 'center'
   },
   blankIcon: {
-    marginBottom: px2dp(11),
+    marginBottom: px2dpw(11),
   },
   blankText: {
     color: Colors.mainGray,
-    fontSize: px2dp(14),
-    fontFamily: 'SourceSansPro-Regular'
+    fontSize: px2dpw(14),
+    // fontFamily: 'SourceSansPro-Regular'
   }
 })
 

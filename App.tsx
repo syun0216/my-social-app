@@ -7,11 +7,12 @@ import * as Font from 'expo-font';
 
 export default class App extends React.PureComponent {
   
-  private componentDidMount() {
+  public componentDidMount() {
     Font.loadAsync({
+      'SourceSansPro-Regular': require('./fonts/SourceSansPro-Regular.ttf'),
       'SourceSansPro-Bold': require('./fonts/SourceSansPro-Bold.ttf'),
       'SourceSansPro-Semibold': require('./fonts/SourceSansPro-SemiBold.ttf'),
-      'SourceSansPro-Regular': require('./fonts/SourceSansPro-Regular.ttf')
+      
     });
   }
 

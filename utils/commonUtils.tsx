@@ -14,7 +14,8 @@ const iPhoneX_HEIGHT = 812;
 const XR_WIDTH = 414;
 const XR_HEIGHT = 896;
 
-const  uiWidthPx = 320
+const uiWidthPx = 320
+const uiHeightPx = 572
 
 export function isIphoneX() {
   return (
@@ -32,6 +33,10 @@ export function isIphoneXr() {
   )
 }
 
-export function px2dp(uiElementPx: number) {
+export function px2dpw(uiElementPx: number) {
   return uiElementPx * deviceWidthDp / uiWidthPx
+}
+
+export function px2dpwh(uiElementPx: number) {
+  return uiElementPx * deviceHeightDp / uiHeightPx 
 }

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { deviceWidthDp, deviceHeightDp, px2dp } from '../utils/commonUtils'
+import { deviceWidthDp, deviceHeightDp, px2dpw } from '../utils/commonUtils'
 import Colors from '../utils/colors'
 export default StyleSheet.create({
   loginBg: {
@@ -15,60 +15,60 @@ export default StyleSheet.create({
     bottom: 0,
   },
   logoContainer: {
-    marginTop: px2dp(69),
+    marginTop: px2dpw(69),
     width: deviceWidthDp,
     justifyContent: 'center',
     alignItems: 'center',
   },
   logoTitle: {
-    fontSize: px2dp(24),
-    marginBottom: px2dp(37),
+    fontSize: px2dpw(24),
+    marginBottom: px2dpw(37),
     color: Colors.mainGreen,
     fontFamily: 'SourceSansPro-Bold'
   },
   logoSubtitle: {
-    fontSize: px2dp(16),
-    marginBottom: px2dp(16),
+    fontSize: px2dpw(16),
+    marginBottom: px2dpw(16),
     color: Colors.mainGreen,
     fontFamily: 'SourceSansPro-Semibold'
   },
   logoImg: {
-    width: px2dp(64),
-    height: px2dp(64),
-    borderRadius: px2dp(32),
+    width: px2dpw(64),
+    height: px2dpw(64),
+    borderRadius: px2dpw(32),
     borderWidth: 1,
     borderColor: Colors.mainGreen,
-    paddingTop: px2dp(8),
-    paddingLeft: px2dp(7)
+    paddingTop: px2dpw(8),
+    paddingLeft: px2dpw(7)
   },
   fillinContainer: {
     width: deviceWidthDp,
-    marginTop: px2dp(118),
+    marginTop: px2dpw(118),
     alignItems: 'center'
   },
   fillinItem: {
-    paddingLeft: px2dp(13.3),
-    paddingRight: px2dp(13.3),
+    paddingLeft: px2dpw(13.3),
+    paddingRight: px2dpw(13.3),
     backgroundColor: 'transparent',
-    width: px2dp(240),
-    height: px2dp(40),
+    width: px2dpw(240),
+    height: px2dpw(40),
     color: Colors.deepPurple,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderRadius: px2dp(20),
+    borderRadius: px2dpw(20),
     borderColor: Colors.lightestPurple,
     borderWidth: 2,
-    marginBottom: px2dp(16)
+    marginBottom: px2dpw(16)
   },
   fillinSvg: {
-    marginRight: px2dp(6)
+    marginRight: px2dpw(6)
   },
   fillin: {
     flex: 1,
-    height: px2dp(40),
-    fontSize: px2dp(16),
-    fontFamily: 'SourceSansPro-Regular'
+    height: px2dpw(40),
+    fontSize: px2dpw(16),
+    // fontFamily: 'SourceSansPro-Regular'
   },
   fillinActive: {
 

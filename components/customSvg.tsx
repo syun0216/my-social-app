@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import SvgUri from 'expo-svg-uri'
-import { px2dp } from '../utils/commonUtils'
+import { px2dpw, px2dpwh } from '../utils/commonUtils'
 
 interface ICustomSvg {
   width: number,
@@ -14,8 +14,8 @@ interface ICustomSvg {
 const customSvg = (props: ICustomSvg) => (
   <View style={props.style}>
     <SvgUri
-      width={px2dp(props.width)}
-      height={px2dp(props.height)}
+      width={px2dpw(props.width)}
+      height={px2dpwh(props.height)}
       source={props.svg}
       fill={props.fill}
       fillAll={true}
