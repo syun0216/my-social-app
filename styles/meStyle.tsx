@@ -24,7 +24,7 @@ export default StyleSheet.create({
     paddingBottom: px2dpwh(25),
   },
   introName: {
-    fontFamily: 'SourceSansPro-Regular',
+    // fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(24),
     color: Colors.mainBlack,
     marginBottom: px2dpwh(8)
@@ -34,7 +34,7 @@ export default StyleSheet.create({
     marginTop: px2dpw(2)
   },
   introEmail: {
-    fontFamily: 'SourceSansPro-Regular',
+    // fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(14),
     color: Colors.mainPurple
   }

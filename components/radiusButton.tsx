@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     paddingRight: px2dpw(7.5),
     paddingTop: px2dpw(5),
     paddingBottom: px2dpw(5),
-    borderRadius: 20
+    borderRadius: 20,
+    alignSelf: 'flex-start' // 自适应宽度
   },
   btnActiveContainer: {
     backgroundColor: Colors.mainGreen,

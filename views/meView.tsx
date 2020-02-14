@@ -12,7 +12,7 @@ import MeStyle from '../styles/meStyle'
 import Colors from '../utils/colors'
 import colors from '../utils/colors'
 
-export default class meView extends React.PureComponent {
+export default class MeView extends React.PureComponent {
 
   private _homeIcon = require('../assets/home.svg')
   private _emailIcon = require('../assets/email.svg')

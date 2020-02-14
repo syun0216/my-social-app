@@ -24,13 +24,13 @@ export default StyleSheet.create({
     fontSize: px2dpw(24),
     marginBottom: px2dpw(37),
     color: Colors.mainGreen,
-    fontFamily: 'SourceSansPro-Bold'
+    // fontFamily: 'SourceSansPro-Bold'
   },
   logoSubtitle: {
     fontSize: px2dpw(16),
     marginBottom: px2dpw(16),
     color: Colors.mainGreen,
-    fontFamily: 'SourceSansPro-Semibold'
+    // fontFamily: 'SourceSansPro-Semibold'
   },
   logoImg: {
     width: px2dpw(64),
