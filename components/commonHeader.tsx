@@ -1,10 +1,9 @@
 import React from 'react'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 //utils
 import { deviceWidthDp, px2dpw, isIphoneX, iPhoneXTop, iPhoneTop, px2dpwh } from '../utils/commonUtils'
 import Colors from '../utils/colors'
 import CustomSvg from './customSvg'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface ICommonHeader {
   leftElement: any

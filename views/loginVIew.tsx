@@ -6,7 +6,7 @@ import Text from '../components/unScalingText'
 import BlockButton from '../components/blockButton'
 import CustomSvg from '../components/customSvg'
 // styles
-import LoginStyle from '../styles/LoginStyle'
+import LoginStyle from '../styles/loginStyle'
 // utils
 import Colors from '../utils/colors'
 // import { deviceWidthDp, deviceHeightDp } from '../utils/commonUtils'

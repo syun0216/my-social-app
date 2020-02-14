@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, TouchableOpacity, Image} from 'react-native'
 // styles
-import SearchViewStyle from '../styles/SearchViewStyle'
+import SearchViewStyle from '../styles/searchViewStyle'
 //components
 import Text from '../components/unScalingText'
 import RadiusButton from '../components/radiusButton'

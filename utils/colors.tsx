@@ -8,9 +8,11 @@ export default {
   lightestPurple: '#D3C1E5',
   deepPurple: '#453257',
   mainBlack: '#67616D',
+  tabGray: '#8C8C8C',
   mainGray: '#BABABA',
   lightGray: '#FAF9FC',
   lighterGray: '#E8E8E8',
   mainWhite: '#FFFFFF',
+  grayBg: '#FAFAFA',
   mainRed: '#FF5C5C'
 }

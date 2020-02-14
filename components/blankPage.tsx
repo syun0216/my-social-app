@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: Colors.grayBg
   },
   blankIcon: {
     marginBottom: px2dpw(11),
