@@ -253,19 +253,19 @@ export default StyleSheet.create({
     marginBottom: px2dpwh(4)
   },
   commentTopName: {
-    fontFamily: 'SourceSansPro-Regular',
+    // fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12),
     color: Colors.mainPurple,
     marginRight: px2dpw(12)
   },
   commentTopTime: {
-    fontFamily: 'SourceSansPro-Regular',
+    // fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(10),
     color: Colors.mainGray
   },
   commentTopIcon: {},
   commentContentText: {
-    fontFamily: 'SourceSansPro-Regular',
+    // fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(14),
     color: Colors.deepPurple
   },
@@ -302,7 +302,7 @@ export default StyleSheet.create({
     marginRight: px2dpw(12)
   },
   bottomBarRightText: {
-    fontFamily: 'SourceSansPro-Semibold',
+    // fontFamily: 'SourceSansPro-Semibold',
     fontSize: px2dpw(14),
     color: Colors.deeperGreen
   },

@@ -4,7 +4,8 @@ import Colors from '../utils/colors'
 export default StyleSheet.create({
   loginBg: {
     width: deviceWidthDp,
-    height: deviceHeightDp
+    height: deviceHeightDp,
+    flex: 1
   },
   linearGradientBg: {
     position: 'absolute',
@@ -71,6 +72,9 @@ export default StyleSheet.create({
     // fontFamily: 'SourceSansPro-Regular'
   },
   fillinActive: {
-
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  submitBtn: {
+    position: 'relative',
   }
 })

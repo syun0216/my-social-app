@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet } from 'react-native'
+import { TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
 import Text from '../components/unScalingText'
 //utils
 import { px2dpw, iPhoneXBottom, isIphoneX } from '../utils/commonUtils'
@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
 })
 
 const blockButton = (props: any) => (
-  <TouchableOpacity style={styles.btnContainer} activeOpacity={0.8}>
-    {props.children ? props.children : (
+  <TouchableOpacity onPress={() => props.clickFunc()} style={[styles.btnContainer, props.style]} activeOpacity={0.8}>
+    {!props.isLoading ? (props.children ? props.children : (
       <Text style={styles.btnText}>{props.text}</Text>
-    )}
+    )) : (<ActivityIndicator color={Colors.mainBlack} size="large"/>)}
   </TouchableOpacity>
 )
 

@@ -40,3 +40,12 @@ export function px2dpw(uiElementPx: number) {
 export function px2dpwh(uiElementPx: number) {
   return uiElementPx * deviceHeightDp / uiHeightPx 
 }
+
+export function isJsonString(str: string) {
+  try {
+      if (typeof JSON.parse(str) == "object") {
+          return true;
+      }
+  } catch (e) {}
+  return false;
+}

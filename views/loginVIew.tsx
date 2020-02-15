@@ -1,10 +1,11 @@
 import React from 'react'
-import { ImageBackground, View, TextInput } from 'react-native'
+import { ImageBackground, View, TextInput, KeyboardAvoidingView } from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 // components
 import Text from '../components/unScalingText'
 import BlockButton from '../components/blockButton'
 import CustomSvg from '../components/customSvg'
+import Toast from '../components/toast'
 // styles
 import LoginStyle from '../styles/loginStyle'
 // utils
@@ -12,15 +13,89 @@ import Colors from '../utils/colors'
 // import { deviceWidthDp, deviceHeightDp } from '../utils/commonUtils'
 //language 
 import i18n from '../language/i18n'
+import { deviceHeightDp } from '../utils/commonUtils'
+//api
+import { userLogin } from '../api/interface'
+//cache
+import { userStorage }  from '../cache/appCache'
 
-export default class LoginView extends React.PureComponent<{}, {}> {
+export default class LoginView extends React.PureComponent<any, {}> {
 
   private _i18n = i18n['en'].loginViewText
   private _logoIcon = require('../assets/logo-cat.svg')
   private _userIcon = require('../assets/user.svg')
   private _pwdIcon = require('../assets/password.svg')
 
+  private _loginParams = {
+    username: '',
+    password: ''
+  }
+
+  private _toast = null
+
+  public state = {
+    isUsernameInputFocus: false,
+    isPasswordInputFocus: false,
+    isSubmiting: false
+  }
+
+  // logic
+
+  private _getUserName(username) {
+    this._loginParams.username = username
+    console.log('this._loginParams :', this._loginParams);
+  }
+
+  private _getPassword(password) {
+    this._loginParams.password = password
+    console.log('this._loginParams :', this._loginParams);
+  }
+
+  private _getUsernameInputFocusAction() {
+    this.setState({
+      isUsernameInputFocus: true
+    })
+  }
+
+  private _getUsernameInputBlurAction() {
+    this.setState({
+      isUsernameInputFocus: false
+    })
+  }
+  private _getPasswordInputFocusAction() {
+    this.setState({
+      isPasswordInputFocus: true
+    })
+  }
+
+  private _getPasswordInputBlurAction() {
+    this.setState({
+      isPasswordInputFocus: false
+    })
+  }
   
+  private async _loginWithData() {
+    const { username, password } = this._loginParams
+    if(username === '') {
+      this._toast.show('email is required')
+      return
+    }
+    if(password === '') {
+      this._toast.show('password is required')
+      return
+    }
+    this.setState({
+      isSubmiting: true
+    })
+    try {
+      const res = await userLogin(this._loginParams)
+      console.log(res)
+      userStorage.setData(res)
+      this.props.navigation.replace("Search")
+    }catch(err) {
+      this._toast.show('login error')
+    }
+  }
 
   public render() {
     return this._renderMainView()
@@ -28,13 +103,17 @@ export default class LoginView extends React.PureComponent<{}, {}> {
 
   //views
   private _renderMainView () {
+    const { isSubmiting } = this.state
     return (
       <ImageBackground source={require('../assets/Street-Dance-01.jpg')} style={LoginStyle.loginBg}>
         <LinearGradient start={{x: 0.0, y: 0.0}} end={{x: 0.0, y: 1.0}} colors={[Colors.lightPurple, Colors.mainPurple]} style={LoginStyle.linearGradientBg}>
-          {this._renderLogoView()}
-          {this._renderFillInView()}
-          <BlockButton text={this._i18n.loginText}/>
+          <KeyboardAvoidingView style={{flex: 1, height: deviceHeightDp, position: 'relative'}} enabled={true} behavior="position">
+            {this._renderLogoView()}
+            {this._renderFillInView()}
+          </KeyboardAvoidingView>
+          <BlockButton isLoading={isSubmiting} clickFunc={() => this._loginWithData()} style={LoginStyle.submitBtn} text={this._i18n.loginText}/>
         </LinearGradient>
+        <Toast ref={t => this._toast = t} textColor={Colors.mainWhite} bgColor={Colors.transparentRed} autoHide={true}/>
       </ImageBackground>
     )
   }
@@ -50,9 +129,10 @@ export default class LoginView extends React.PureComponent<{}, {}> {
   }
 
   private _renderFillInView() {
+    const { isUsernameInputFocus, isPasswordInputFocus } = this.state
     return (
       <View style={LoginStyle.fillinContainer}>
-        <View style={LoginStyle.fillinItem}>
+        <View style={[LoginStyle.fillinItem, isUsernameInputFocus && LoginStyle.fillinActive]}>
           <CustomSvg style={LoginStyle.fillinSvg} width={13.3} height={13.3} fill={Colors.lightestPurple} svg={this._userIcon}/>
           <TextInput 
             style={LoginStyle.fillin} clearButtonMode="while-editing" 
@@ -60,10 +140,14 @@ export default class LoginView extends React.PureComponent<{}, {}> {
             multiline={false}
             autoFocus={false}
             allowFontScaling={false}
+            underlineColorAndroid="transparent"
             placeholder={this._i18n.emailPlaceholder} placeholderTextColor={Colors.lighterPurple}
+            onChangeText={username => this._getUserName(username)}
+            onFocus={() => this._getUsernameInputFocusAction()}
+            onBlur={() => this._getUsernameInputBlurAction()}
           />
         </View>
-        <View style={LoginStyle.fillinItem}>
+        <View style={[LoginStyle.fillinItem, isPasswordInputFocus && LoginStyle.fillinActive]}>
           <CustomSvg style={LoginStyle.fillinSvg} width={13.3} height={13.3} fill={Colors.lightestPurple} svg={this._pwdIcon}/>
           <TextInput 
             style={LoginStyle.fillin} clearButtonMode="while-editing" 
@@ -71,7 +155,12 @@ export default class LoginView extends React.PureComponent<{}, {}> {
             multiline={false}
             autoFocus={false}
             allowFontScaling={false}
+            secureTextEntry={true}
+            underlineColorAndroid="transparent"
             placeholder={this._i18n.pswPlaceholder} placeholderTextColor={Colors.lighterPurple}
+            onChangeText={password => this._getPassword(password)}
+            onFocus={() => this._getPasswordInputFocusAction()}
+            onBlur={() => this._getPasswordInputBlurAction()}
           />
         </View>
         {/* <TextInput style={LoginStyle.fillin}/> */}

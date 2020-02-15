@@ -16,5 +16,6 @@ export default {
   mainWhite: '#FFFFFF',
   grayBg: '#FAFAFA',
   deepGrayBg: '#FAF9FC',
-  mainRed: '#FF5C5C'
+  mainRed: '#FF5C5C',
+  transparentRed: 'rgba(255, 92, 92, 1)'
 }
