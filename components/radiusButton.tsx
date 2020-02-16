@@ -11,7 +11,8 @@ interface IRadiusButton {
   defaultStyle?: object,
   activeStyle?: object,
   textStyle?: object,
-  textActiveStyle?: object
+  textActiveStyle?: object,
+  clickFunc?: any
 }
 
 const styles = StyleSheet.create({
@@ -40,8 +41,8 @@ const styles = StyleSheet.create({
 })
 
 const radiusButton = (props: IRadiusButton) => (
-  <TouchableOpacity activeOpacity={0.8} style={[styles.btnContainer, props.defaultStyle]}>
-    <Text style={[styles.btnText, props.textStyle]}>{props.text}</Text>
+  <TouchableOpacity onPress={props.clickFunc} activeOpacity={0.8} style={[styles.btnContainer, props.defaultStyle]}>
+    <Text style={[styles.btnText, props.textStyle, props.textActiveStyle]}>{props.text}</Text>
   </TouchableOpacity>
 )
 

@@ -1,9 +1,9 @@
-const baseUrl = 'http://localhost:3000';
-const token = ''
+const baseUrl = 'http://localhost:3000/api/v1';
+const token = '3c6c1a6d489dba3676b4e1385d48c4d2'
 const timeoutSeconds = 20;
 export default class BaseRequest{
     /// POST方法
-    static postData(url,params){
+    static postData(url,params={}){
         let p1 = new Promise((resolve,reject)=>{
             fetch(`${baseUrl}${url}`,{
                 method:'POST',
@@ -33,8 +33,36 @@ export default class BaseRequest{
 
     /// Get方法
     static getData(url){
+        console.log(`${baseUrl}${url}`)
         let p1= new Promise((resolve,reject)=>{
-            fetch(`${baseUrl}${url}`)
+            fetch(`${baseUrl}${url}`,{
+                method: 'GET',
+                headers: {
+                    'X-BLACKCAT-TOKEN': token
+                }
+            })
+            .then((response)=>response.json())
+            .then((responseJson)=>{
+                /// 拿到数据可以在此同意处理服务器返回的信息
+                resolve(responseJson);
+            })
+            .catch((error)=>{
+                reject(error);
+            })
+        })
+        let p2 = this.requestTimeout();
+        return Promise.race([p1,p2]);
+    }
+
+    /// Get方法
+    static deleteData(url){
+        let p1= new Promise((resolve,reject)=>{
+            fetch(`${baseUrl}${url}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-BLACKCAT-TOKEN': token
+                }
+            })
             .then((response)=>response.json())
             .then((responseJson)=>{
                 /// 拿到数据可以在此同意处理服务器返回的信息

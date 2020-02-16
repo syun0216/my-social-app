@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 })
 
 const blockButton = (props: any) => (
-  <TouchableOpacity onPress={() => props.clickFunc()} style={[styles.btnContainer, props.style]} activeOpacity={0.8}>
+  <TouchableOpacity disabled={props.disabled || false} onPress={props.clickFunc} style={[styles.btnContainer, props.style]} activeOpacity={0.8}>
     {!props.isLoading ? (props.children ? props.children : (
       <Text style={styles.btnText}>{props.text}</Text>
     )) : (<ActivityIndicator color={Colors.mainBlack} size="large"/>)}

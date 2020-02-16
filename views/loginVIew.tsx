@@ -1,6 +1,7 @@
 import React from 'react'
 import { ImageBackground, View, TextInput, KeyboardAvoidingView } from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
+import { inject } from 'mobx-react'
 // components
 import Text from '../components/unScalingText'
 import BlockButton from '../components/blockButton'
@@ -19,6 +20,7 @@ import { userLogin } from '../api/interface'
 //cache
 import { userStorage }  from '../cache/appCache'
 
+@inject('basicMobx')
 export default class LoginView extends React.PureComponent<any, {}> {
 
   private _i18n = i18n['en'].loginViewText

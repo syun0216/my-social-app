@@ -221,7 +221,8 @@ export default StyleSheet.create({
     width: px2dpw(24),
     height: px2dpw(24),
     borderRadius: px2dpw(12),
-    marginRight: px2dpw(7)
+    marginRight: px2dpw(7),
+    marginBottom: px2dpw(7),
   },
   participantCountMoreIcon: {
 
@@ -236,7 +237,8 @@ export default StyleSheet.create({
   },
   commentItem: {
     flexDirection: 'row',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    marginBottom: px2dpwh(16)
   },
   commentAvatar: {
     width: px2dpw(32),

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     height: isIphoneX() ? px2dpwh(32) + iPhoneXTop : px2dpwh(32) + iPhoneTop,
     backgroundColor: 'rgba(229, 247, 169, 0.8)',
     fontSize: px2dpw(14),
-    fontFamily: 'SourceSansPro-Semibold',
+    // fontFamily: 'SourceSansPro-Semibold',
     position: 'absolute',
     top: 0,
     zIndex: 3,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   toastText: {
     color: Colors.mainPurple,
     fontSize: px2dpw(14),
-    fontFamily: 'SourceSansPro-Semibold'
+    // fontFamily: 'SourceSansPro-Semibold'
   }
 })
 

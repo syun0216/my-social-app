@@ -9,12 +9,15 @@ import CommonHeader from '../components/commonHeader'
 import CustomSvg from '../components/customSvg'
 import CommonTab from '../components/commonTab'
 import RadiusButton from '../components/radiusButton'
+import Loading from '../components/loading'
 //utils
 import Colors from '../utils/colors'
 import { px2dpwh } from '../utils/commonUtils'
+//api
+import {getEventsWithEventId, getEventParticipantWithEventId, getLikesWithEventId, getCommentWithEventId} from '../api/interface'
 
 
-export default class DetailsView extends React.PureComponent {
+export default class DetailsView extends React.PureComponent<any, any> {
 
   private _homeIcon = require('../assets/home.svg')
   private _likeIcon = require('../assets/like-outline.svg')
@@ -34,10 +37,36 @@ export default class DetailsView extends React.PureComponent {
   private _sendIcon = require('../assets/send.svg')
   private _closeIcon = require('../assets/cross.svg')
 
+  public state = {
+    eventInfo: null,
+    participantInfo: null,
+    likesInfo: null,
+    commentsInfo: null,
+    isLoading: true
+  }
 
+  public componentDidMount() {
+    this._getInfo()
+  }
+
+  private async _getInfo() {
+    const { id } = this.props.route.params
+    const resEvent: any = await getEventsWithEventId(id)
+    const resParticipant: any = await getEventParticipantWithEventId(id)
+    const resLikes: any = await getLikesWithEventId(id)
+    const resComments: any = await getCommentWithEventId(id)
+    console.log('resComments',resComments)
+    this.setState({
+      eventInfo: resEvent.event,
+      participantInfo: resParticipant.users,
+      likesInfo: resLikes.users,
+      commentsInfo: resComments.comments,
+      isLoading: false
+    })
+  }
 
   public render() {
-    return this._renderMainView()
+    return this.state.isLoading ? <Loading /> : this._renderMainView()
   }
 
   private _renderMainView() {
@@ -52,28 +81,31 @@ export default class DetailsView extends React.PureComponent {
           {this._renderCommentView()}
         </ScrollView>
         {this._renderBottomBar()}
-        {this._renderBottomInput()}
+        {/* {this._renderBottomInput()} */}
       </View>
     )
   }
 
   private _renderHeader() {
-    const leftElement = <CustomSvg fill={Colors.deepPurple} svg={this._homeIcon} width={22} height={20}/>
+    const leftElement = (<TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+      <CustomSvg fill={Colors.deepPurple} svg={this._homeIcon} width={22} height={20}/>
+    </TouchableOpacity>)
     return (
       <CommonHeader leftElement={leftElement}/>
     )
   }
 
   private _renderTopIntro() {
+    const { eventInfo } = this.state
     return (
       <View style={DetailStyle.topIntroContainer}>
-        <RadiusButton defaultStyle={DetailStyle.channelBtn} textStyle={DetailStyle.channelBtnText} text="channel name123123123213"/>
-        <Text style={DetailStyle.introTitle}>Activity Title Name Make it Longer May Longer than One Line</Text>
+        <RadiusButton defaultStyle={DetailStyle.channelBtn} textStyle={DetailStyle.channelBtnText} text={eventInfo.channel.name}/>
+    <Text style={DetailStyle.introTitle}>{eventInfo.name}</Text>
         <View style={DetailStyle.introAvatarContainer}>
-          <Image source={{uri: 'https://s2.ax1x.com/2020/02/14/1XMwGR.png'}} style={DetailStyle.introAvatarImg}/>
+          <Image source={{uri: eventInfo.creator.avatar}} style={DetailStyle.introAvatarImg}/>
           <View>
-            <Text style={DetailStyle.introAvatarTitle}>Username</Text>
-            <Text style={DetailStyle.introAvatarSubtitle}>Published 2 days ago</Text>
+            <Text style={DetailStyle.introAvatarTitle}>{eventInfo.creator.username}</Text>
+            <Text style={DetailStyle.introAvatarSubtitle}>{eventInfo.updatedAt}</Text>
           </View>
         </View>
       </View>
@@ -82,9 +114,9 @@ export default class DetailsView extends React.PureComponent {
 
   private _renderTabView() {
     const tabData = [
-      { svg: this._infoIcon, activeSvg: this._infoActiveIcon, svgWidth: 18, svgHeight: 18, label: '12 Likes' },
-      { svg: this._peopleIcon, activeSvg: this._peopleActiveIcon, svgWidth: 18, svgHeight: 18, label: '0 Going' },
-      { svg: this._commentIcon, activeSvg: this._commentActiveIcon, svgWidth: 18, svgHeight: 18, label: '0 Past' },
+      { svg: this._infoIcon, activeSvg: this._infoActiveIcon, svgWidth: 18, svgHeight: 18, label: 'Details' },
+      { svg: this._peopleIcon, activeSvg: this._peopleActiveIcon, svgWidth: 18, svgHeight: 18, label: 'Participants' },
+      { svg: this._commentIcon, activeSvg: this._commentActiveIcon, svgWidth: 18, svgHeight: 18, label: 'Comments' },
     ]
     return (
       <CommonTab tabData={tabData}/>
@@ -102,14 +134,20 @@ export default class DetailsView extends React.PureComponent {
   }
 
   private _renderDescView() {
+    const { eventInfo } = this.state
     return (
       <View style={DetailStyle.descContainer}>
         <ScrollView style={DetailStyle.scrollImgContainer} horizontal={true}>
-          <Image style={DetailStyle.scrollImg} source={{uri: 'https://s2.ax1x.com/2020/02/14/1XMwGR.png'}}/>
-          <Image style={DetailStyle.scrollImg} source={{uri: 'https://s2.ax1x.com/2020/02/14/1XMwGR.png'}}/>
+          {
+            eventInfo.images.length > 0 ? (
+              eventInfo.images.slice(1,3).map((item, idx) => (
+                <Image key={idx} style={DetailStyle.scrollImg} source={{uri: item}}/>
+              ))
+            ) : null
+          }
         </ScrollView>
         <View style={DetailStyle.descTextItem}>
-          <Text style={DetailStyle.descText}>[No longer than 300 chars] Vivamus sagittis, diam in lobortis, sapien arcu mattis erat, vel aliquet sem urna et risus. Ut feugiat sapien mi potenti. Maecenas et enim odio. Nullam massa metus, varius quis vehicula sed, pharetra mollis erat. In quis viverra velit. Vivamus placerat, est nec hendrerit varius, enim dui hendrerit magna, ut pulvinar nibh lorem vel lacus. Mauris a orci iaculis, hendrerit eros sed, gravida leo. In dictum mauris vel augue varius there is south north asim</Text>
+          <Text style={DetailStyle.descText}>{eventInfo.description}</Text>
           <LinearGradient colors={['rgba(250, 249, 252, 0)', 'rgba(250, 249, 252, 1)']} start={{x: 0.0, y: 0.0}} end={{x:0.0, y:1.0}} style={DetailStyle.viewAllContainer}>
             <View style={DetailStyle.viewAllInner}>
               <RadiusButton defaultStyle={DetailStyle.viewAllBtn} textStyle={DetailStyle.viewAllBtnText} text="VIEW ALL"/>
@@ -121,6 +159,7 @@ export default class DetailsView extends React.PureComponent {
   }
 
   private _renderDateTimeInfoView() {
+    const { eventInfo } = this.state
     return (
       <View style={DetailStyle.dateContainer}>
         <View style={DetailStyle.commonLeftTitleContainer}>
@@ -131,7 +170,7 @@ export default class DetailsView extends React.PureComponent {
           <View style={[DetailStyle.dateContentItem, DetailStyle.dateContentItemDivider]}>
             <View style={DetailStyle.dateContentTimeContainer}>
               <CustomSvg style={DetailStyle.dateContentTimeIcon} svg={this._dateFromIcon} width={16} height={13.8} fill={Colors.mainGreen}/>
-              <Text style={DetailStyle.dateContentTimeText}>15 April 2015</Text>
+              <Text style={DetailStyle.dateContentTimeText}>{eventInfo.begin_time.slice(0, 10)}</Text>
             </View>
             <View style={DetailStyle.dateContentHourContainer}>
               <Text style={DetailStyle.dateContentHourText}>8:30</Text>
@@ -141,7 +180,7 @@ export default class DetailsView extends React.PureComponent {
           <View style={DetailStyle.dateContentItem}>
             <View style={DetailStyle.dateContentTimeContainer}>
               <CustomSvg style={DetailStyle.dateContentTimeIcon} svg={this._dateToIcon}  width={16} height={13.8} fill={Colors.mainGreen}/>
-              <Text style={DetailStyle.dateContentTimeText}>15 April 2015</Text>
+              <Text style={DetailStyle.dateContentTimeText}>{eventInfo.end_time.slice(0, 10)}</Text>
             </View>
           </View>
         </View>
@@ -150,61 +189,80 @@ export default class DetailsView extends React.PureComponent {
   }
 
   private _renderWhereInfoView() {
+    const { eventInfo } = this.state
     return (
       <View style={DetailStyle.whereContainer}>
         <View style={[DetailStyle.commonLeftTitleContainer, {marginBottom: px2dpwh(8)}]}>
           <View style={DetailStyle.commonLeftDivider}/>
           <Text style={DetailStyle.commonLeftTitle}>Where</Text>
         </View>
-        <Text style={DetailStyle.whereTitle}>Marina Bay Sands</Text>
-        <Text style={DetailStyle.whereSubTitle}>10 Bayfront Ave, S018956</Text>
+        <Text style={DetailStyle.whereTitle}>{eventInfo.location}</Text>
+        <Text style={DetailStyle.whereSubTitle}>{eventInfo.location_detail}</Text>
         <Image style={DetailStyle.whereLocation} source={require('../assets/gmap.png')}/>
       </View>
     )
   }
 
   private _renderParticipantView() {
+    const { participantInfo, likesInfo } = this.state
     return (
       <View style={DetailStyle.participantContainer}>
         <View style={[DetailStyle.participantItem, DetailStyle.participantItemDivider]}>
           <View style={DetailStyle.participantCountContainer}>
             <CustomSvg style={DetailStyle.participantCountIcon} svg={this._checkIcon} fill={Colors.lighterPurple} width={12} height={9.8}/>
-            <Text style={DetailStyle.participantCountText}>34 going</Text>
+            <Text style={DetailStyle.participantCountText}>{participantInfo.length} going</Text>
           </View>
-          <Image style={DetailStyle.participantCountAvatar} source={{uri: 'https://s2.ax1x.com/2020/02/14/1XMwGR.png'}}/>
+          <View style={{flexDirection: 'row'}}>
+            {
+              participantInfo.map(item => (
+                <Image key={item.id} style={DetailStyle.participantCountAvatar} source={{uri: item.avatar}}/>
+              ))
+            }   
+          </View>       
         </View>
         <View style={DetailStyle.participantItem}>
           <View style={DetailStyle.participantCountContainer}>
               <CustomSvg style={DetailStyle.participantCountIcon} svg={this._checkIcon} fill={Colors.lighterPurple} width={12} height={9.8}/>
-              <Text style={DetailStyle.participantCountText}>7 likes</Text>
+              <Text style={DetailStyle.participantCountText}>{likesInfo.length} likes</Text>
             </View>
-            <Image style={DetailStyle.participantCountAvatar} source={{uri: 'https://s2.ax1x.com/2020/02/14/1XMwGR.png'}}/>
+            <View style={{flexDirection: 'row'}}>
+            {
+              likesInfo.map(item => (
+                <Image key={item.id} style={DetailStyle.participantCountAvatar} source={{uri: item.avatar}}/>
+              ))
+            }   
+          </View>
         </View>
       </View>
     )
   }
 
   private _renderCommentView() {
+    const {commentsInfo} = this.state
     return (
       <View style={DetailStyle.commentContainer}>
-        {this._renderCommentItem()}
+        {
+          commentsInfo.map(item => 
+            this._renderCommentItem(item)
+          )
+        }
       </View>
     )
   }
 
-  private _renderCommentItem() {
+  private _renderCommentItem(item) {
     return (
-      <View style={DetailStyle.commentItem}>
-        <Image style={DetailStyle.commentAvatar} source={{uri: 'https://s2.ax1x.com/2020/02/14/1XMwGR.png'}}/>
+      <View key={item.id} style={DetailStyle.commentItem}>
+        <Image style={DetailStyle.commentAvatar} source={{uri: item.user.avatar}}/>
         <View style={DetailStyle.commentContentContainer}>
           <View style={DetailStyle.commentTopContainer}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={DetailStyle.commentTopName}>Hello world</Text>
-              <Text style={DetailStyle.commentTopTime}>9 hours ago</Text>
+              <Text style={DetailStyle.commentTopName}>{item.user.name}</Text>
+              <Text style={DetailStyle.commentTopTime}>{item.updatedAt.slice(0, 10)}</Text>
             </View>
             <CustomSvg style={DetailStyle.commentTopIcon} svg={this._replyIcon} fill={Colors.mainGreen} width={18} height={15}/>
           </View>
-          <Text style={DetailStyle.commentContentText}>Nullam ut tincidunt nunc. Petus lacus, commodo eget justo ut, rutrum varius nunc.</Text>
+          <Text style={DetailStyle.commentContentText}>{item.comment}</Text>
         </View>
       </View>
     )

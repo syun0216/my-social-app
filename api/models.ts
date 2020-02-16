@@ -1,21 +1,21 @@
-interface loginModel {
+export interface loginModel {
   token: string,
   user: loginInfoModel
 }
 
-interface loginInfoModel {
+export interface loginInfoModel {
   id: number,
   username: string,
   email: string,
   avatar: string
 }
 
-interface eventListModel {
+export interface eventListModel {
   hasMore: boolean,
   events: eventItemModel[]
 }
 
-interface eventItemModel {
+export interface eventItemModel {
   id: number,
   name: string,
   creator_id: number,
@@ -37,36 +37,39 @@ interface eventItemModel {
   me_going: boolean
 }
 
-interface channelInfoModel {
+export interface channelListModel {
+  channels: channelInfoModel[]
+}
+export interface channelInfoModel {
   id: number,
   name: string,
   createdAt: string,
   updatedAt: string
 }
 
-interface creatorModel extends loginModel {
+export interface creatorModel extends loginModel {
   salt: string,
   avatar: string,
   createdAt: string,
   updatedAt: string
 }
 
-interface likeModel {
+export interface likeModel {
   hasMore: boolean,
   users: likeItemModal[]
 }
 
-interface likeItemModal {
+export interface likeItemModal {
   id: number,
   username: string,
   avatar: string
 }
 
-interface commentsModel {
+export interface commentsModel {
   comments: commentItemModel[]
 }
 
-interface commentItemModel {
+export interface commentItemModel {
   id: number,
   userId: number,
   eventId: number,
@@ -76,7 +79,7 @@ interface commentItemModel {
   updateAt: string
 }
 
-interface userInfo extends loginInfoModel {
+export interface userInfo extends loginInfoModel {
   likes_count: number,
   past_count: number
   goings_count: number

@@ -22,6 +22,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  searchDisabled: {
+    backgroundColor: Colors.mainGray
+  },
   searchTitle: {
     // fontFamily: 'SourceSansPro-Semibold',
     fontSize: px2dpw(16),
@@ -40,7 +43,14 @@ export default StyleSheet.create({
   contentContainer: {
     backgroundColor: Colors.mainWhite,
     flex: 1,
-    paddingTop: isIphoneX() ? px2dpwh(40) + iPhoneXTop : px2dpwh(40) + iPhoneTop
+    paddingTop: isIphoneX() ? px2dpwh(40) + iPhoneXTop : px2dpwh(40) + iPhoneTop,
+    width: deviceWidthDp,
+    position: 'absolute',
+    zIndex: 2,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
   },
   dateContainer: {
     marginTop: px2dpw(10),
@@ -68,13 +78,24 @@ export default StyleSheet.create({
     paddingLeft: px2dpw(16)
   },
   dateBtnDefault: {
-    borderWidth: 0,
-    // fontFamily: 'SourceSansPro-Semibold',
-    fontWeight: 'bold',
-    fontSize: px2dpw(14),
-    color: Colors.mainWhite,
+    borderWidth: 0,    
     marginRight: px2dpw(8),
     marginBottom: px2dpw(13)
+  },
+  dateBtnDefaultText: {
+    // fontFamily: 'SourceSansPro-Semibold',
+    color: Colors.mainWhite,
+    fontSize: px2dpw(14)
+  },
+  dateBtnActive: {
+    marginRight: px2dpw(8),
+    marginBottom: px2dpw(13),
+    backgroundColor: Colors.mainGreen,
+    borderColor: Colors.mainGreen
+  },
+  dateBtnActiveText: {
+    color: Colors.deepPurple,
+    fontSize: px2dpw(14)
   },
   channelView: {
     alignItems: 'center',
@@ -82,6 +103,15 @@ export default StyleSheet.create({
   channelBtnDefault: {
     marginRight: px2dpw(12),
     marginBottom: px2dpw(9),
+  },
+  channelBtnActive: {
+    marginRight: px2dpw(12),
+    marginBottom: px2dpw(9),
+    backgroundColor: Colors.mainGreen,
+    borderColor: Colors.mainGreen
+  },
+  channelBtnActiveText: {
+    color: Colors.deepPurple
   },
   searchResContainer: {
     width: '100%',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image } from 'react-native'
+import { View, Image, TouchableOpacity } from 'react-native'
 //components
 import CommonHeader from '../components/commonHeader'
 import CustomSvg from '../components/customSvg'
@@ -12,7 +12,7 @@ import MeStyle from '../styles/meStyle'
 import Colors from '../utils/colors'
 import colors from '../utils/colors'
 
-export default class MeView extends React.PureComponent {
+export default class MeView extends React.PureComponent<any, any> {
 
   private _homeIcon = require('../assets/home.svg')
   private _emailIcon = require('../assets/email.svg')
@@ -40,7 +40,9 @@ export default class MeView extends React.PureComponent {
   }
 
   private _renderHeaderView() {
-    const leftElement = <CustomSvg fill={Colors.deepPurple} svg={this._homeIcon} width={22} height={20}/>
+    const leftElement = (<TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+      <CustomSvg fill={Colors.deepPurple} svg={this._homeIcon} width={22} height={20}/>
+    </TouchableOpacity>)
     return (
       <CommonHeader leftElement={leftElement}/>
     )

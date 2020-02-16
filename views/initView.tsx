@@ -3,15 +3,16 @@ import { View, ActivityIndicator } from 'react-native'
 import {userStorage} from '../cache/appCache'
 import { deviceWidthDp, deviceHeightDp } from '../utils/commonUtils'
 import colors from '../utils/colors'
+import { inject } from 'mobx-react'
 
-export default class initView extends React.PureComponent<any> {
+@inject('basicMobx')
+export default class initView extends React.PureComponent<any, any> {
   public componentDidMount() {
+    // console.log(this.props)
     userStorage.getData((error, data) => {
       if (error === null && data != null) {
         console.log('data', data)
-        // if (store.getState().auth.username === null) {
-        //   store.dispatch({type: 'LOGIN', ...data})
-        // }
+        this.props.basicMobx.setUserInfo(data)
         this.props.navigation.replace("Search")
       }else {
         console.log(this.props)

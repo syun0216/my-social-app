@@ -1,9 +1,11 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+
+import { Provider } from 'mobx-react';
 // views
 import Router from './router/router'
 // fonts
 import * as Font from 'expo-font';
+import rootStore from './store/rootStore'
 
 export default class App extends React.PureComponent {
   
@@ -12,15 +14,15 @@ export default class App extends React.PureComponent {
       'SourceSansPro-Regular': require('./fonts/SourceSansPro-Regular.ttf'),
       'SourceSansPro-Bold': require('./fonts/SourceSansPro-Bold.ttf'),
       'SourceSansPro-Semibold': require('./fonts/SourceSansPro-SemiBold.ttf'),
-      
     });
+    
   }
 
   public render() {
     return (
-      <NavigationContainer>
+      <Provider {...rootStore}>
         <Router />
-      </NavigationContainer>
+      </Provider>
     );
   }
 }
