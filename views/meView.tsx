@@ -6,11 +6,14 @@ import CustomSvg from '../components/customSvg'
 import Text from '../components/unScalingText'
 import CommonTab from '../components/commonTab'
 import BlankPage from '../components/blankPage'
+import Loading from '../components/loading'
 // styles
 import MeStyle from '../styles/meStyle'
 //utils
 import Colors from '../utils/colors'
 import colors from '../utils/colors'
+//api 
+import { getUserInfo, getUserEvents } from '../api/interface'
 
 export default class MeView extends React.PureComponent<any, any> {
 
@@ -23,8 +26,26 @@ export default class MeView extends React.PureComponent<any, any> {
   private _pastIcon = require('../assets/past-outline.svg')
   private _pastActiveIcon = require('../assets/past.svg')
 
+  public state = {
+    isLoading: true,
+    userInfo: null
+  }
+
+  public componentDidMount() {
+    this._getInfo()
+  }
+
+  private async _getInfo() {
+    const resUserInfo: any = await getUserInfo()
+    console.log(resUserInfo)
+    this.setState({
+      userInfo: resUserInfo,
+      isLoading: false
+    })
+  }
+
   public render() {
-    return this._renderMainView()
+    return this.state.isLoading ? <Loading /> : this._renderMainView()
   }
   
   //views
@@ -49,23 +70,25 @@ export default class MeView extends React.PureComponent<any, any> {
   }
 
   private _renderIntroView() {
+    const { userInfo } = this.state
     return (
       <View style={MeStyle.introContainer}>
-        <Image source={{uri: 'https://s2.ax1x.com/2020/02/14/1XMwGR.png'}} style={MeStyle.introAvatar}/>
-        <Text style={MeStyle.introName}>User1</Text>
+        <Image source={{uri: userInfo.avatar}} style={MeStyle.introAvatar}/>
+        <Text style={MeStyle.introName}>{userInfo.username}</Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <CustomSvg style={MeStyle.introEmailIcon} fill={colors.mainPurple} svg={this._emailIcon} width={20} height={15}/>
-          <Text style={MeStyle.introEmail}>junwensu@gmail.com</Text>
+          <Text style={MeStyle.introEmail}>{userInfo.email}</Text>
         </View>
       </View>
     )
   }
 
   private _renderTabView() {
+    const { userInfo } = this.state
     const tabData = [
-      { svg: this._likeIcon, activeSvg: this._likeActiveIcon, svgWidth: 18, svgHeight: 18, label: '12 Likes' },
-      { svg: this._checkIcon, activeSvg: this._checkActiveIcon, svgWidth: 18, svgHeight: 18, label: '0 Going' },
-      { svg: this._pastIcon, activeSvg: this._pastActiveIcon, svgWidth: 18, svgHeight: 18, label: '0 Past' },
+      { svg: this._likeIcon, activeSvg: this._likeActiveIcon, svgWidth: 18, svgHeight: 18, label: `${userInfo.likes_count} Likes` },
+      { svg: this._checkIcon, activeSvg: this._checkActiveIcon, svgWidth: 18, svgHeight: 18, label: `${userInfo.goings_count} goings` },
+      { svg: this._pastIcon, activeSvg: this._pastActiveIcon, svgWidth: 18, svgHeight: 18, label: `${userInfo.past_count} Past` },
     ]
     return (
       <CommonTab tabData={tabData}/>
