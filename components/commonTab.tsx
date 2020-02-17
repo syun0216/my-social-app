@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, TouchableOpacity, StyleSheet } from 'react-native'
 import Colors from '../utils/colors'
 import { px2dpwh, deviceWidthDp, px2dpw } from '../utils/commonUtils'
@@ -15,7 +15,8 @@ interface ITabItem {
 }
 
 interface ICommonTab {
-  tabData: ITabItem[]
+  tabData: ITabItem[],
+  callback?: any
 }
 
 const styles = StyleSheet.create({
@@ -51,18 +52,30 @@ const styles = StyleSheet.create({
     color: Colors.tabGray,
     // fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12)
+  },
+  tabItemTextActive: {
+    color: Colors.deepGreen,
+    // fontFamily: 'SourceSansPro-Regular',
+    fontSize: px2dpw(12)
   }
 })
 
 const commonTab = (props: ICommonTab) => {
+  const [tabIdx, setTabIdx] = useState(0)
+
+  const setTabInner = (idx) => {
+    setTabIdx(idx)
+    props.callback && props.callback(idx)
+  }
+
   return (
     <View style={styles.tabContainer}>
       {
         props.tabData.map((item, idx) => (
           <View style={styles.tabItem} key={idx}>
-            <TouchableOpacity style={styles.tabItem}>
-              <CustomSvg style={[styles.tabItemIcon, item.svgStyle]} width={item.svgWidth} height={item.svgHeight} fill={Colors.mainGray} svg={item.svg}/>
-              <Text style={styles.tabItemText}>{item.label}</Text>
+            <TouchableOpacity onPress={() => setTabInner(idx)} style={styles.tabItem}>
+              <CustomSvg style={[styles.tabItemIcon, item.svgStyle]} width={item.svgWidth} height={item.svgHeight} fill={ idx === tabIdx ? Colors.deepGreen : Colors.mainGray} svg={ idx === tabIdx ? item.activeSvg : item.svg}/>
+              <Text style={idx === tabIdx ? styles.tabItemTextActive : styles.tabItemText}>{item.label}</Text>
             </TouchableOpacity>
             {
               idx < props.tabData.length - 1 ? (

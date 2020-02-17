@@ -280,7 +280,7 @@ export default StyleSheet.create({
     right: 0
   },
   bottomBarLeft: {
-    flex: 2,
+    flex: 1,
     backgroundColor: Colors.mainPurple,
     flexDirection: 'row',
 
@@ -295,10 +295,10 @@ export default StyleSheet.create({
   },
   bottomBarRight: {
     flexDirection: 'row',
-    flex: 1,
     backgroundColor: Colors.mainGreen,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: px2dpw(140)
   },
   bottomBarRightIcon: {
     marginRight: px2dpw(12)
@@ -312,7 +312,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     height: px2dpwh(56),
     position: 'absolute',
-    bottom: 0,
+    bottom: -px2dpwh(56),
     left: 0,
     right: 0,
     zIndex: 3

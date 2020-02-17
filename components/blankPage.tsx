@@ -8,7 +8,8 @@ import Colors from '../utils/colors'
 import { px2dpw } from '../utils/commonUtils'
 
 interface IBlankPage {
-  text: string
+  text: string,
+  style?: object
 }
 
 const styles = StyleSheet.create({
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
 })
 
 const blankPage = (props: IBlankPage) => (
-  <View style={styles.blankContainer}>
+  <View style={[styles.blankContainer,props.style]}>
     <CustomSvg style={styles.blankIcon} width={60} height={60} fill={Colors.lightestPurple} svg={require('../assets/no-activity.svg')} />
     <Text style={styles.blankText}>{props.text}</Text>
   </View>

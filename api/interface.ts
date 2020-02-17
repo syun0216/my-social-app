@@ -64,8 +64,10 @@ export function getCommentWithEventId(event_id) {
   return request.getData(`/events/${event_id}/comments`)
 }
 
-export function postCommentWithEventId(event_id) {
-  return request.postData(`/events/${event_id}/comments`)
+export function postCommentWithEventId(event_id, comment) {
+  return request.postData(`/events/${event_id}/comments`, {
+    comment
+  })
 }
 
 export function getLikesWithEventId(event_id) {
@@ -84,6 +86,6 @@ export function getUserInfo() {
   return request.getData(`/user`)
 }
 
-export function getUserEvents() {
-  return request.getData(`/user/events`)
+export function getUserEvents(type) {
+  return request.getData(`/user/events?type=${type}`)
 }
