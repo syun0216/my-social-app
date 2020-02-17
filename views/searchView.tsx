@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, TouchableOpacity, Image, Animated} from 'react-native'
+import {View, TouchableOpacity, Image, Animated, AsyncStorage} from 'react-native'
 // styles
 import SearchViewStyle from '../styles/searchViewStyle'
 //components
@@ -44,10 +44,12 @@ export default class SearchView extends React.PureComponent<any, any> {
     isSearching: false,
     channelList: [],
     curChannel: null,
-    curTime: 'ALL TIME'
+    curTime: 'ALL TIME',
+    userInfo: null
   }
 
   public componentDidMount() {
+    this._getUserInfo()
     this._getChannels()
   }
 
@@ -59,7 +61,7 @@ export default class SearchView extends React.PureComponent<any, any> {
   }
 
   private _setCurChannel(channel) {
-    console.log(channel)
+    // console.log(channel)
     this.setState({
       curChannel: channel.id
     })
@@ -90,6 +92,16 @@ export default class SearchView extends React.PureComponent<any, any> {
     }catch(err) {
       this._toast.show('error')
     }
+  }
+
+  private async _getUserInfo() {
+    let res: any = await AsyncStorage.getItem('storage_key_user_data')
+    if(res) {
+        res = JSON.parse(res)
+    }
+    this.setState({
+      userInfo: res.user || {}
+    })
   }
 
   public render() {
@@ -171,12 +183,13 @@ export default class SearchView extends React.PureComponent<any, any> {
   }
 
   private _renderHeaderView() {
+    const { userInfo } = this.state
     const leftElement = (
       <TouchableOpacity onPress={() => this._toggleSearch()}>
         <CustomSvg fill={Colors.deepPurple} svg={require('../assets/search.svg')} width={25} height={25}/>
       </TouchableOpacity>
     )
-    return <CommonHeader leftElement={leftElement}/>
+    return <CommonHeader leftElement={leftElement} avatar={userInfo ? userInfo.avatar : ''}/>
   }
 
   private _renderSearchResult() {
@@ -206,7 +219,7 @@ export default class SearchView extends React.PureComponent<any, any> {
 
   private _renderListItem(item, index) {
     return (
-      <TouchableOpacity activeOpacity={0.8} key={index} style={SearchViewStyle.listItemContainer} onPress={() => this.props.navigation.navigate('Detail', {id: item.id})}>
+      <TouchableOpacity activeOpacity={0.8} key={index} style={SearchViewStyle.listItemContainer} onPress={() => this.props.navigation.navigate('Detail', {id: item.id, callback: () => this._flatlist.outSideRefresh()})}>
         <View style={SearchViewStyle.listItemInner}>
           <View style={SearchViewStyle.listItemTop}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>

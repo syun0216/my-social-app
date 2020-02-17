@@ -20,7 +20,7 @@ export const httpStatus = {
 }
 
 export function userLogin(data: loginData) {
-  return request.postData('/auth/token', data)
+  return request.postJSONData('/auth/token', data)
 }
 
 export function deleteToken() {
@@ -40,7 +40,6 @@ export function getEvents(params) {
     }
   }, '?')
   query = query.slice(0, query.length-1)
-  console.log('params', query.slice(0, query.length-1))
   return request.getData(`/events${query}`)
 }
 

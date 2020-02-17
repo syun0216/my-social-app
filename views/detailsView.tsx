@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, ScrollView, TouchableOpacity, TextInput, Animated } from 'react-native'
+import { View, Image, ScrollView, TouchableOpacity, TextInput, Animated, AsyncStorage } from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 //styles 
 import DetailStyle from '../styles/detailStyle'
@@ -53,6 +53,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
     participantInfo: null,
     likesInfo: null,
     commentsInfo: null,
+    userInfo: null,
     commentInputTranY: new Animated.Value(0),
     isGoing: false,
     isLike: false,
@@ -62,6 +63,17 @@ export default class DetailsView extends React.PureComponent<any, any> {
 
   public componentDidMount() {
     this._getInfo()
+    this._getUserInfo()
+  }
+
+  private async _getUserInfo() {
+    let res: any = await AsyncStorage.getItem('storage_key_user_data')
+    if(res) {
+        res = JSON.parse(res)
+    }
+    this.setState({
+      userInfo: res.user
+    })
   }
 
   private async _getInfo() {
@@ -70,7 +82,6 @@ export default class DetailsView extends React.PureComponent<any, any> {
     const resParticipant: any = await getEventParticipantWithEventId(id)
     const resLikes: any = await getLikesWithEventId(id)
     const resComments: any = await getCommentWithEventId(id)
-    // console.log('resComments',resEvent)
     this.setState({
       eventInfo: resEvent.event,
       participantInfo: resParticipant.users,
@@ -84,10 +95,11 @@ export default class DetailsView extends React.PureComponent<any, any> {
 
   private async _getEventInfo() {
       const resEvent: any = await getEventsWithEventId(this.props.route.params.id)
+      console.log('resComments',resEvent)
       this.setState({
         eventInfo: resEvent.event,
-        isGoing: resEvent.me_going,
-        isLike: resEvent.me_like,
+        isGoing: resEvent.event.me_going,
+        isLike: resEvent.event.me_likes,
       })
   }
   
@@ -117,7 +129,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
   }
 
   private async _postParticipanet() {
-    const { id } = this.props.route.params
+    const { id, callback } = this.props.route.params
     const { isGoing } = this.state
     let res = null
     if(isGoing) {
@@ -129,11 +141,12 @@ export default class DetailsView extends React.PureComponent<any, any> {
     }
     this._getEventInfo()
     this._getParticipantInfo()
-    console.log('res :', res);
+    callback && callback()
+    // console.log('res :', res);
   }
 
   private async _postLike() {
-    const { id } = this.props.route.params
+    const { id, callback } = this.props.route.params
     const { isLike } = this.state
     let res = null
     if(isLike) {
@@ -145,7 +158,8 @@ export default class DetailsView extends React.PureComponent<any, any> {
     }
     this._getEventInfo()
     this._getLikeInfo()
-    console.log('res :', res);
+    callback && callback()
+    // console.log('res :', res);
   }
 
   private async _postComment() {
@@ -161,7 +175,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
     })
     this._commentInputRef.clear()
     this._getCommentsInfo()
-    console.log('res :', res);
+    // console.log('res :', res);
   }
 
   private _toggleCommentInput(status: boolean) {
@@ -179,19 +193,19 @@ export default class DetailsView extends React.PureComponent<any, any> {
   }
 
   private _tabChange(idx) {
-    console.log('idx :', idx);
+    // console.log('idx :', idx);
     const { x, y } = this._layoutObj[idx]
-    console.log(x, y)
+    // console.log(x, y)
     this._scrollViewRef.scrollTo({x, y: y - px2dpwh(48), animated: true})
   }
 
   private _getViewLayout(e, viewType) {
-    console.log(e)
+    // console.log(e)
     if(!this._layoutObj[viewType]) {
       this._layoutObj[viewType] = {}
     }
     this._layoutObj[viewType] = {...e.nativeEvent.layout}
-    console.log(this._layoutObj)
+    // console.log(this._layoutObj)
   }
 
   public render() {
@@ -217,11 +231,12 @@ export default class DetailsView extends React.PureComponent<any, any> {
   }
 
   private _renderHeader() {
+    const { userInfo } = this.state
     const leftElement = (<TouchableOpacity onPress={() => this.props.navigation.goBack()}>
       <CustomSvg fill={Colors.deepPurple} svg={this._homeIcon} width={22} height={20}/>
     </TouchableOpacity>)
     return (
-      <CommonHeader leftElement={leftElement}/>
+      <CommonHeader leftElement={leftElement} avatar={userInfo ? userInfo.avatar : ''}/>
     )
   }
 

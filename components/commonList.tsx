@@ -54,6 +54,7 @@ export default class CommonList extends Component<ICommonList, any> {
     nextPageLoading: LOADING, //上拉加载更多状态
     refreshing: false, //是否下拉刷新
     showToTop: false, // 是否展示返回顶部按钮
+    isError: false
   }
 
   componentDidMount() {
@@ -99,7 +100,7 @@ export default class CommonList extends Component<ICommonList, any> {
     if (Object.keys(extraParams).length > 0) {
       _requestParams = Object.assign(_requestParams, extraParams)
     }
-    console.log('_requestParams :', _requestParams);
+    // console.log('_requestParams :', _requestParams);
     this.props.requestFunc(_requestParams).then(
       data => {
         getRawData && getRawData(data)
@@ -108,6 +109,7 @@ export default class CommonList extends Component<ICommonList, any> {
       },
       err => {
         failCallback()
+        this.setState({isError: true})
         console.log(err)
       }
     )
@@ -385,7 +387,7 @@ export default class CommonList extends Component<ICommonList, any> {
    * @memberof CommonFlatList
    */
   render() {
-    const { firstPageLoading, showToTop } = this.state
+    const { firstPageLoading, showToTop, isError } = this.state
     const {
       blankBtnMessage,
       style
@@ -395,6 +397,7 @@ export default class CommonList extends Component<ICommonList, any> {
         text={blankBtnMessage || 'No activity found'}
       />
     )
+    if(isError) return null
     return (
       <View style={[{ flex: 1, position: 'relative' }, style]}>
         {showToTop && this._renderToTop()}

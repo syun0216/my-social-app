@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Image, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native'
 //components
 import CommonHeader from '../components/commonHeader'
 import CustomSvg from '../components/customSvg'
@@ -33,11 +33,13 @@ export default class MeView extends React.PureComponent<any, any> {
     isLoading: true,
     userInfo: null,
     userEvent: null,
+    userInfo: null
   }
 
   public componentDidMount() {
     this._getInfo()
     this._getEventByTypes('liked')
+    this._getUserInfo()
   }
 
   private async _getInfo() {
@@ -50,17 +52,27 @@ export default class MeView extends React.PureComponent<any, any> {
     })
   }
 
+  private async _getUserInfo() {
+    let res: any = await AsyncStorage.getItem('storage_key_user_data')
+    if(res) {
+        res = JSON.parse(res)
+    }
+    this.setState({
+      userInfo: res.user || {}
+    })
+  }
+
 
   private async _getEventByTypes(type) {
     const resEvent: any = await getUserEvents(type)
     this.setState({
       userEvent: resEvent.events
     })
-    console.log(resEvent)
+    // console.log(resEvent)
   }
 
   private _changeTab(idx) {
-    console.log(idx)
+    // console.log(idx)
     switch(idx) {
       case 0: this._getEventByTypes('liked');break;
       case 1: this._getEventByTypes('going');break;
@@ -87,11 +99,12 @@ export default class MeView extends React.PureComponent<any, any> {
   }
 
   private _renderHeaderView() {
+    const { userInfo } = this.state
     const leftElement = (<TouchableOpacity onPress={() => this.props.navigation.goBack()}>
       <CustomSvg fill={Colors.deepPurple} svg={this._homeIcon} width={22} height={20}/>
     </TouchableOpacity>)
     return (
-      <CommonHeader leftElement={leftElement}/>
+      <CommonHeader leftElement={leftElement} avatar={userInfo ? userInfo.avatar : ''}/>
     )
   }
 

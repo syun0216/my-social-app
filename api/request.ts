@@ -1,23 +1,80 @@
+import { AsyncStorage } from 'react-native'
+
 const baseUrl = 'http://localhost:3000/api/v1';
-const token = '3c6c1a6d489dba3676b4e1385d48c4d2'
 const timeoutSeconds = 20;
 export default class BaseRequest{
+    static async getCacheInfo() {
+        let res = await AsyncStorage.getItem('storage_key_user_data')
+        if(res) {
+            res = JSON.parse(res)
+        }
+        return res
+    }
     /// POST方法
-    static postData(url,params=null){
+    static async postData(url,params=null){
+        
+        let res: any = await AsyncStorage.getItem('storage_key_user_data')
+        if(res) {
+            res = JSON.parse(res)
+        }
         let p1 = new Promise((resolve,reject)=>{
-            fetch(`${baseUrl}${url}`,{
+            let _options: any = {
+                method:'POST',
+                ///请求头参数
+                headers:{
+                    // 'Accept': 'application/json',
+                    // 'Content-Type': 'application/json',
+                    'X-BLACKCAT-TOKEN': res ? res.token : null
+                },
+            }
+            if(params) {
+                _options = { ..._options, body: params ? JSON.stringify(params) : null }
+            }
+            fetch(`${baseUrl}${url}`, _options)
+            .then((response)=>{
+                return response.text().then(function(text) {
+                    console.log('text', text)
+                    return text ? JSON.parse(text) : {}
+                  })
+                })
+            .then((responseJson)=>{
+                /// 拿到数据可以在此同意处理服务器返回的信息
+                resolve(responseJson);
+            })
+            .catch((error)=>{
+                reject(error);
+            })
+        })
+
+        let p2 = this.requestTimeout();
+        /// 因为fetch网络请求没有超时时间设置，所以使用Promise实现请求超时
+        return Promise.race([p1,p2])
+    }
+
+    /// POST方法
+    static async postJSONData(url,params=null){
+        
+        let res: any = await AsyncStorage.getItem('storage_key_user_data')
+        if(res) {
+            res = JSON.parse(res)
+        }
+        let p1 = new Promise((resolve,reject)=>{
+            let _options: any = {
                 method:'POST',
                 ///请求头参数
                 headers:{
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'X-BLACKCAT-TOKEN': token
+                    'X-BLACKCAT-TOKEN': res ? res.token : null
                 },
-                /// 请求参数
-                body: params ? JSON.stringify(params) : null
-            })
+            }
+            if(params) {
+                _options = { ..._options, body: params ? JSON.stringify(params) : null }
+            }
+            fetch(`${baseUrl}${url}`, _options)
             .then((response)=>{
                 return response.text().then(function(text) {
+                    console.log('text', text)
                     return text ? JSON.parse(text) : {}
                   })
                 })
@@ -36,13 +93,18 @@ export default class BaseRequest{
     }
 
     /// Get方法
-    static getData(url){
-        console.log(`${baseUrl}${url}`)
+    static async getData(url){
+        // console.log(`${baseUrl}${url}`)
+        let res: any = await AsyncStorage.getItem('storage_key_user_data')
+        if(res) {
+            res = JSON.parse(res)
+        }
+        console.log('res1234', res)
         let p1= new Promise((resolve,reject)=>{
             fetch(`${baseUrl}${url}`,{
                 method: 'GET',
                 headers: {
-                    'X-BLACKCAT-TOKEN': token
+                    'X-BLACKCAT-TOKEN': res ? res.token : null
                 }
             })
             .then((response)=>{
@@ -61,18 +123,23 @@ export default class BaseRequest{
     }
 
     /// delete方法
-    static deleteData(url){
+    static async deleteData(url){
+        let res: any = await AsyncStorage.getItem('storage_key_user_data')
+        if(res) {
+            res = JSON.parse(res)
+        }
         let p1= new Promise((resolve,reject)=>{
             fetch(`${baseUrl}${url}`, {
                 method: 'DELETE',
                 headers: {
-                    'X-BLACKCAT-TOKEN': token
+                    'X-BLACKCAT-TOKEN': res ? res.token : null
                 }
             })
             .then((response)=>{
                 return response.text().then(function(text) {
+                    console.log('text', text)
                     return text ? JSON.parse(text) : {}
-                  })
+                })
             })
             .then((responseJson)=>{
                 /// 拿到数据可以在此同意处理服务器返回的信息

@@ -9,13 +9,13 @@ import { inject } from 'mobx-react'
 export default class initView extends React.PureComponent<any, any> {
   public componentDidMount() {
     // console.log(this.props)
+    userStorage.removeAll()
     userStorage.getData((error, data) => {
       if (error === null && data != null) {
-        console.log('data', data)
-        this.props.basicMobx.setUserInfo(data)
+        // console.log('data', data)
         this.props.navigation.replace("Search")
       }else {
-        console.log(this.props)
+        // console.log(this.props)
         this.props.navigation.replace("Login")
       }
     })

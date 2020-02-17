@@ -4,11 +4,11 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { deviceWidthDp, px2dpw, isIphoneX, iPhoneXTop, iPhoneTop, px2dpwh } from '../utils/commonUtils'
 import Colors from '../utils/colors'
 import CustomSvg from './customSvg'
-import {BasicMobx} from '../store/rootStore'
 import { useNavigation } from '@react-navigation/native';
 
 interface ICommonHeader {
-  leftElement: any
+  leftElement: any,
+  avatar?: string
 }
 
 const styles = StyleSheet.create({
@@ -52,7 +52,7 @@ const commonHeader = (props: ICommonHeader) => {
       {props.leftElement}
       <CustomSvg fill={Colors.mainGreen} width={23} height={27} svg={require('../assets/logo-cat.svg')}/>
       <TouchableOpacity onPress={() => navigation.navigate('Me')} style={styles.headerRight}>
-        <Image style={styles.headerRightIcon} source={{uri: 'https://s2.ax1x.com/2020/02/14/1XMwGR.png'}}/>
+        <Image style={styles.headerRightIcon} source={{uri: props.avatar || ''}}/>
       </TouchableOpacity>
     </View>
   </View>

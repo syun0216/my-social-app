@@ -45,12 +45,12 @@ export default class LoginView extends React.PureComponent<any, {}> {
 
   private _getUserName(username) {
     this._loginParams.username = username
-    console.log('this._loginParams :', this._loginParams);
+    // console.log('this._loginParams :', this._loginParams);
   }
 
   private _getPassword(password) {
     this._loginParams.password = password
-    console.log('this._loginParams :', this._loginParams);
+    // console.log('this._loginParams :', this._loginParams);
   }
 
   private _getUsernameInputFocusAction() {
@@ -91,7 +91,7 @@ export default class LoginView extends React.PureComponent<any, {}> {
     })
     try {
       const res = await userLogin(this._loginParams)
-      console.log(res)
+      // console.log(res)
       userStorage.setData(res)
       this.props.navigation.replace("Search")
     }catch(err) {
