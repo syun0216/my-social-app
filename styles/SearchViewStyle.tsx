@@ -26,7 +26,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.mainGray
   },
   searchTitle: {
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     fontSize: px2dpw(16),
     color: Colors.deepPurple,
     marginBottom: px2dpw(3)
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     marginTop: px2dpw(-2)
   },
   searchSubtitle: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(10),
     color: Colors.mainPurple
   },
@@ -59,7 +59,7 @@ export default StyleSheet.create({
   },
   commonTitle: {
     fontSize: px2dpw(12),
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     color: Colors.lighterPurple,
     borderBottomWidth: 1,
     borderBottomColor: Colors.lighterPurple,    
@@ -83,7 +83,7 @@ export default StyleSheet.create({
     marginBottom: px2dpw(13)
   },
   dateBtnDefaultText: {
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     color: Colors.mainWhite,
     fontSize: px2dpw(14)
   },
@@ -131,7 +131,7 @@ export default StyleSheet.create({
   },
   searchResInnerText: {
     fontSize: px2dpw(16),
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     color: Colors.mainPurple
   },
   searchDefaultBtn: {
@@ -140,11 +140,11 @@ export default StyleSheet.create({
   searchDefaultBtnText: {
     color: Colors.mainBlack,
     fontSize: px2dpw(10),
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
   },
   searchResSubtitle: {
     fontSize: px2dpw(12),
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     color: Colors.mainBlack
   },
   listItemContainer: {
@@ -186,7 +186,7 @@ export default StyleSheet.create({
   },
   listItemTopTitle: {
     color: Colors.mainBlack,
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     fontSize: px2dpw(12),
   },
   listItemTopBtn: {
@@ -198,21 +198,21 @@ export default StyleSheet.create({
     color: Colors.mainPurple
   },
   listItemTitle: {
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     fontSize: px2dpw(18),
     color: Colors.deepPurple,
     marginBottom: px2dpwh(8)
   },
   listItemSubtitle: {
     color: Colors.mainPurple,
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12),
   },
   listItemSubTitleSvg: {
     marginRight: px2dpw(5)
   },
   listItemDesc: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(14),
     color: Colors.mainBlack,
     marginBottom: px2dpwh(12)
@@ -227,7 +227,7 @@ export default StyleSheet.create({
   },
   listItemBottomText: {
     fontSize: px2dpw(12),
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     color: Colors.deepPurple
   }
 })

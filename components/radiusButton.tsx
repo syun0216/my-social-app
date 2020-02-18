@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.mainGreen
   },
   btnText: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12),
     color: Colors.mainWhite
   },

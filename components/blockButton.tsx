@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: px2dpw(16),
     color: Colors.deepPurple,
-    // fontFamily: 'SourceSansPro-Semibold'
+    fontFamily: 'SourceSansPro-Semibold'
   }
 })
 

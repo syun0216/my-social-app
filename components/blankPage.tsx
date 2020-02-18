@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   blankText: {
     color: Colors.mainGray,
     fontSize: px2dpw(14),
-    // fontFamily: 'SourceSansPro-Regular'
+    fontFamily: 'SourceSansPro-Regular'
   }
 })
 

@@ -91,9 +91,16 @@ export default class LoginView extends React.PureComponent<any, {}> {
     })
     try {
       const res = await userLogin(this._loginParams)
-      // console.log(res)
-      userStorage.setData(res)
-      this.props.navigation.replace("Search")
+      if(res.error) {
+        this._toast.show(res.error)
+      }else {
+        userStorage.setData(res)
+        this.props.navigation.replace("Search")
+      }
+      this.setState({
+        isSubmiting: false
+      })
+      console.log(res)
     }catch(err) {
       this._toast.show('login error')
     }

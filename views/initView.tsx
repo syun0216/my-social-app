@@ -9,7 +9,7 @@ import { inject } from 'mobx-react'
 export default class initView extends React.PureComponent<any, any> {
   public componentDidMount() {
     // console.log(this.props)
-    userStorage.removeAll()
+    // userStorage.removeAll()
     userStorage.getData((error, data) => {
       if (error === null && data != null) {
         // console.log('data', data)

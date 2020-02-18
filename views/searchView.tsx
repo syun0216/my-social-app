@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import {View, TouchableOpacity, Image, Animated, AsyncStorage} from 'react-native'
 // styles
 import SearchViewStyle from '../styles/searchViewStyle'
@@ -32,8 +33,8 @@ export default class SearchView extends React.PureComponent<any, any> {
 
   private _requestExtraParams = {
     channels: null,
-    after: null,
-    before: null,
+    after: '',
+    before: '',
     limit: 5
   }
 
@@ -42,10 +43,12 @@ export default class SearchView extends React.PureComponent<any, any> {
   public state = {
     posLeft: new Animated.Value(0),
     isSearching: false,
+    isSearchingSubmiting: false,
     channelList: [],
-    curChannel: null,
-    curTime: 'ALL TIME',
-    userInfo: null
+    curChannel: ['ALL'],
+    curTime: 'ANYTIME',
+    userInfo: null,
+    listCount: 0
   }
 
   public componentDidMount() {
@@ -60,26 +63,96 @@ export default class SearchView extends React.PureComponent<any, any> {
     }).start()
   }
 
-  private _setCurChannel(channel) {
+  private _setCurChannel(idx) {
     // console.log(channel)
+    let { curChannel, channelList } = this.state
+    if(channelList[idx].name === 'ALL') {
+      curChannel = []
+      curChannel.push('ALL')
+    }else {
+      if(curChannel.includes('ALL')){
+        curChannel.splice(curChannel.indexOf('ALL'), 1)
+      }
+      if(curChannel.includes(channelList[idx].name)) {
+        curChannel.splice(curChannel.indexOf(channelList[idx].name), 1)
+      }else {
+        curChannel.push(channelList[idx].name)
+      }
+    }
     this.setState({
-      curChannel: channel.id
+      curChannel: curChannel.slice(0),
+      isSearching: true
     })
-    
+    this._requestExtraParams.channels = curChannel.includes('ALL') ? null : channelList.filter(v => curChannel.includes(v.name)).map(v => v.id).join(',')
+    this._requestExtraParams.limit = curChannel.includes('ALL') ? 5 : 100
+    console.log('---', this._requestExtraParams)
+    console.log('this.state.curChannel :', this.state.curChannel);
   }
 
   private _setCurTime(time) {
     this.setState({
-      curTime: time
+      curTime: time,
+      isSearching: true
     })
+    const _getTimestampObj: any = this._getTimeTrans(time, 'timestamp')
+    this._requestExtraParams.before = _getTimestampObj.before
+    this._requestExtraParams.after = _getTimestampObj.after
+    console.log('---', this._requestExtraParams)
   }
 
-  private _searchWithCondition() {
-    this._requestExtraParams.channels = this.state.curChannel
-    this._requestExtraParams.limit = 100
+  private _searchWithCondition() { 
     this._flatlist.outSideRefresh(
-      () => this._toggleSearch()
+      () => {
+        this._toggleSearch()
+        this.setState({isSearchingSubmiting: true})
+      }
     )
+  }
+
+  private _clearSearch() {
+    this.setState({
+      isSearchingSubmiting: false
+    })
+    this._requestExtraParams.limit = 5
+    this._requestExtraParams.channels = null
+    this._requestExtraParams.after = ''
+    this._requestExtraParams.before = ''
+    this._flatlist.outSideRefresh()
+  }
+
+  private _getTimeTrans(timeName, type='string') {
+    const _moment = moment()
+    const m = _moment.month()
+    const d = _moment.date()     
+    const mFunc = m => (m + 1) < 10 ? `0${m+1}` : m + 1
+    const dFunc = d => d < 10 ? `0${d}` : d 
+    const weekStart = moment().startOf('week')
+    const weekEnd = moment().endOf('week')
+    const monthStart = moment().startOf('month')
+    const monthEnd = moment().endOf('month').endOf('month')
+    if(type === 'string') {
+      switch(timeName) {
+        case 'ANYTIME': return '';
+        case 'TODAY': return ` ${dFunc(d)}/${mFunc(m)}`;
+        case 'TOMORROW': return ` ${dFunc(d+1)}/${mFunc(m)}`;
+        case 'THIS WEEK': return ` from ${dFunc(weekStart.date())}/${mFunc(weekStart.month())} to ${dFunc(weekEnd.date())}/${mFunc(weekEnd.month())}`
+        case 'THIS MONTH': return ` from ${dFunc(monthStart.date())}/${mFunc(monthStart.month())} to ${dFunc(monthEnd.date())}/${mFunc(monthEnd.month())}`
+      }
+    }else if(type === 'timestamp') {
+      switch(timeName) {
+        case 'ANYTIME': return {before: '', after: ''}
+        case 'TODAY': return {before: _moment.valueOf(), after: _moment.valueOf()};
+        case 'TOMORROW': return {before: moment(new Date()).add(1,'days').valueOf(), after: moment(new Date()).add(1,'days').valueOf()};
+        case 'THIS WEEK': return {before: weekStart.valueOf(), after: weekEnd.valueOf()}
+        case 'THIS MONTH': return {before: monthStart.valueOf(), after: monthEnd.valueOf()}
+      }
+    }
+  }
+
+  private _getListCount(count) {
+    this.setState({
+      listCount: count
+    })
   }
 
   private async _getChannels() {
@@ -110,13 +183,20 @@ export default class SearchView extends React.PureComponent<any, any> {
 
   // views
   private _renderMainView() {
-    const {isSearching } = this.state
+    const { isSearching, isSearchingSubmiting, curTime, curChannel } = this.state
+    let btnSubTitle = ''
+    if(curChannel.length > 0) {
+      btnSubTitle = curChannel.includes('ALL') ? 'All activities' : curChannel.join(',')
+    }
+    if(curTime) {
+      btnSubTitle += this._getTimeTrans(curTime)
+    }
     return (
       <View style={[SearchViewStyle.mainContainer]}>
         <View style={SearchViewStyle.searchContainer}>
           {this._renderDateView()}
           {this._renderChannelView()}
-          <BlockButton clickFunc={() => this._searchWithCondition()} style={!isSearching ? SearchViewStyle.searchDisabled : {}}>
+          <BlockButton disabled={!isSearching} clickFunc={() => this._searchWithCondition()} style={!isSearching ? SearchViewStyle.searchDisabled : {}}>
             <View style={SearchViewStyle.searchItem}>
               <CustomSvg style={SearchViewStyle.searchIcon} width={14} height={14} fill={Colors.deepPurple} svg={this._searchIcon}/>
               <Text style={SearchViewStyle.searchTitle}>
@@ -124,7 +204,7 @@ export default class SearchView extends React.PureComponent<any, any> {
               </Text>
             </View>
             {
-              isSearching ? (<Text style={SearchViewStyle.searchSubtitle}>{this._i18n.subTitle}</Text> ) : null
+              isSearching ? (<Text style={SearchViewStyle.searchSubtitle}>{btnSubTitle}</Text> ) : null
             }           
           </BlockButton>
         </View>
@@ -135,7 +215,7 @@ export default class SearchView extends React.PureComponent<any, any> {
           })
         }]}>
           {this._renderHeaderView()}
-          { isSearching ? this._renderSearchResult() : null} 
+          { isSearchingSubmiting && (!curChannel.includes('ALL') || curTime !== 'ALL') ? this._renderSearchResult() : null} 
           {this._renderEventList()}
           {/* <BlankPage text="No activity found"/> */}
         </Animated.View>
@@ -174,7 +254,7 @@ export default class SearchView extends React.PureComponent<any, any> {
         <View style={SearchViewStyle.commonContainer}>
           {
             channelList.map((item, idx) => (
-              <RadiusButton clickFunc={() => this._setCurChannel(item)} defaultStyle={curChannel === item.id ? SearchViewStyle.channelBtnActive : SearchViewStyle.channelBtnDefault} textActiveStyle={curChannel === item.id ? SearchViewStyle.channelBtnActiveText : {}} key={idx} text={item.name}/>
+              <RadiusButton clickFunc={() => this._setCurChannel(idx)} defaultStyle={curChannel.includes(item.name) ? SearchViewStyle.channelBtnActive : SearchViewStyle.channelBtnDefault} textActiveStyle={curChannel.includes(item.name) ? SearchViewStyle.channelBtnActiveText : {}} key={idx} text={item.name}/>
             ))
           }
         </View>
@@ -193,13 +273,21 @@ export default class SearchView extends React.PureComponent<any, any> {
   }
 
   private _renderSearchResult() {
+    const { listCount, curChannel, curTime } = this.state
+    let searchTextTips = 'Searched For '
+    if(curChannel.length) {
+      searchTextTips += curChannel.includes('ALL') ? 'All activities' : curChannel.join(',')
+    }
+    if(curTime) {
+      searchTextTips += this._getTimeTrans(curTime)
+    }
     return (
       <View style={SearchViewStyle.searchResContainer}>
         <View style={SearchViewStyle.searchResInner}>
-          <Text style={SearchViewStyle.searchResInnerText}>14 Results</Text>
-          <RadiusButton defaultStyle={SearchViewStyle.searchDefaultBtn} textStyle={SearchViewStyle.searchDefaultBtnText} text="CLEAR SEARCH"/>
+          <Text style={SearchViewStyle.searchResInnerText}>{listCount} Results</Text>
+          <RadiusButton clickFunc={() => this._clearSearch()} defaultStyle={SearchViewStyle.searchDefaultBtn} textStyle={SearchViewStyle.searchDefaultBtnText} text="CLEAR SEARCH"/>
         </View>
-        <Text style={SearchViewStyle.searchResSubtitle}>Searched for Channel 3 Activities from 20/06 to 24/06</Text>
+        <Text style={SearchViewStyle.searchResSubtitle}>{searchTextTips}</Text>
       </View>
     )
   }
@@ -212,6 +300,7 @@ export default class SearchView extends React.PureComponent<any, any> {
         renderItem={(item, index) => this._renderListItem(item, index)}
         isIndicatorShow={true}
         offset={5}
+        getCount={(count) => this._getListCount(count)}
         extraParams={{...this._requestExtraParams}}
       />
     )

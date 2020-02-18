@@ -361,26 +361,26 @@ export default class DetailsView extends React.PureComponent<any, any> {
             <CustomSvg style={DetailStyle.participantCountIcon} svg={this._checkIcon} fill={Colors.lighterPurple} width={12} height={9.8}/>
             <Text style={DetailStyle.participantCountText}>{eventInfo.goings_count} going</Text>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             {
               participantInfo.map(item => (
                 <Image key={item.id} style={DetailStyle.participantCountAvatar} source={{uri: item.avatar}}/>
               ))
             }   
-          </View>       
+          </ScrollView>       
         </View>
         <View style={DetailStyle.participantItem}>
           <View style={DetailStyle.participantCountContainer}>
               <CustomSvg style={DetailStyle.participantCountIcon} svg={this._checkIcon} fill={Colors.lighterPurple} width={12} height={9.8}/>
               <Text style={DetailStyle.participantCountText}>{eventInfo.likes_count} likes</Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             {
               likesInfo.map(item => (
                 <Image key={item.id} style={DetailStyle.participantCountAvatar} source={{uri: item.avatar}}/>
               ))
             }   
-          </View>
+          </ScrollView>
         </View>
       </View>
     )

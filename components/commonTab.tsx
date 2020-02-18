@@ -50,12 +50,12 @@ const styles = StyleSheet.create({
   },
   tabItemText: {
     color: Colors.tabGray,
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12)
   },
   tabItemTextActive: {
     color: Colors.deepGreen,
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12)
   }
 })

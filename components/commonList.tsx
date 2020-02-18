@@ -5,8 +5,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
-  ActivityIndicator
+  Image
 } from 'react-native'
 import { httpStatus } from '../api/interface'
 //components
@@ -100,7 +99,7 @@ export default class CommonList extends Component<ICommonList, any> {
     if (Object.keys(extraParams).length > 0) {
       _requestParams = Object.assign(_requestParams, extraParams)
     }
-    // console.log('_requestParams :', _requestParams);
+    console.log('_requestParams :', _requestParams);
     this.props.requestFunc(_requestParams).then(
       data => {
         getRawData && getRawData(data)
@@ -327,6 +326,7 @@ export default class CommonList extends Component<ICommonList, any> {
         data={this.state.listData}
         onScroll={sview => this._onScroll(sview)}
         scrollEventThrottle={80}
+        initialNumToRender={5}
         renderItem={({ item, index }) =>
           this._renderCommonListItemView(item, index)
         }
@@ -334,6 +334,7 @@ export default class CommonList extends Component<ICommonList, any> {
         onEndReachedThreshold={0.01}
         onEndReached={() => this._onEndReach()}
         // ItemSeparatorComponent={() => this._renderItemDivider()}
+        removeClippedSubviews={true}
         ListHeaderComponent={() => this._renderHeader()}
         ListFooterComponent={() => (
           <ListFooter

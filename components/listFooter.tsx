@@ -56,7 +56,7 @@ const ListFooter = ({ loadingStatus, errorToDo }: IListFooter) => {
           {/*<View style={{width:_winWidth*0.3,height:1,marginLeft:10,marginRight:20,backgroundColor:'#959595'}}></View>*/}
           <View>
             <Text style={{ color: Colors.mainGray }}>
-              no more date~
+              no more data~
             </Text>
           </View>
           {/*<View style={{width:GLOBAL_PARAMS._winWidth*0.3,height:1,marginLeft:20,marginRight:10,backgroundColor:'#959595'}}></View>*/}

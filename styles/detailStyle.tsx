@@ -20,12 +20,12 @@ export default StyleSheet.create({
     marginBottom: px2dpwh(15)
   },
   channelBtnText: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12),
     color: Colors.mainPurple
   },
   introTitle: {
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     fontSize: px2dpw(20),
     color: Colors.deepPurple,
     marginBottom: px2dpwh(24)
@@ -40,13 +40,13 @@ export default StyleSheet.create({
     marginRight: px2dpw(12)
   },
   introAvatarTitle: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(14),
     color: Colors.mainBlack,
     marginBottom: px2dpwh(4)
   },
   introAvatarSubtitle: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12),
     color: Colors.mainGray
   },
@@ -77,7 +77,7 @@ export default StyleSheet.create({
     position: 'relative'
   },
   descText: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(14),
     color: Colors.mainBlack
   },
@@ -101,7 +101,7 @@ export default StyleSheet.create({
   viewAllBtnText: {
     color: Colors.mainBlack,
     fontSize: px2dpw(10),
-    // fontFamily: 'SourceSansPro-Semibold'
+    fontFamily: 'SourceSansPro-Semibold'
   },
   dateContainer: {
     paddingTop: px2dpwh(16.5),
@@ -123,7 +123,7 @@ export default StyleSheet.create({
   },
   commonLeftTitle: {
     fontSize: px2dpw(16),
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     color: Colors.mainPurple
   },
   dateContent: {
@@ -148,7 +148,7 @@ export default StyleSheet.create({
     marginRight: px2dpw(4)
   },
   dateContentTimeText: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(16),
     color: Colors.mainBlack,
   },
@@ -158,12 +158,12 @@ export default StyleSheet.create({
   },
   dateContentHourText: {
     fontSize: px2dpw(32),
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     color: Colors.deepGreen,
     marginRight: px2dpw(6)
   },
   dateContentHourSubText: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(10),
     color: Colors.deepGreen,
     lineHeight: px2dpwh(25)
@@ -172,13 +172,13 @@ export default StyleSheet.create({
     paddingTop: px2dpwh(16.5)
   },
   whereTitle: {
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     fontSize: px2dpw(14),
     color: Colors.mainBlack,
     marginBottom: px2dpwh(2)
   },
   whereSubTitle: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12),
     color: Colors.mainBlack,
     marginBottom: px2dpwh(5)
@@ -213,7 +213,7 @@ export default StyleSheet.create({
     marginRight: px2dpw(5)
   },
   participantCountText: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12),
     color: Colors.mainBlack
   },
@@ -255,19 +255,19 @@ export default StyleSheet.create({
     marginBottom: px2dpwh(4)
   },
   commentTopName: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(12),
     color: Colors.mainPurple,
     marginRight: px2dpw(12)
   },
   commentTopTime: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(10),
     color: Colors.mainGray
   },
   commentTopIcon: {},
   commentContentText: {
-    // fontFamily: 'SourceSansPro-Regular',
+    fontFamily: 'SourceSansPro-Regular',
     fontSize: px2dpw(14),
     color: Colors.deepPurple
   },
@@ -304,7 +304,7 @@ export default StyleSheet.create({
     marginRight: px2dpw(12)
   },
   bottomBarRightText: {
-    // fontFamily: 'SourceSansPro-Semibold',
+    fontFamily: 'SourceSansPro-Semibold',
     fontSize: px2dpw(14),
     color: Colors.deeperGreen
   },
