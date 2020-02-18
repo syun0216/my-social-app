@@ -56,6 +56,15 @@ interface ICommonList{
 通过props对请求api，renderItem等方法重写封装加载list，具体实现请参考components/commonList
 
 ### store设计
+使用mobx进行store设计，实现用户信息存储，多语言功能。  
+简述：  
+- 用户详情
+  - 用户登录后将登录信息存储到asyncStorage和mobx中，页面通过inject获取mobx中的用户信息
+  - 请求api之前获取缓存中的token加载header上
+  - 再次进入app，从缓存中读取数据直接设置到mobx的用户详情中
+- 多语言
+  - 用户通过读取手机系统语言环境初始化语言，存入缓存设置到mobx中
+  - 用户手动修改语言，存入缓存设置到mobx中
 
 ### 无限滚动设计
 
