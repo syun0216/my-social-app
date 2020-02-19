@@ -98,4 +98,4 @@ interface ICommonList{
 
 ### 预览
 
-<img src="./display/gif1.gif" style="width: 300px"/>
+<img src="./display/gif1.gif" width="300"/>
