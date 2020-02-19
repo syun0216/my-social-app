@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Provider } from 'mobx-react';
 // views
 import Router from './router/router'

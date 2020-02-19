@@ -1,6 +1,6 @@
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Platform } from 'react-native'
 
-const baseUrl = 'http://localhost:3000/api/v1';
+const baseUrl = Platform.OS === 'ios' ? 'http://localhost:3000/api/v1' : 'http://10.0.2.2:3000/api/v1'
 const timeoutSeconds = 20;
 export default class BaseRequest{
     static async getCacheInfo() {

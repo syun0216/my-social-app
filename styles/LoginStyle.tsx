@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { deviceWidthDp, deviceHeightDp, px2dpw } from '../utils/commonUtils'
+import { StyleSheet, Platform } from "react-native";
+import { deviceWidthDp, deviceHeightDp, px2dpw, px2dpwh } from '../utils/commonUtils'
 import Colors from '../utils/colors'
 export default StyleSheet.create({
   loginBg: {
@@ -44,7 +44,7 @@ export default StyleSheet.create({
   },
   fillinContainer: {
     width: deviceWidthDp,
-    marginTop: px2dpw(118),
+    marginTop: Platform.OS === 'ios' ? px2dpwh(118) : px2dpwh(100),
     alignItems: 'center'
   },
   fillinItem: {

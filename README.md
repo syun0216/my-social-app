@@ -72,7 +72,9 @@ interface ICommonList{
 - 首次加载没数据，显示blankPage组件
 - 加载失败，点击重试，点击后重新将状态设为loading中，重新调用接口请求数据
 - 加载成功，还有更多，将新的数据合并到list里，将offset增加等待下一次触发
-- 加载没有更多的，显示无更多数据
+- 加载没有更多的，显示无更多数据  
+技术要点
+- scrollEventThrottle 设置底部触发时间距离
 
 ### 完整性
 
@@ -80,6 +82,7 @@ interface ICommonList{
 ✅完成详情页100%功能  
 ✅完成我的页100%功能  
 ✅多语言功能设计  
+✅列表页(及筛选器)的全部样式
 
 ### 兼容性
 
@@ -95,4 +98,4 @@ interface ICommonList{
 
 ### 预览
 
-<img src="./display/gif1.gif" style="width: 100%"/>
+<img src="./display/gif1.gif" style="width: 300px"/>

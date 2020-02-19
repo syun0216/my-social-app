@@ -90,6 +90,7 @@ export default class LoginView extends React.PureComponent<any, {}> {
       isSubmiting: true
     })
     try {
+      console.log(this._loginParams)
       const res = await userLogin(this._loginParams)
       if(res.error) {
         this._toast.show(res.error)
@@ -102,6 +103,10 @@ export default class LoginView extends React.PureComponent<any, {}> {
       })
       console.log(res)
     }catch(err) {
+      this.setState({
+        isSubmiting: false
+      })
+      console.log(err)
       this._toast.show('login error')
     }
   }
