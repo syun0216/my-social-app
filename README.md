@@ -34,10 +34,10 @@ components
 
 ```js
 interface ICommonList{
-  requestFunc: (params) => Promise<any>,
-  renderItem: any,
-  renderHeader?: any,
-  renderIndicator?: any,
+  requestFunc: (params) => Promise<object>,
+  renderItem: () => React.ReactElement,
+  renderHeader?: () => React.ReactElement,
+  renderIndicator?: () => React.ReactElement,
   isRefreshControlShow?: boolean,
   isBlankInfoBtnShow?: boolean,
   isItemSeparatorShow?: boolean,
