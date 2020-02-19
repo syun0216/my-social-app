@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import {View, TouchableOpacity, Image, Animated, AsyncStorage} from 'react-native'
+import DateTimePicker from '@react-native-community/datetimepicker'
 // styles
 import SearchViewStyle from '../styles/searchViewStyle'
 //components
@@ -18,6 +19,8 @@ import Colors from '../utils/colors'
 import { px2dpw, px2dpwh } from '../utils/commonUtils'
 //api 
 import { getChannels, getEvents } from '../api/interface'
+//cache
+import { userStorage } from '../cache/appCache'
 
 export default class SearchView extends React.PureComponent<any, any> {
 
@@ -28,10 +31,12 @@ export default class SearchView extends React.PureComponent<any, any> {
   private _checkActiveIcon = require('../assets/check.svg')
   private _likeIcon = require('../assets/like-outline.svg')
   private _likeActiveIcon = require('../assets/like.svg')
+  private _dateFromIcon = require('../assets/date-from.svg')
+  private _dateToIcon = require('../assets/date-to.svg')
   private _toast = null
   private _flatlist = null
 
-  private _requestExtraParams = {
+  private _requestExtraParams: any = {
     channels: null,
     after: '',
     before: '',
@@ -48,8 +53,15 @@ export default class SearchView extends React.PureComponent<any, any> {
     curChannel: ['ALL'],
     curTime: 'ANYTIME',
     userInfo: null,
-    listCount: 0
-  }
+    listCount: 0,
+    isTimeselectorShow: false,
+    isTimePickerShow: false,
+    beforeDate: this._generateToday(),
+    afterDate: this._generateToday(),
+    beforeDateFormat: new Date(),
+    afterDateFormat: new Date(),
+    dateType: 'before'
+  } 
 
   public componentDidMount() {
     this._getUserInfo()
@@ -84,12 +96,17 @@ export default class SearchView extends React.PureComponent<any, any> {
       isSearching: true
     })
     this._requestExtraParams.channels = curChannel.includes('ALL') ? null : channelList.filter(v => curChannel.includes(v.name)).map(v => v.id).join(',')
-    this._requestExtraParams.limit = curChannel.includes('ALL') ? 5 : 100
     console.log('---', this._requestExtraParams)
     console.log('this.state.curChannel :', this.state.curChannel);
   }
 
   private _setCurTime(time) {
+    if(time === 'LATER') {
+      this.setState({
+        isTimeselectorShow: !this.state.isTimeselectorShow
+      })
+      return
+    }
     this.setState({
       curTime: time,
       isSearching: true
@@ -111,7 +128,15 @@ export default class SearchView extends React.PureComponent<any, any> {
 
   private _clearSearch() {
     this.setState({
-      isSearchingSubmiting: false
+      isSearchingSubmiting: false,
+      beforeDate: this._generateToday(),
+      afterDate: this._generateToday(),
+      beforeDateFormat: new Date(),
+      afterDateFormat: new Date(),
+      isTimeselectorShow: false,
+      curChannel: ['ALL'],
+      curTime: 'ANYTIME',
+      isSearing: false
     })
     this._requestExtraParams.limit = 5
     this._requestExtraParams.channels = null
@@ -149,6 +174,45 @@ export default class SearchView extends React.PureComponent<any, any> {
     }
   }
 
+  private _generateToday() {
+    const _moment = moment()
+    const m = _moment.month()
+    const d = _moment.date()   
+    const y = _moment.year()  
+    const mFunc = m => (m + 1) < 10 ? `0${m+1}` : m + 1
+    const dFunc = d => d < 10 ? `0${d}` : d 
+    return `${dFunc(d)}/${mFunc(m)}/${y}`
+  }
+
+  private _toggleDatePicker(type) {
+    this.setState({
+      isTimePickerShow: !this.state.isTimePickerShow,
+      dateType: type
+    })
+  }
+
+  private _dateChange(event, selectedDate) {
+    const mFunc = m => (m + 1) < 10 ? `0${m+1}` : m + 1
+    const dFunc = d => d < 10 ? `0${d}` : d 
+    console.log(moment(selectedDate).valueOf())
+    if(this.state.dateType === 'before') {
+      this.setState({
+        beforeDate: `${dFunc(moment(selectedDate).date())}/${mFunc(moment(selectedDate).month())}/${moment(selectedDate).year()}` || this.state.beforeDate,
+        beforeDateFormat: selectedDate,
+        isSearching: true
+      })
+      this._requestExtraParams.before = moment(selectedDate).valueOf()
+    }else if(this.state.dateType === 'after') {
+      this.setState({
+        afterDate: `${dFunc(moment(selectedDate).date())}/${mFunc(moment(selectedDate).month())}/${moment(selectedDate).year()}` || this.state.afterDate,
+        afterDateFormat: selectedDate,
+        isSearching: true
+      })
+      this._requestExtraParams.after = moment(selectedDate).valueOf()
+    }
+    console.log('this._requestExtraParams :', this._requestExtraParams);
+  } 
+
   private _getListCount(count) {
     this.setState({
       listCount: count
@@ -158,9 +222,14 @@ export default class SearchView extends React.PureComponent<any, any> {
   private async _getChannels() {
     try{
       const res: any = await getChannels()
-      this.setState({
-        channelList: [{id: null, name: 'ALL'}].concat(res.channels)
-      })
+      if(!res.error) {
+        this.setState({
+          channelList: [{id: null, name: 'ALL'}].concat(res.channels)
+        })
+      }else if(res.error === "invalid_token") {
+        userStorage.removeData()
+        this.props.navigation.replace("Login")
+      }
       // console.log(res)
     }catch(err) {
       this._toast.show('error')
@@ -183,7 +252,7 @@ export default class SearchView extends React.PureComponent<any, any> {
 
   // views
   private _renderMainView() {
-    const { isSearching, isSearchingSubmiting, curTime, curChannel } = this.state
+    const { isSearching, isSearchingSubmiting, beforeDateFormat, afterDateFormat, dateType, isTimePickerShow, curTime, curChannel } = this.state
     let btnSubTitle = ''
     if(curChannel.length > 0) {
       btnSubTitle = curChannel.includes('ALL') ? 'All activities' : curChannel.join(',')
@@ -220,6 +289,18 @@ export default class SearchView extends React.PureComponent<any, any> {
           {/* <BlankPage text="No activity found"/> */}
         </Animated.View>
         <Toast ref={t => this._toast = t} textColor={Colors.mainWhite} bgColor={Colors.transparentRed} autoHide={true}/>
+        {isTimePickerShow && (
+        <DateTimePicker
+            style={SearchViewStyle.dateTimePicker}
+            testID="dateTimePicker"
+            timeZoneOffsetInMinutes={0}
+            value={dateType === 'before' ? beforeDateFormat : afterDateFormat }
+            mode='date'
+            is24Hour={true}
+            display="default"
+            onChange={(event, selectedDate) => this._dateChange(event, selectedDate)}
+          />
+        )}
       </View>
     )
   }
@@ -239,6 +320,25 @@ export default class SearchView extends React.PureComponent<any, any> {
             ))
           }
         </View>
+        {this._renderTimePickerView()}
+      </View>
+    )
+  }
+
+  private _renderTimePickerView() {
+    if(!this.state.isTimeselectorShow) return null
+    return (
+      <View style={SearchViewStyle.timePickerContainer}>
+        <TouchableOpacity onPress={() => this._toggleDatePicker('before')} style={SearchViewStyle.timePickerItem}>
+          <CustomSvg style={SearchViewStyle.timePickerIcon} fill={Colors.mainGreen} width={12} height={10.3} svg={this._dateFromIcon}/>
+          <Text style={SearchViewStyle.timePickerText}>{this.state.beforeDate}</Text>
+        </TouchableOpacity>
+        <Text style={SearchViewStyle.timePickerDivider}>-</Text>
+        <TouchableOpacity onPress={() => this._toggleDatePicker('after')} style={SearchViewStyle.timePickerItem}>
+          <CustomSvg style={SearchViewStyle.timePickerIcon} fill={Colors.mainGreen} width={12} height={10.3} svg={this._dateToIcon}/>
+          <Text style={SearchViewStyle.timePickerText}>{this.state.afterDate}</Text>
+        </TouchableOpacity>
+        <View style={SearchViewStyle.timePickerTriangle}/>
       </View>
     )
   }
@@ -302,6 +402,7 @@ export default class SearchView extends React.PureComponent<any, any> {
         offset={5}
         getCount={(count) => this._getListCount(count)}
         extraParams={{...this._requestExtraParams}}
+        {...this.props.navigation}
       />
     )
   }

@@ -15,6 +15,8 @@ import Loading from './loading'
 //language
 import colors from '../utils/colors'
 import { px2dpw, px2dpwh } from '../utils/commonUtils'
+//cache
+import { userStorage } from '../cache/appCache'
 
 let requestParams = {
   nextOffset: 0,
@@ -39,7 +41,8 @@ interface ICommonList{
   getRawData?: (object) => void, // 获取最原始的列表数据
   getScrollTop?: (number) => void, //获取滚动高度
   style?: object,
-  errorCallback?: () => void
+  errorCallback?: () => void,
+  navigation: any
 }
 
 export default class CommonList extends Component<ICommonList, any> {
@@ -102,6 +105,13 @@ export default class CommonList extends Component<ICommonList, any> {
     console.log('_requestParams :', _requestParams);
     this.props.requestFunc(_requestParams).then(
       data => {
+        if(data.error) {
+          if(data.error === "invalid_token") {
+            userStorage.removeData()
+            this.props.navigation.replace("Login")
+          }
+          return
+        }
         getRawData && getRawData(data)
         successCallback(data.events)
         this.getFlatListCount()

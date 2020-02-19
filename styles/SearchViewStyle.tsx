@@ -55,7 +55,8 @@ export default StyleSheet.create({
   dateContainer: {
     marginTop: px2dpw(10),
     alignItems: 'center',
-    marginBottom: px2dpw(24)
+    marginBottom: px2dpw(24),
+    position: 'relative'
   },
   commonTitle: {
     fontSize: px2dpw(12),
@@ -229,5 +230,52 @@ export default StyleSheet.create({
     fontSize: px2dpw(12),
     fontFamily: 'SourceSansPro-Regular',
     color: Colors.deepPurple
+  },
+  timePickerContainer: {
+    position: 'relative',
+    flexDirection: 'row',
+    backgroundColor: Colors.mainWhite,
+    width: px2dpw(208),
+    height: px2dpwh(35),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  timePickerItem: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  timePickerIcon: {
+    marginRight: px2dpw(6)
+  },
+  timePickerText: {
+    fontFamily: 'SourceSansPro-Regular',
+    fontSize: px2dpw(14),
+    color: Colors.mainPurple
+  },
+  timePickerDivider: {
+    color: 'rgba(0, 0, 0, 0.09)'
+  },
+  timePickerTriangle: {
+    position: 'absolute',
+    top: -12,
+    right: px2dpw(80),
+    height:0,
+    borderStyle:'solid',
+    borderWidth:6,
+    borderTopColor:'transparent',//下箭头颜色
+    borderLeftColor:'transparent',//右箭头颜色
+    borderBottomColor: Colors.mainWhite,//上箭头颜色
+    borderRightColor:'transparent'//左箭头颜色
+  },
+  dateTimePicker: {
+    backgroundColor: Colors.mainWhite,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: px2dpwh(150),
+    zIndex: 4
   }
 })
