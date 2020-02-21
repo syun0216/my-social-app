@@ -26,22 +26,22 @@ let requestParams = {
 const { LOADING, LOAD_SUCCESS, LOAD_FAILED, NO_DATA, NO_MORE_DATA } = httpStatus
 
 interface ICommonList{
-  requestFunc: (params) => Promise<object>,
-  renderItem: () => React.ReactElement,
-  renderHeader?: () => React.ReactElement,
-  renderIndicator?: () => React.ReactElement,
-  isRefreshControlShow?: boolean,
-  isBlankInfoBtnShow?: boolean,
-  isItemSeparatorShow?: boolean,
-  isIndicatorShow?: boolean,
-  blankBtnMessage?: string,
-  offset: number,
-  extraParams?: object,
-  getCount?: (number) => void,
-  getRawData?: (object) => void, // 获取最原始的列表数据
-  getScrollTop?: (number) => void, //获取滚动高度
-  style?: object,
-  errorCallback?: () => void,
+  requestFunc: (params) => Promise<object>;
+  renderItem: (item: any, index: number) => React.ReactElement;
+  renderHeader?: () => React.ReactElement;
+  renderIndicator?: () => React.ReactElement;
+  isRefreshControlShow?: boolean;
+  isBlankInfoBtnShow?: boolean;
+  isItemSeparatorShow?: boolean;
+  isIndicatorShow?: boolean;
+  blankBtnMessage?: string;
+  offset: number;
+  extraParams?: object;
+  getCount?: (x: number) => void;
+  getRawData?: (x: object) => void; // 获取最原始的列表数据
+  getScrollTop?: (x: number) => void; //获取滚动高度
+  style?: object;
+  errorCallback?: () => void;
   navigation: any
 }
 
@@ -104,7 +104,7 @@ export default class CommonList extends Component<ICommonList, any> {
     }
     console.log('_requestParams :', _requestParams);
     this.props.requestFunc(_requestParams).then(
-      data => {
+      (data: any) => {
         if(data.error) {
           if(data.error === "invalid_token") {
             userStorage.removeData()
