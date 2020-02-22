@@ -5,9 +5,14 @@ import Colors from '../utils/colors'
 import Text from './unScalingText'
 
 interface IToast {
-  bgColor?: string,
-  textColor?: string,
-  autoHide?: boolean
+  bgColor?: string;
+  textColor?: string;
+  autoHide?: boolean;
+}
+
+interface IState {
+  transY: Animated.Value;
+  msg: string
 }
 
 const styles = StyleSheet.create({
@@ -30,9 +35,9 @@ const styles = StyleSheet.create({
   }
 })
 
-export default class Toast extends React.PureComponent<IToast, {}> {
+export default class Toast extends React.PureComponent<IToast, IState> {
   
-  public state = {
+  public state: IState = {
     transY: new Animated.Value(0),
     msg: ''
   }

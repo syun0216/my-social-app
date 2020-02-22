@@ -8,6 +8,7 @@ import {
   Image
 } from 'react-native'
 import { httpStatus } from '../api/interface'
+import { NavigationScreenProp, withNavigation } from 'react-navigation'
 //components
 import ListFooter from './listFooter'
 import BlankPage from './blankPage'
@@ -17,6 +18,8 @@ import colors from '../utils/colors'
 import { px2dpw, px2dpwh } from '../utils/commonUtils'
 //cache
 import { userStorage } from '../cache/appCache'
+//navigation
+import * as RootNavigation from '../router/rootNavigation'
 
 let requestParams = {
   nextOffset: 0,
@@ -42,15 +45,25 @@ interface ICommonList{
   getScrollTop?: (x: number) => void; //获取滚动高度
   style?: object;
   errorCallback?: () => void;
-  navigation: any
 }
 
-export default class CommonList extends Component<ICommonList, any> {
+interface IState {
+  listData: any[],
+  firstPageLoading: number,
+  nextPageLoading: number,
+  refreshing: boolean,
+  showToTop: boolean,
+  isError: boolean
+}
+
+class CommonList extends Component<ICommonList, IState> {
+
+
 
   private _timer = null
   private _flatlist = null
 
-  public state = {
+  public state: IState = {
     listData: [], //列表数据
     firstPageLoading: LOADING, //首屏加载状态
     nextPageLoading: LOADING, //上拉加载更多状态
@@ -108,7 +121,8 @@ export default class CommonList extends Component<ICommonList, any> {
         if(data.error) {
           if(data.error === "invalid_token") {
             userStorage.removeData()
-            this.props.navigation.replace("Login")
+            // this.props.navigation.replace("Login")
+            RootNavigation.replace("Login", {})
           }
           return
         }
@@ -420,3 +434,5 @@ export default class CommonList extends Component<ICommonList, any> {
     )
   }
 }
+
+export default CommonList

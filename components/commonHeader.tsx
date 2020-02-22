@@ -7,8 +7,8 @@ import CustomSvg from './customSvg'
 import { useNavigation } from '@react-navigation/native';
 
 interface ICommonHeader {
-  leftElement: any,
-  avatar?: string
+  leftElement: React.ReactNode;
+  avatar?: string | any;
 }
 
 const styles = StyleSheet.create({
@@ -57,6 +57,10 @@ const commonHeader = (props: ICommonHeader) => {
     </View>
   </View>
   )
+}
+
+commonHeader.defaultProps = {
+  avatar: require('../assets/avatar.png')
 }
 
 export default commonHeader

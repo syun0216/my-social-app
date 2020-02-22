@@ -22,12 +22,27 @@ const styles = StyleSheet.create({
   }
 })
 
-const blockButton = (props: any) => (
-  <TouchableOpacity disabled={props.disabled || false} onPress={props.clickFunc} style={[styles.btnContainer, props.style]} activeOpacity={0.8}>
+interface IBlockButton {
+  disabled?: boolean;
+  style?: object;
+  isLoading?: boolean;
+  text?: string;
+  clickFunc(): void;
+  children?: React.ReactNode,
+}
+
+const blockButton = (props: IBlockButton) => (
+  <TouchableOpacity disabled={props.disabled} onPress={props.clickFunc} style={[styles.btnContainer, props.style]} activeOpacity={0.8}>
     {!props.isLoading ? (props.children ? props.children : (
       <Text style={styles.btnText}>{props.text}</Text>
     )) : (<ActivityIndicator color={Colors.mainBlack} size="large"/>)}
   </TouchableOpacity>
 )
+
+blockButton.defaultProps = {
+  disabled: false,
+  isLoading: false,
+  clickFunc: () => {}
+}
 
 export default blockButton

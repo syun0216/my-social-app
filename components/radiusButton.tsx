@@ -46,4 +46,12 @@ const radiusButton = (props: IRadiusButton) => (
   </TouchableOpacity>
 )
 
+radiusButton.defaultProps = {
+  defaultStyle: {},
+  activeStyle: {},
+  textStyle: {},
+  textActiveStyle: {},
+  clickFunc: () => {}
+}
+
 export default radiusButton
