@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import {View, TouchableOpacity, Image, Animated, AsyncStorage} from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
+import { NavigationScreenProp } from 'react-navigation'
 // styles
 import SearchViewStyle from '../styles/searchViewStyle'
 //components
@@ -64,6 +65,7 @@ export default class SearchView extends React.PureComponent<any, any> {
   } 
 
   public componentDidMount() {
+    console.log(this.props)
     this._getUserInfo()
     this._getChannels()
   }
@@ -402,7 +404,6 @@ export default class SearchView extends React.PureComponent<any, any> {
         offset={5}
         getCount={(count) => this._getListCount(count)}
         extraParams={{...this._requestExtraParams}}
-        {...this.props.navigation}
       />
     )
   }

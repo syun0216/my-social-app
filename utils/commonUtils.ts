@@ -1,23 +1,23 @@
 import {Dimensions, Platform} from 'react-native';
 
-export const deviceWidthDp = Dimensions.get('window').width
-export const deviceHeightDp = Dimensions.get('window').height
-export const iPhoneXBottom = 34
-export const iPhoneXTop = 44
-export const iPhoneTop = 20
+export const deviceWidthDp: number = Dimensions.get('window').width
+export const deviceHeightDp: number = Dimensions.get('window').height
+export const iPhoneXBottom: number = 34
+export const iPhoneXTop: number = 44
+export const iPhoneTop: number = 20
 
 // iPhoneX
-const iPhoneX_WIDTH = 375;
-const iPhoneX_HEIGHT = 812;
+const iPhoneX_WIDTH: number = 375;
+const iPhoneX_HEIGHT: number = 812;
 
 // iPhone XR
-const XR_WIDTH = 414;
-const XR_HEIGHT = 896;
+const XR_WIDTH: number = 414;
+const XR_HEIGHT: number = 896;
 
-const uiWidthPx = 320
-const uiHeightPx = 572
+const uiWidthPx: number = 320
+const uiHeightPx: number = 572
 
-export function isIphoneX() {
+export function isIphoneX(): boolean {
   return (
     Platform.OS === 'ios' &&
     ((deviceHeightDp === iPhoneX_HEIGHT && deviceWidthDp === iPhoneX_WIDTH) ||
@@ -25,7 +25,7 @@ export function isIphoneX() {
   )
 }
 
-export function isIphoneXr() {
+export function isIphoneXr(): boolean {
   return (
     Platform.OS === 'ios' &&
     ((deviceHeightDp === XR_HEIGHT && deviceWidthDp === XR_WIDTH) ||

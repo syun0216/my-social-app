@@ -17,7 +17,9 @@ import { px2dpwh, isIphoneX, iPhoneXBottom } from '../utils/commonUtils'
 //api
 import {getEventsWithEventId, getEventParticipantWithEventId, getLikesWithEventId, getCommentWithEventId, postEventParticipantWithEventId, postLikeWithEventId, postCommentWithEventId, deleteEventParticipantWithEventId, deleteLikeWithEventId} from '../api/interface'
 
+interface detailViewProps {
 
+}
 export default class DetailsView extends React.PureComponent<any, any> {
 
   private _homeIcon = require('../assets/home.svg')
@@ -40,7 +42,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
 
   private _toast = null
 
-  private _commentText = ''
+  private _commentText: string = ''
   private _commentInputRef = null
   private _descViewRef = null
   private _partViewRef = null
@@ -62,6 +64,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
   }
 
   public componentDidMount() {
+    console.log(1234, this.props)
     this._getInfo()
     this._getUserInfo()
   }
@@ -131,12 +134,11 @@ export default class DetailsView extends React.PureComponent<any, any> {
   private async _postParticipanet() {
     const { id, callback } = this.props.route.params
     const { isGoing } = this.state
-    let res = null
     if(isGoing) {
-      res = await deleteEventParticipantWithEventId(id)
+      await deleteEventParticipantWithEventId(id)
       this._toast.show('delete success')
     }else {
-      res = await postEventParticipantWithEventId(id)
+      await postEventParticipantWithEventId(id)
       this._toast.show('post success')
     }
     this._getEventInfo()
@@ -148,12 +150,11 @@ export default class DetailsView extends React.PureComponent<any, any> {
   private async _postLike() {
     const { id, callback } = this.props.route.params
     const { isLike } = this.state
-    let res = null
     if(isLike) {
-      res = await deleteLikeWithEventId(id)
+      await deleteLikeWithEventId(id)
       this._toast.show('delete success')
     }else {
-      res = await postLikeWithEventId(id)
+      await postLikeWithEventId(id)
       this._toast.show('post success')
     }
     this._getEventInfo()
@@ -168,7 +169,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
       this._toast.show('comment can not be null')
       return
     }
-    const res = await postCommentWithEventId(id, this._commentText)
+    await postCommentWithEventId(id, this._commentText)
     requestAnimationFrame(() => {
       this._toast.show('post success')
       this._toggleCommentInput(false)
