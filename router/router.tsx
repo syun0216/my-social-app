@@ -7,11 +7,13 @@ import SearchView from '../views/searchView'
 import DetailView from '../views/detailsView'
 import MeView from '../views/meView'
 import InitView from '../views/initView'
+//navigation conf
+import { navigationRef } from './rootNavigation'
 
 const Stack = createStackNavigator();
 
 const Router = () => (
-  <NavigationContainer>
+  <NavigationContainer ref={navigationRef}>
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Init" component={InitView} />
       <Stack.Screen name="Login" component={LoginView} />
