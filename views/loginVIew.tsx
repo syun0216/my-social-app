@@ -5,7 +5,6 @@ import { inject } from 'mobx-react'
 // components
 import Text from '../components/unScalingText'
 import BlockButton from '../components/blockButton'
-import CustomSvg from '../components/customSvg'
 import Toast from '../components/toast'
 // styles
 import LoginStyle from '../styles/loginStyle'
@@ -18,15 +17,14 @@ import { deviceHeightDp } from '../utils/commonUtils'
 //api
 import { userLogin } from '../api/interface'
 //cache
-import { userStorage }  from '../cache/appCache'
+import AppStorage  from '../cache/appCache'
+//icons
+import { LogoIcon, UserIcon, PasswordIcon } from '../components/icon'
 
 @inject('basicMobx')
 export default class LoginView extends React.PureComponent<any, {}> {
 
   private _i18n = i18n['en'].loginViewText
-  private _logoIcon = require('../assets/logo-cat.svg')
-  private _userIcon = require('../assets/user.svg')
-  private _pwdIcon = require('../assets/password.svg')
 
   private _loginParams = {
     username: '',
@@ -95,7 +93,7 @@ export default class LoginView extends React.PureComponent<any, {}> {
       if(res.error) {
         this._toast.show(res.error)
       }else {
-        userStorage.setData(res)
+        AppStorage.setUser(res)
         this.props.navigation.replace("Search")
       }
       this.setState({
@@ -137,7 +135,7 @@ export default class LoginView extends React.PureComponent<any, {}> {
       <View style={LoginStyle.logoContainer}>
         <Text style={LoginStyle.logoSubtitle}>{this._i18n.subtitle}</Text>
         <Text style={LoginStyle.logoTitle}>{this._i18n.title}</Text>
-        <CustomSvg width={42} height={42} style={LoginStyle.logoImg} svg={this._logoIcon} fill={Colors.mainGreen}/>
+        <LogoIcon width={42} height={42} style={LoginStyle.logoImg} fill={Colors.mainGreen}/>
       </View>
     )
   }
@@ -147,7 +145,7 @@ export default class LoginView extends React.PureComponent<any, {}> {
     return (
       <View style={LoginStyle.fillinContainer}>
         <View style={[LoginStyle.fillinItem, isUsernameInputFocus && LoginStyle.fillinActive]}>
-          <CustomSvg style={LoginStyle.fillinSvg} width={13.3} height={13.3} fill={Colors.lightestPurple} svg={this._userIcon}/>
+          <UserIcon style={LoginStyle.fillinSvg} width={13.3} height={13.3} fill={Colors.lightestPurple} />
           <TextInput 
             style={LoginStyle.fillin} clearButtonMode="while-editing" 
             returnKeyType='done'
@@ -162,7 +160,7 @@ export default class LoginView extends React.PureComponent<any, {}> {
           />
         </View>
         <View style={[LoginStyle.fillinItem, isPasswordInputFocus && LoginStyle.fillinActive]}>
-          <CustomSvg style={LoginStyle.fillinSvg} width={13.3} height={13.3} fill={Colors.lightestPurple} svg={this._pwdIcon}/>
+          <PasswordIcon style={LoginStyle.fillinSvg} width={13.3} height={13.3} fill={Colors.lightestPurple}/>
           <TextInput 
             style={LoginStyle.fillin} clearButtonMode="while-editing" 
             returnKeyType='done'

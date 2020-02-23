@@ -12,7 +12,7 @@ import { navigationRef } from './rootNavigation'
 
 const Stack = createStackNavigator();
 
-const Router = () => (
+const Router = (): React.ReactElement => (
   <NavigationContainer ref={navigationRef}>
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Init" component={InitView} />

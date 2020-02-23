@@ -6,7 +6,6 @@ import DetailStyle from '../styles/detailStyle'
 //components
 import Text from '../components/unScalingText'
 import CommonHeader from '../components/commonHeader'
-import CustomSvg from '../components/customSvg'
 import CommonTab from '../components/commonTab'
 import RadiusButton from '../components/radiusButton'
 import Loading from '../components/loading'
@@ -16,37 +15,25 @@ import Colors from '../utils/colors'
 import { px2dpwh, isIphoneX, iPhoneXBottom } from '../utils/commonUtils'
 //api
 import {getEventsWithEventId, getEventParticipantWithEventId, getLikesWithEventId, getCommentWithEventId, postEventParticipantWithEventId, postLikeWithEventId, postCommentWithEventId, deleteEventParticipantWithEventId, deleteLikeWithEventId} from '../api/interface'
+//icons
+import * as Icons from '../components/icon'
 
 interface detailViewProps {
 
 }
 export default class DetailsView extends React.PureComponent<any, any> {
 
-  private _homeIcon = require('../assets/home.svg')
-  private _likeIcon = require('../assets/like-outline.svg')
-  private _likeActiveIcon = require('../assets/like.svg')
-  private _checkIcon = require('../assets/check-outline.svg')
-  private _checkActiveIcon = require('../assets/check.svg')
   private _infoIcon = require('../assets/info-outline.svg')
   private _infoActiveIcon = require('../assets/info.svg')
   private _peopleIcon = require('../assets/people-outline.svg')
   private _peopleActiveIcon = require('../assets/people.svg')
   private _commentIcon = require('../assets/comment-outline.svg')
   private _commentActiveIcon = require('../assets/comment.svg')
-  private _dateFromIcon = require('../assets/date-from.svg')
-  private _dateToIcon = require('../assets/date-to.svg')
-  private _replyIcon = require('../assets/reply.svg')
-  private _commentSingleIcon = require('../assets/comment-single.svg')
-  private _sendIcon = require('../assets/send.svg')
-  private _closeIcon = require('../assets/cross.svg')
 
   private _toast = null
 
   private _commentText: string = ''
   private _commentInputRef = null
-  private _descViewRef = null
-  private _partViewRef = null
-  private _commentViewRef = null
   private _scrollViewRef = null
   private _layoutObj:any = {}
 
@@ -234,7 +221,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
   private _renderHeader() {
     const { userInfo } = this.state
     const leftElement = (<TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-      <CustomSvg fill={Colors.deepPurple} svg={this._homeIcon} width={22} height={20}/>
+      <Icons.HomeIcon fill={Colors.deepPurple} width={22} height={20}/>
     </TouchableOpacity>)
     return (
       <CommonHeader leftElement={leftElement} avatar={userInfo ? userInfo.avatar : ''}/>
@@ -282,7 +269,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
   private _renderDescView() {
     const { eventInfo, isViewAll } = this.state
     return (
-      <View ref={ref => this._descViewRef = ref} style={DetailStyle.descContainer} onLayout={(e) => this._getViewLayout(e, 0)}>
+      <View style={DetailStyle.descContainer} onLayout={(e) => this._getViewLayout(e, 0)}>
         <ScrollView showsHorizontalScrollIndicator={false} style={DetailStyle.scrollImgContainer} horizontal={true}>
           {
             eventInfo.images.length > 0 ? (
@@ -319,7 +306,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
         <View style={DetailStyle.dateContent}>
           <View style={[DetailStyle.dateContentItem, DetailStyle.dateContentItemDivider]}>
             <View style={DetailStyle.dateContentTimeContainer}>
-              <CustomSvg style={DetailStyle.dateContentTimeIcon} svg={this._dateFromIcon} width={16} height={13.8} fill={Colors.mainGreen}/>
+              <Icons.DateFromIcon style={DetailStyle.dateContentTimeIcon} width={16} height={13.8} fill={Colors.mainGreen}/>
               <Text style={DetailStyle.dateContentTimeText}>{eventInfo.begin_time.slice(0, 10)}</Text>
             </View>
             <View style={DetailStyle.dateContentHourContainer}>
@@ -329,7 +316,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
           </View>
           <View style={DetailStyle.dateContentItem}>
             <View style={DetailStyle.dateContentTimeContainer}>
-              <CustomSvg style={DetailStyle.dateContentTimeIcon} svg={this._dateToIcon}  width={16} height={13.8} fill={Colors.mainGreen}/>
+              <Icons.DateToIcon style={DetailStyle.dateContentTimeIcon} width={16} height={13.8} fill={Colors.mainGreen}/>
               <Text style={DetailStyle.dateContentTimeText}>{eventInfo.end_time.slice(0, 10)}</Text>
             </View>
           </View>
@@ -356,10 +343,10 @@ export default class DetailsView extends React.PureComponent<any, any> {
   private _renderParticipantView() {
     const { participantInfo, likesInfo, eventInfo } = this.state
     return (
-      <View ref={ref => this._partViewRef = ref} style={DetailStyle.participantContainer} onLayout={(e) => this._getViewLayout(e, 1)}>
+      <View style={DetailStyle.participantContainer} onLayout={(e) => this._getViewLayout(e, 1)}>
         <View style={[DetailStyle.participantItem, DetailStyle.participantItemDivider]}>
           <View style={DetailStyle.participantCountContainer}>
-            <CustomSvg style={DetailStyle.participantCountIcon} svg={this._checkIcon} fill={Colors.lighterPurple} width={12} height={9.8}/>
+            <Icons.CheckIcon style={DetailStyle.participantCountIcon} fill={Colors.lighterPurple} width={12} height={9.8}/>
             <Text style={DetailStyle.participantCountText}>{eventInfo.goings_count} going</Text>
           </View>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
@@ -372,7 +359,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
         </View>
         <View style={DetailStyle.participantItem}>
           <View style={DetailStyle.participantCountContainer}>
-              <CustomSvg style={DetailStyle.participantCountIcon} svg={this._checkIcon} fill={Colors.lighterPurple} width={12} height={9.8}/>
+              <Icons.CheckIcon style={DetailStyle.participantCountIcon} fill={Colors.lighterPurple} width={12} height={9.8}/>
               <Text style={DetailStyle.participantCountText}>{eventInfo.likes_count} likes</Text>
             </View>
             <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
@@ -390,7 +377,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
   private _renderCommentView() {
     const {commentsInfo} = this.state
     return (
-      <View ref={ref => this._commentViewRef = ref} style={DetailStyle.commentContainer} onLayout={(e) => this._getViewLayout(e, 2)}>
+      <View style={DetailStyle.commentContainer} onLayout={(e) => this._getViewLayout(e, 2)}>
         {
           commentsInfo.map(item => 
             this._renderCommentItem(item)
@@ -411,7 +398,7 @@ export default class DetailsView extends React.PureComponent<any, any> {
               <Text style={DetailStyle.commentTopTime}>{item.updatedAt.slice(0, 10)}</Text>
             </View>
             <TouchableOpacity activeOpacity={0.6} onPress={() => this._toggleCommentInput(true)}>
-              <CustomSvg style={DetailStyle.commentTopIcon} svg={this._replyIcon} fill={Colors.mainGreen} width={18} height={15}/>
+              <Icons.ReplyIcon style={DetailStyle.commentTopIcon} fill={Colors.mainGreen} width={18} height={15}/>
             </TouchableOpacity>
           </View>
           <Text style={DetailStyle.commentContentText}>{item.comment}</Text>
@@ -426,15 +413,15 @@ export default class DetailsView extends React.PureComponent<any, any> {
       <View style={DetailStyle.bottomBar}>
         <View style={DetailStyle.bottomBarLeft}>
           <TouchableOpacity onPress={() => this._toggleCommentInput(true)} style={DetailStyle.bottomBarLeftBtn}>
-            <CustomSvg style={DetailStyle.bottomBarLeftIcon} svg={this._commentSingleIcon} fill={Colors.deepPurple} width={24} height={24}/>
+            <Icons.CommentSingleIcon style={DetailStyle.bottomBarLeftIcon} fill={Colors.deepPurple} width={24} height={24}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this._postLike()} style={DetailStyle.bottomBarLeftBtn}>
             {
               isLike ? (             
-                  <CustomSvg svg={this._likeActiveIcon} fill={Colors.mainGreen} width={24} height={24}/>
+                  <Icons.LikeActiveIcon fill={Colors.mainGreen} width={24} height={24}/>
                 
               ) : (
-                  <CustomSvg svg={this._likeIcon} fill={Colors.deepPurple} width={24} height={24}/>
+                  <Icons.LikeIcon fill={Colors.deepPurple} width={24} height={24}/>
               )
             }
           </TouchableOpacity>
@@ -442,12 +429,12 @@ export default class DetailsView extends React.PureComponent<any, any> {
         {
           isGoing ? (
             <TouchableOpacity onPress={() => this._postParticipanet()} style={DetailStyle.bottomBarRight}>
-              <CustomSvg style={DetailStyle.bottomBarRightIcon} svg={this._checkActiveIcon} fill={Colors.mainPurple} width={22} height={22}/>
+              <Icons.CheckActiveIcon style={DetailStyle.bottomBarRightIcon} fill={Colors.mainPurple} width={22} height={22}/>
               <Text style={DetailStyle.bottomBarRightText}>I am going</Text>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity onPress={() => this._postParticipanet()} style={DetailStyle.bottomBarRight}>
-              <CustomSvg style={DetailStyle.bottomBarRightIcon} svg={this._checkIcon} fill={Colors.mainBlack} width={22} height={22}/>
+              <Icons.CheckIcon style={DetailStyle.bottomBarRightIcon} fill={Colors.mainBlack} width={22} height={22}/>
               <Text style={DetailStyle.bottomBarRightText}>Join</Text>
             </TouchableOpacity>
           )
@@ -468,12 +455,12 @@ export default class DetailsView extends React.PureComponent<any, any> {
       }]}>
         <View style={DetailStyle.bottomInputLeft}>
           <TouchableOpacity onPress={() => this._toggleCommentInput(false)}>
-            <CustomSvg svg={this._closeIcon} width={15} height={15} fill={Colors.mainGray} style={DetailStyle.bottomInputLeftIcon}/>
+            <Icons.CloseIcon width={15} height={15} fill={Colors.mainGray} style={DetailStyle.bottomInputLeftIcon}/>
           </TouchableOpacity>
           <TextInput ref={ti => this._commentInputRef = ti} style={DetailStyle.bottomInput} placeholder="Leave your comment here" placeholderTextColor={Colors.lightestPurple} clearButtonMode="while-editing" onChangeText={comment => this._getCommentText(comment)}/>
         </View>
         <TouchableOpacity onPress={() => this._postComment()} style={DetailStyle.bottomInputSubmitBtn} activeOpacity={1}>
-          <CustomSvg style={DetailStyle.bottomInputSubmitBtnIcon} fill={Colors.mainPurple} svg={this._sendIcon} width={28} height={24}/>
+          <Icons.SendIcon style={DetailStyle.bottomInputSubmitBtnIcon} fill={Colors.mainPurple} width={28} height={24}/>
         </TouchableOpacity>
       </Animated.View>
     )

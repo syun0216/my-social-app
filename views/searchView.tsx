@@ -9,7 +9,6 @@ import SearchViewStyle from '../styles/searchViewStyle'
 import Text from '../components/unScalingText'
 import RadiusButton from '../components/radiusButton'
 import BlockButton from '../components/blockButton'
-import CustomSvg from '../components/customSvg'
 import CommonHeader from '../components/commonHeader'
 import Toast from '../components/toast'
 import CommonList from '../components/commonList'
@@ -21,19 +20,13 @@ import { px2dpw, px2dpwh } from '../utils/commonUtils'
 //api 
 import { getChannels, getEvents } from '../api/interface'
 //cache
-import { userStorage } from '../cache/appCache'
+import AppStorage from '../cache/appCache'
+//icons
+import { SearchIcon, TimeIcon, CheckIcon, CheckActiveIcon, LikeIcon, DateFromIcon, DateToIcon, LikeActiveIcon,  } from '../components/icon'
 
 export default class SearchView extends React.PureComponent<any, any> {
 
   private _i18n = i18n['en'].searchText
-  private _searchIcon = require('../assets/search.svg')
-  private _timeIcon = require('../assets/time.svg')
-  private _checkIcon = require('../assets/check-outline.svg')
-  private _checkActiveIcon = require('../assets/check.svg')
-  private _likeIcon = require('../assets/like-outline.svg')
-  private _likeActiveIcon = require('../assets/like.svg')
-  private _dateFromIcon = require('../assets/date-from.svg')
-  private _dateToIcon = require('../assets/date-to.svg')
   private _toast = null
   private _flatlist = null
 
@@ -229,7 +222,7 @@ export default class SearchView extends React.PureComponent<any, any> {
           channelList: [{id: null, name: 'ALL'}].concat(res.channels)
         })
       }else if(res.error === "invalid_token") {
-        userStorage.removeData()
+        AppStorage.removeUser()
         this.props.navigation.replace("Login")
       }
       // console.log(res)
@@ -269,7 +262,7 @@ export default class SearchView extends React.PureComponent<any, any> {
           {this._renderChannelView()}
           <BlockButton disabled={!isSearching} clickFunc={() => this._searchWithCondition()} style={!isSearching ? SearchViewStyle.searchDisabled : {}}>
             <View style={SearchViewStyle.searchItem}>
-              <CustomSvg style={SearchViewStyle.searchIcon} width={14} height={14} fill={Colors.deepPurple} svg={this._searchIcon}/>
+              <SearchIcon style={SearchViewStyle.searchIcon} width={14} height={14} fill={Colors.deepPurple}/>
               <Text style={SearchViewStyle.searchTitle}>
                 {this._i18n.searchTitle}
               </Text>
@@ -332,12 +325,12 @@ export default class SearchView extends React.PureComponent<any, any> {
     return (
       <View style={SearchViewStyle.timePickerContainer}>
         <TouchableOpacity onPress={() => this._toggleDatePicker('before')} style={SearchViewStyle.timePickerItem}>
-          <CustomSvg style={SearchViewStyle.timePickerIcon} fill={Colors.mainGreen} width={12} height={10.3} svg={this._dateFromIcon}/>
+          <DateFromIcon style={SearchViewStyle.timePickerIcon} fill={Colors.mainGreen} width={12} height={10.3}/>
           <Text style={SearchViewStyle.timePickerText}>{this.state.beforeDate}</Text>
         </TouchableOpacity>
         <Text style={SearchViewStyle.timePickerDivider}>-</Text>
         <TouchableOpacity onPress={() => this._toggleDatePicker('after')} style={SearchViewStyle.timePickerItem}>
-          <CustomSvg style={SearchViewStyle.timePickerIcon} fill={Colors.mainGreen} width={12} height={10.3} svg={this._dateToIcon}/>
+          <DateToIcon style={SearchViewStyle.timePickerIcon} fill={Colors.mainGreen} width={12} height={10.3}/>
           <Text style={SearchViewStyle.timePickerText}>{this.state.afterDate}</Text>
         </TouchableOpacity>
         <View style={SearchViewStyle.timePickerTriangle}/>
@@ -368,7 +361,7 @@ export default class SearchView extends React.PureComponent<any, any> {
     const { userInfo } = this.state
     const leftElement = (
       <TouchableOpacity onPress={() => this._toggleSearch()}>
-        <CustomSvg fill={Colors.deepPurple} svg={require('../assets/search.svg')} width={25} height={25}/>
+        <SearchIcon fill={Colors.deepPurple} width={25} height={25}/>
       </TouchableOpacity>
     )
     return <CommonHeader leftElement={leftElement} avatar={userInfo ? userInfo.avatar : ''}/>
@@ -423,7 +416,7 @@ export default class SearchView extends React.PureComponent<any, any> {
             <View style={SearchViewStyle.listItemWrapperLeft}>
               <Text style={SearchViewStyle.listItemTitle}>{item.name}</Text>
               <View style={{flexDirection: 'row', marginBottom: px2dpwh(12)}}>
-                <CustomSvg style={SearchViewStyle.listItemSubTitleSvg} fill={Colors.mainPurple} svg={this._timeIcon} width={12} height={12}/>
+                <TimeIcon style={SearchViewStyle.listItemSubTitleSvg} fill={Colors.mainPurple} width={12} height={12}/>
                 <Text style={SearchViewStyle.listItemSubtitle}>{item.begin_time.slice(0,10) || ''} - {item.end_time.slice(0,10) || ''}</Text>
               </View>
               <Text numberOfLines={4} style={SearchViewStyle.listItemDesc}>{item.description}</Text>
@@ -431,12 +424,12 @@ export default class SearchView extends React.PureComponent<any, any> {
                 {
                   item.me_going ? (
                     <TouchableOpacity activeOpacity={0.8} style={SearchViewStyle.listItemBottom}>
-                      <CustomSvg style={SearchViewStyle.listItemBottomSvg} fill={Colors.deepGreen} svg={this._checkActiveIcon} width={14} height={11}/>
+                      <CheckActiveIcon style={SearchViewStyle.listItemBottomSvg} fill={Colors.deepGreen} width={14} height={11}/>
                       <Text style={SearchViewStyle.listItemBottomText}>I am going!</Text>
                     </TouchableOpacity>
                   ) : (
                     <TouchableOpacity activeOpacity={0.8} style={SearchViewStyle.listItemBottom}>
-                      <CustomSvg style={SearchViewStyle.listItemBottomSvg} fill={Colors.lighterPurple} svg={this._checkIcon} width={14} height={11}/>
+                      <CheckIcon style={SearchViewStyle.listItemBottomSvg} fill={Colors.lighterPurple} width={14} height={11}/>
                       <Text style={SearchViewStyle.listItemBottomText}>{item.goings_count}</Text>
                     </TouchableOpacity>
                   )
@@ -444,12 +437,12 @@ export default class SearchView extends React.PureComponent<any, any> {
                 {
                   item.me_likes ? (
                     <TouchableOpacity activeOpacity={0.8} style={SearchViewStyle.listItemBottom}>
-                      <CustomSvg style={SearchViewStyle.listItemBottomSvg} fill={Colors.mainRed} svg={this._likeActiveIcon} width={14} height={11}/>
+                      <LikeActiveIcon style={SearchViewStyle.listItemBottomSvg} fill={Colors.mainRed} width={14} height={11}/>
                       <Text style={SearchViewStyle.listItemBottomText}>I like it!</Text>
                     </TouchableOpacity>
                   ) : (
                     <TouchableOpacity activeOpacity={0.8} style={SearchViewStyle.listItemBottom}>
-                      <CustomSvg style={SearchViewStyle.listItemBottomSvg} fill={Colors.lighterPurple} svg={this._likeIcon} width={14} height={11}/>
+                      <LikeIcon style={SearchViewStyle.listItemBottomSvg} fill={Colors.lighterPurple} width={14} height={11}/>
                       <Text style={SearchViewStyle.listItemBottomText}>{item.likes_count}</Text>
                     </TouchableOpacity>
                   )

@@ -16,24 +16,22 @@ import Colors from '../utils/colors'
 import { px2dpwh } from '../utils/commonUtils'
 //api 
 import { getUserInfo, getUserEvents } from '../api/interface'
+//icons
+import { HomeIcon, EmailIcon, TimeIcon } from '../components/icon'
 
 export default class MeView extends React.PureComponent<any, any> {
 
-  private _homeIcon = require('../assets/home.svg')
-  private _emailIcon = require('../assets/email.svg')
   private _likeIcon = require('../assets/like-outline.svg')
   private _likeActiveIcon = require('../assets/like.svg')
   private _checkIcon = require('../assets/check-outline.svg')
   private _checkActiveIcon = require('../assets/check.svg')
   private _pastIcon = require('../assets/past-outline.svg')
   private _pastActiveIcon = require('../assets/past.svg')
-  private _timeIcon = require('../assets/time.svg')
 
   public state = {
     isLoading: true,
     userInfo: null,
-    userEvent: null,
-    userInfo: null
+    userEvent: null
   }
 
   public componentDidMount() {
@@ -101,7 +99,7 @@ export default class MeView extends React.PureComponent<any, any> {
   private _renderHeaderView() {
     const { userInfo } = this.state
     const leftElement = (<TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-      <CustomSvg fill={Colors.deepPurple} svg={this._homeIcon} width={22} height={20}/>
+      <HomeIcon fill={Colors.deepPurple} width={22} height={20}/>
     </TouchableOpacity>)
     return (
       <CommonHeader leftElement={leftElement} avatar={userInfo ? userInfo.avatar : ''}/>
@@ -115,7 +113,7 @@ export default class MeView extends React.PureComponent<any, any> {
         <Image source={{uri: userInfo.avatar}} style={MeStyle.introAvatar}/>
         <Text style={MeStyle.introName}>{userInfo.username}</Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <CustomSvg style={MeStyle.introEmailIcon} fill={Colors.mainPurple} svg={this._emailIcon} width={20} height={15}/>
+          <EmailIcon style={MeStyle.introEmailIcon} fill={Colors.mainPurple} width={20} height={15}/>
           <Text style={MeStyle.introEmail}>{userInfo.email}</Text>
         </View>
       </View>
@@ -161,7 +159,7 @@ export default class MeView extends React.PureComponent<any, any> {
             <View style={SearchViewStyle.listItemWrapperLeft}>
               <Text style={SearchViewStyle.listItemTitle}>{item.name}</Text>
               <View style={{flexDirection: 'row', marginBottom: px2dpwh(12)}}>
-                <CustomSvg style={SearchViewStyle.listItemSubTitleSvg} fill={Colors.mainPurple} svg={this._timeIcon} width={12} height={12}/>
+                <TimeIcon style={SearchViewStyle.listItemSubTitleSvg} fill={Colors.mainPurple} width={12} height={12}/>
                 <Text style={SearchViewStyle.listItemSubtitle}>{item.begin_time.slice(0,10) || ''} - {item.end_time.slice(0,10) || ''}</Text>
               </View>
               <Text numberOfLines={4} style={SearchViewStyle.listItemDesc}>{item.description}</Text>
