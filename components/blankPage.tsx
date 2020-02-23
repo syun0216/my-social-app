@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const blankPage = ({style, text}: IBlankPage): any => (
+const blankPage = ({style, text}: IBlankPage): React.ReactElement => (
   <View style={[styles.blankContainer, style]}>
     <CustomSvg style={styles.blankIcon} width={60} height={60} fill={Colors.lightestPurple} svg={require('../assets/no-activity.svg')} />
     <Text style={styles.blankText}>{text}</Text>

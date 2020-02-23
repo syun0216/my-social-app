@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const radiusButton = (props: IRadiusButton) => (
+const radiusButton = (props: IRadiusButton): React.ReactElement => (
   <TouchableOpacity onPress={props.clickFunc} activeOpacity={0.8} style={[styles.btnContainer, props.defaultStyle]}>
     <Text style={[styles.btnText, props.textStyle, props.textActiveStyle]}>{props.text}</Text>
   </TouchableOpacity>

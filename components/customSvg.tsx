@@ -11,7 +11,7 @@ interface ICustomSvg {
   fill: string
 }
 
-const customSvg = (props: ICustomSvg) => (
+const customSvg = (props: ICustomSvg): React.ReactElement => (
   <View style={props.style}>
     <SvgUri
       width={px2dpw(props.width)}

@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const commonTab = (props: ICommonTab) => {
+const commonTab = (props: ICommonTab): React.ReactElement => {
   const [tabIdx, setTabIdx] = useState(0)
 
   const setTabInner = (idx) => {

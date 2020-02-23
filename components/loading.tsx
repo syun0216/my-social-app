@@ -2,7 +2,7 @@ import React from 'react'
 import { View, ActivityIndicator } from 'react-native'
 import Colors from '../utils/colors'
 
-const loading = () => (
+const loading = (): React.ReactElement => (
   <View
     style={{
       flex: 1,

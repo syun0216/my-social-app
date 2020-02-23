@@ -17,7 +17,7 @@ import Loading from './loading'
 import colors from '../utils/colors'
 import { px2dpw, px2dpwh } from '../utils/commonUtils'
 //cache
-import { userStorage } from '../cache/appCache'
+import AppStorage from '../cache/appCache'
 //navigation
 import * as RootNavigation from '../router/rootNavigation'
 
@@ -120,7 +120,7 @@ class CommonList extends Component<ICommonList, IState> {
       (data: any) => {
         if(data.error) {
           if(data.error === "invalid_token") {
-            userStorage.removeData()
+            AppStorage.removeUser()
             // this.props.navigation.replace("Login")
             RootNavigation.replace("Login", {})
           }

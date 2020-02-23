@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const commonHeader = (props: ICommonHeader) => {
+const commonHeader = (props: ICommonHeader): React.ReactElement => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>

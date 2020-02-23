@@ -31,7 +31,7 @@ interface IBlockButton {
   children?: React.ReactNode,
 }
 
-const blockButton = (props: IBlockButton) => (
+const blockButton = (props: IBlockButton): React.ReactElement => (
   <TouchableOpacity disabled={props.disabled} onPress={props.clickFunc} style={[styles.btnContainer, props.style]} activeOpacity={0.8}>
     {!props.isLoading ? (props.children ? props.children : (
       <Text style={styles.btnText}>{props.text}</Text>

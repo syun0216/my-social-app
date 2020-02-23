@@ -25,7 +25,7 @@ interface IListFooter {
   errorToDo: () => void
 }
 
-const ListFooter = ({ loadingStatus, errorToDo }: IListFooter) => {
+const ListFooter = ({ loadingStatus, errorToDo }: IListFooter): React.ReactElement => {
   switch (loadingStatus) {
     case httpStatus.LOADING: {
       return (
@@ -67,5 +67,9 @@ const ListFooter = ({ loadingStatus, errorToDo }: IListFooter) => {
       return null;
   }
 };
+
+ListFooter.defaultProps = {
+  loadingStatus: httpStatus.LOADING
+}
 
 export default ListFooter
