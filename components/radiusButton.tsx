@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 // components
 import Text from '../components/unScalingText';
@@ -60,4 +60,4 @@ radiusButton.defaultProps = {
   clickFunc: () => {},
 };
 
-export default radiusButton;
+export default memo(radiusButton);

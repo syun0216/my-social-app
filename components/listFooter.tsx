@@ -1,41 +1,44 @@
-import React from "react"
+import React, { memo } from 'react';
 import {
   View,
   ActivityIndicator,
   Text,
   TouchableOpacity,
   StyleSheet,
-  Platform
-} from "react-native"
-import {httpStatus} from '../api/apis'
-import Colors from "../utils/colors";
+  Platform,
+} from 'react-native';
+import { httpStatus } from '../api/apis';
+import Colors from '../utils/colors';
 
 const styles = StyleSheet.create({
   commonContainer: {
     height: 50,
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
-  }
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 interface IListFooter {
-  loadingStatus: number,
-  errorToDo: () => void
+  loadingStatus: number;
+  errorToDo: () => void;
 }
 
-const ListFooter = ({ loadingStatus, errorToDo }: IListFooter): React.ReactElement => {
+const ListFooter = ({
+  loadingStatus,
+  errorToDo,
+}: IListFooter): React.ReactElement => {
   switch (loadingStatus) {
     case httpStatus.LOADING: {
       return (
         <View style={styles.commonContainer}>
-            <ActivityIndicator
-              style={{ flex: 1 }}
-              size="small"
-              color={Colors.mainGray}
-            />
-          </View>
+          <ActivityIndicator
+            style={{ flex: 1 }}
+            size="small"
+            color={Colors.mainGray}
+          />
+        </View>
       );
     }
     case httpStatus.LOAD_FAILED: {
@@ -44,7 +47,7 @@ const ListFooter = ({ loadingStatus, errorToDo }: IListFooter): React.ReactEleme
           style={styles.commonContainer}
           onPress={() => errorToDo()}
         >
-          <View style={{ flex: 1, alignItems: "center" }}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
             <Text>load failed, press to reload agin...</Text>
           </View>
         </TouchableOpacity>
@@ -55,9 +58,7 @@ const ListFooter = ({ loadingStatus, errorToDo }: IListFooter): React.ReactEleme
         <View style={[styles.commonContainer]}>
           {/*<View style={{width:_winWidth*0.3,height:1,marginLeft:10,marginRight:20,backgroundColor:'#959595'}}></View>*/}
           <View>
-            <Text style={{ color: Colors.mainGray }}>
-              no more data~
-            </Text>
+            <Text style={{ color: Colors.mainGray }}>no more data~</Text>
           </View>
           {/*<View style={{width:GLOBAL_PARAMS._winWidth*0.3,height:1,marginLeft:20,marginRight:10,backgroundColor:'#959595'}}></View>*/}
         </View>
@@ -69,7 +70,7 @@ const ListFooter = ({ loadingStatus, errorToDo }: IListFooter): React.ReactEleme
 };
 
 ListFooter.defaultProps = {
-  loadingStatus: httpStatus.LOADING
-}
+  loadingStatus: httpStatus.LOADING,
+};
 
-export default ListFooter
+export default memo(ListFooter);

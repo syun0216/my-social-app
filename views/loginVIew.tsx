@@ -19,7 +19,7 @@ import Colors from '../utils/colors';
 import i18n from '../language/i18n';
 import { deviceHeightDp } from '../utils/commonUtils';
 //api
-import { userLogin } from '../api/apis'
+import { userLogin } from '../api/apis';
 //cache
 import AppStorage from '../cache/appCache';
 //icons

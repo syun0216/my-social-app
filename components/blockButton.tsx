@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -61,4 +61,4 @@ blockButton.defaultProps = {
   clickFunc: () => {},
 };
 
-export default blockButton;
+export default memo(blockButton);

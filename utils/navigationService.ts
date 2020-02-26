@@ -1,4 +1,10 @@
-import { NavigationActions, StackActions, NavigationParams, NavigationNavigateActionPayload, NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationActions,
+  StackActions,
+  NavigationParams,
+  NavigationNavigateActionPayload,
+  NavigationScreenProp,
+} from 'react-navigation';
 
 let _navigator: NavigationScreenProp<{}>;
 
@@ -13,13 +19,13 @@ const navigate = (routeName: string, params: NavigationParams) => {
       params,
     })
   );
-}
+};
 
-const navigateWithWholeRouteParmas = (params: NavigationNavigateActionPayload) => {
-  _navigator.dispatch(
-    NavigationActions.navigate(params)
-  );
-}
+const navigateWithWholeRouteParmas = (
+  params: NavigationNavigateActionPayload
+) => {
+  _navigator.dispatch(NavigationActions.navigate(params));
+};
 
 // const replace = () => {
 //   _navigator.dispatch({
@@ -27,10 +33,8 @@ const navigateWithWholeRouteParmas = (params: NavigationNavigateActionPayload) =
 //   })
 
 const back = () => {
-  _navigator.dispatch(
-    NavigationActions.back()
-  );
-}
+  _navigator.dispatch(NavigationActions.back());
+};
 
 // add other navigation functions that you need and export them
 

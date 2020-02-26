@@ -1,9 +1,16 @@
-import React from 'react'
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import React, { memo } from 'react';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 //utils
-import { deviceWidthDp, px2dpw, isIphoneX, iPhoneXTop, iPhoneTop, px2dpwh } from '../utils/commonUtils'
-import Colors from '../utils/colors'
-import CustomSvg from './customSvg'
+import {
+  deviceWidthDp,
+  px2dpw,
+  isIphoneX,
+  iPhoneXTop,
+  iPhoneTop,
+  px2dpwh,
+} from '../utils/commonUtils';
+import Colors from '../utils/colors';
+import CustomSvg from './customSvg';
 import { useNavigation } from '@react-navigation/native';
 
 interface ICommonHeader {
@@ -21,7 +28,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 0,
-    zIndex: 2
+    zIndex: 2,
   },
   headerInner: {
     width: deviceWidthDp,
@@ -41,26 +48,37 @@ const styles = StyleSheet.create({
     width: px2dpw(24),
     height: px2dpw(24),
     borderRadius: px2dpw(12),
-  }
-})
+  },
+});
 
 const commonHeader = (props: ICommonHeader): React.ReactElement => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
-    <View style={styles.headerInner}>
-      {props.leftElement}
-      <CustomSvg fill={Colors.mainGreen} width={23} height={27} svg={require('../assets/logo-cat.svg')}/>
-      <TouchableOpacity onPress={() => navigation.navigate('Me')} style={styles.headerRight}>
-        <Image style={styles.headerRightIcon} source={{uri: props.avatar || ''}}/>
-      </TouchableOpacity>
+      <View style={styles.headerInner}>
+        {props.leftElement}
+        <CustomSvg
+          fill={Colors.mainGreen}
+          width={23}
+          height={27}
+          svg={require('../assets/logo-cat.svg')}
+        />
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Me')}
+          style={styles.headerRight}
+        >
+          <Image
+            style={styles.headerRightIcon}
+            source={{ uri: props.avatar || '' }}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
-  </View>
-  )
-}
+  );
+};
 
 commonHeader.defaultProps = {
-  avatar: require('../assets/avatar.png')
-}
+  avatar: require('../assets/avatar.png'),
+};
 
-export default commonHeader
+export default memo(commonHeader);

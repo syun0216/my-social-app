@@ -1,14 +1,14 @@
-import React from 'react'
-import { View, ViewProps } from 'react-native'
-import SvgUri from 'expo-svg-uri'
-import { px2dpw, px2dpwh } from '../utils/commonUtils'
+import React, { memo } from 'react';
+import { View, ViewProps } from 'react-native';
+import SvgUri from 'expo-svg-uri';
+import { px2dpw, px2dpwh } from '../utils/commonUtils';
 
 interface ICustomSvg {
-  width: number,
-  height: number,
-  svg: any,
-  style?: ViewProps['style'],
-  fill: string
+  width: number;
+  height: number;
+  svg: any;
+  style?: ViewProps['style'];
+  fill: string;
 }
 
 const customSvg = (props: ICustomSvg): React.ReactElement => (
@@ -21,6 +21,6 @@ const customSvg = (props: ICustomSvg): React.ReactElement => (
       fillAll={true}
     />
   </View>
-)
+);
 
-export default customSvg
+export default memo(customSvg);

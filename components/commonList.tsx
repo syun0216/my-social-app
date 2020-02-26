@@ -5,9 +5,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
-} from 'react-native'
-import { httpStatus } from '../api/apis'
+  Image,
+} from 'react-native';
+import { httpStatus } from '../api/apis';
 //components
 import ListFooter from './listFooter';
 import BlankPage from './blankPage';

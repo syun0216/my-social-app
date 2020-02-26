@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { View, TouchableOpacity, StyleSheet, ViewProps } from 'react-native';
 import Colors from '../utils/colors';
 import { px2dpwh, deviceWidthDp, px2dpw, spText } from '../utils/commonUtils';
@@ -100,4 +100,4 @@ const commonTab = (props: ICommonTab): React.ReactElement => {
   );
 };
 
-export default commonTab;
+export default memo(commonTab);
