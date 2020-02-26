@@ -15,7 +15,7 @@ import MeStyle from '../styles/meStyle'
 import Colors from '../utils/colors'
 import { px2dpwh } from '../utils/commonUtils'
 //api 
-import { getUserInfo, getUserEvents } from '../api/interface'
+import { getUserInfo, getUserEvents } from '../api/apis'
 //icons
 import { HomeIcon, EmailIcon, TimeIcon } from '../components/icon'
 

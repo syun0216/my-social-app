@@ -14,7 +14,7 @@ import Toast from '../components/toast'
 import Colors from '../utils/colors'
 import { px2dpwh, isIphoneX, iPhoneXBottom } from '../utils/commonUtils'
 //api
-import {getEventsWithEventId, getEventParticipantWithEventId, getLikesWithEventId, getCommentWithEventId, postEventParticipantWithEventId, postLikeWithEventId, postCommentWithEventId, deleteEventParticipantWithEventId, deleteLikeWithEventId} from '../api/interface'
+import {getEventsWithEventId, getEventParticipantWithEventId, getLikesWithEventId, getCommentWithEventId, postEventParticipantWithEventId, postLikeWithEventId, postCommentWithEventId, deleteEventParticipantWithEventId, deleteLikeWithEventId} from '../api/apis'
 //icons
 import * as Icons from '../components/icon'
 

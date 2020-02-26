@@ -18,7 +18,7 @@ import i18n from '../language/i18n'
 import Colors from '../utils/colors'
 import { px2dpw, px2dpwh } from '../utils/commonUtils'
 //api 
-import { getChannels, getEvents } from '../api/interface'
+import { getChannels, getEvents } from '../api/apis'
 //cache
 import AppStorage from '../cache/appCache'
 //icons

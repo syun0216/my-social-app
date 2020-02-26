@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Platform
 } from "react-native"
-import {httpStatus} from '../api/interface'
+import {httpStatus} from '../api/apis'
 import Colors from "../utils/colors";
 
 const styles = StyleSheet.create({

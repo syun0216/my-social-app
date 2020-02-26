@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native'
-import { httpStatus } from '../api/interface'
+import { httpStatus } from '../api/apis'
 import { NavigationScreenProp, withNavigation } from 'react-navigation'
 //components
 import ListFooter from './listFooter'

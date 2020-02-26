@@ -1,90 +1,91 @@
-import request from './request'
-
-interface loginData {
-  username: string,
-  password: string
+interface IBasic {
+  error?: string;
+  statusCode?: number;
+  message?: string;
+}
+export interface loginModel extends IBasic {
+  token: string;
+  user: loginInfoModel;
 }
 
-export const httpCode = {
-  success: 200,
-  invalidCode: 403,
-  notFound: 404
+export interface loginInfoModel{
+  id: number;
+  username: string;
+  email: string;
+  avatar: string;
 }
 
-export const httpStatus = {
-  LOADING: 1,
-  LOAD_SUCCESS: 2,
-  LOAD_FAILED: 3,
-  NO_MORE_DATA: 4,
-  NO_DATA: 5
+export interface eventListModel extends IBasic {
+  hasMore: boolean;
+  events: eventItemModel[];
 }
 
-export function userLogin(data: loginData) {
-  return request.postJSONData('/auth/token', data)
+export interface eventItemModel {
+  id: number;
+  name: string;
+  creator_id: number;
+  channel_id: number;
+  begin_time: string;
+  end_time: string;
+  create_time: string;
+  update_time: string;
+  location: string;
+  location_detail: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  channel;
+  images: string[];
+  likes_count: number;
+  goings_count: number;
+  me_likes: boolean;
+  me_going: boolean;
 }
 
-export function deleteToken() {
-  return request.deleteData('/auth/token')
+export interface channelListModel extends IBasic {
+  channels: channelInfoModel[];
+}
+export interface channelInfoModel {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export function getChannels() {
-  return request.getData('/channels')
+export interface creatorModel extends loginModel {
+  salt: string;
+  avatar: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export function getEvents(params) {
-  let query = Object.keys(params).reduce((acm, val) => {
-    if(params[val] !== null) {
-      return acm += `${val}=${params[val]}&`
-    } else {
-      return acm += ''
-    }
-  }, '?')
-  query = query.slice(0, query.length-1)
-  return request.getData(`/events${query}`)
+export interface likeModel extends IBasic {
+  hasMore?: boolean;
+  users?: likeItemModal[];
 }
 
-export function getEventsWithEventId(event_id) {
-  return request.getData(`/events/${event_id}`)
+export interface likeItemModal {
+  id: number;
+  username: string;
+  avatar: string;
 }
 
-export function getEventParticipantWithEventId(event_id) {
-  return request.getData(`/events/${event_id}/participants`)
+export interface commentsModel extends IBasic {
+  comments: commentItemModel[];
 }
 
-export function postEventParticipantWithEventId(event_id) {
-  return request.postData(`/events/${event_id}/participants`)
+export interface commentItemModel {
+  id: number;
+  userId: number;
+  eventId: number;
+  create_time: string;
+  comment: string;
+  createdAt: string;
+  updateAt: string;
 }
 
-export function deleteEventParticipantWithEventId(event_id) {
-  return request.deleteData(`/events/${event_id}/participants`)
-}
-
-export function getCommentWithEventId(event_id) {
-  return request.getData(`/events/${event_id}/comments`)
-}
-
-export function postCommentWithEventId(event_id, comment) {
-  return request.postData(`/events/${event_id}/comments`, {
-    comment
-  })
-}
-
-export function getLikesWithEventId(event_id) {
-  return request.getData(`/events/${event_id}/likes`)
-}
-
-export function postLikeWithEventId(event_id) {
-  return request.postData(`/events/${event_id}/likes`)
-}
-
-export function deleteLikeWithEventId(event_id) {
-  return request.deleteData(`/events/${event_id}/likes`)
-}
-
-export function getUserInfo() {
-  return request.getData(`/user`)
-}
-
-export function getUserEvents(type) {
-  return request.getData(`/user/events?type=${type}`)
+export interface userInfo extends loginInfoModel, IBasic {
+  likes_count: number;
+  past_count: number;
+  goings_count: number;
 }
