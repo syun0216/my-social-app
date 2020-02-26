@@ -3,24 +3,30 @@ interface IBasic {
   statusCode?: number;
   message?: string;
 }
-export interface loginModel extends IBasic {
+
+interface loginData {
+  username: string;
+  password: string;
+}
+
+interface loginModel extends IBasic {
   token: string;
   user: loginInfoModel;
 }
 
-export interface loginInfoModel{
+interface loginInfoModel {
   id: number;
   username: string;
   email: string;
   avatar: string;
 }
 
-export interface eventListModel extends IBasic {
+interface eventListModel extends IBasic {
   hasMore: boolean;
   events: eventItemModel[];
 }
 
-export interface eventItemModel {
+interface eventItemModel {
   id: number;
   name: string;
   creator_id: number;
@@ -42,39 +48,48 @@ export interface eventItemModel {
   me_going: boolean;
 }
 
-export interface channelListModel extends IBasic {
+interface channelListModel extends IBasic {
   channels: channelInfoModel[];
 }
-export interface channelInfoModel {
+interface channelInfoModel {
   id: number;
   name: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface creatorModel extends loginModel {
+interface creatorModel extends loginModel {
   salt: string;
   avatar: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface likeModel extends IBasic {
+interface likeModel extends IBasic {
   hasMore?: boolean;
   users?: likeItemModal[];
 }
 
-export interface likeItemModal {
+interface likeItemModal {
   id: number;
   username: string;
   avatar: string;
 }
 
-export interface commentsModel extends IBasic {
+interface participantsItemModel {
+  id: number;
+  username: string;
+}
+
+interface participantsModel {
+  users: participantsItemModel[];
+}
+
+interface commentsModel extends IBasic {
   comments: commentItemModel[];
 }
 
-export interface commentItemModel {
+interface commentItemModel {
   id: number;
   userId: number;
   eventId: number;
@@ -84,7 +99,7 @@ export interface commentItemModel {
   updateAt: string;
 }
 
-export interface userInfo extends loginInfoModel, IBasic {
+interface userInfo extends loginInfoModel, IBasic {
   likes_count: number;
   past_count: number;
   goings_count: number;

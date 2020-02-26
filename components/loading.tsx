@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import { View, ActivityIndicator } from 'react-native'
 import Colors from '../utils/colors'
 
@@ -14,4 +14,4 @@ const loading = (): React.ReactElement => (
   </View>
 )
 
-export default loading
+export default memo(loading)
