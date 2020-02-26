@@ -18,10 +18,10 @@ import RadiusButton from '../components/radiusButton';
 import SearchViewStyle from '../styles/searchViewStyle';
 import MeStyle from '../styles/meStyle';
 //utils
-import Colors from '../utils/colors'
-import { px2dpwh } from '../utils/commonUtils'
-//api 
-import { getUserInfo, getUserEvents } from '../api/apis'
+import Colors from '../utils/colors';
+import { px2dpwh } from '../utils/commonUtils';
+//api
+import { getUserInfo, getUserEvents } from '../api/apis';
 //icons
 import { HomeIcon, EmailIcon, TimeIcon } from '../components/icon';
 

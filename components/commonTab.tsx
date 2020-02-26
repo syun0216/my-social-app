@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, ViewProps } from 'react-native';
 import Colors from '../utils/colors';
-import { px2dpwh, deviceWidthDp, px2dpw } from '../utils/commonUtils';
+import { px2dpwh, deviceWidthDp, px2dpw, spText } from '../utils/commonUtils';
 import Text from './unScalingText';
 import CustomSvg from './customSvg';
 
@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
   tabItemText: {
     color: Colors.tabGray,
     fontFamily: 'SourceSansPro-Regular',
-    fontSize: px2dpw(12),
+    fontSize: spText(12),
   },
   tabItemTextActive: {
     color: Colors.deepGreen,
     fontFamily: 'SourceSansPro-Regular',
-    fontSize: px2dpw(12),
+    fontSize: spText(12),
   },
 });
 

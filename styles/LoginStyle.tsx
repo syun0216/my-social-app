@@ -1,11 +1,17 @@
-import { StyleSheet, Platform } from "react-native";
-import { deviceWidthDp, deviceHeightDp, px2dpw, px2dpwh } from '../utils/commonUtils'
-import Colors from '../utils/colors'
+import { StyleSheet, Platform } from 'react-native';
+import {
+  deviceWidthDp,
+  deviceHeightDp,
+  px2dpw,
+  px2dpwh,
+  spText,
+} from '../utils/commonUtils';
+import Colors from '../utils/colors';
 export default StyleSheet.create({
   loginBg: {
     width: deviceWidthDp,
     height: deviceHeightDp,
-    flex: 1
+    flex: 1,
   },
   linearGradientBg: {
     position: 'absolute',
@@ -22,16 +28,16 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   logoTitle: {
-    fontSize: px2dpw(24),
+    fontSize: spText(24),
     marginBottom: px2dpw(37),
     color: Colors.mainGreen,
-    fontFamily: 'SourceSansPro-Bold'
+    fontFamily: 'SourceSansPro-Bold',
   },
   logoSubtitle: {
-    fontSize: px2dpw(16),
+    fontSize: spText(16),
     marginBottom: px2dpw(16),
     color: Colors.mainGreen,
-    fontFamily: 'SourceSansPro-Semibold'
+    fontFamily: 'SourceSansPro-Semibold',
   },
   logoImg: {
     width: px2dpw(64),
@@ -40,12 +46,12 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.mainGreen,
     paddingTop: px2dpw(8),
-    paddingLeft: px2dpw(7)
+    paddingLeft: px2dpw(7),
   },
   fillinContainer: {
     width: deviceWidthDp,
     marginTop: Platform.OS === 'ios' ? px2dpwh(118) : px2dpwh(100),
-    alignItems: 'center'
+    alignItems: 'center',
   },
   fillinItem: {
     paddingLeft: px2dpw(13.3),
@@ -60,21 +66,21 @@ export default StyleSheet.create({
     borderRadius: px2dpw(20),
     borderColor: Colors.lightestPurple,
     borderWidth: 2,
-    marginBottom: px2dpw(16)
+    marginBottom: px2dpw(16),
   },
   fillinSvg: {
-    marginRight: px2dpw(6)
+    marginRight: px2dpw(6),
   },
   fillin: {
     flex: 1,
     height: px2dpw(40),
-    fontSize: px2dpw(16),
-    fontFamily: 'SourceSansPro-Regular'
+    fontSize: spText(16),
+    fontFamily: 'SourceSansPro-Regular',
   },
   fillinActive: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
   },
   submitBtn: {
     position: 'relative',
-  }
-})
+  },
+});

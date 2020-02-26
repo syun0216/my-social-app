@@ -20,10 +20,10 @@ import CommonList from '../components/commonList';
 // languages
 import i18n from '../language/i18n';
 //utils
-import Colors from '../utils/colors'
-import { px2dpw, px2dpwh } from '../utils/commonUtils'
-//api 
-import { getChannels, getEvents } from '../api/apis'
+import Colors from '../utils/colors';
+import { px2dpw, px2dpwh } from '../utils/commonUtils';
+//api
+import { getChannels, getEvents } from '../api/apis';
 //cache
 import AppStorage from '../cache/appCache';
 //icons
@@ -37,6 +37,8 @@ import {
   DateToIcon,
   LikeActiveIcon,
 } from '../components/icon';
+
+type PropTypes = any;
 
 type State = {
   posLeft: Animated.AnimatedValue;
@@ -55,7 +57,7 @@ type State = {
   afterDateFormat: Date;
   dateType: string;
 };
-export default class SearchView extends React.PureComponent<any, State> {
+export default class SearchView extends React.PureComponent<PropTypes, State> {
   private _i18n = i18n['en'].searchText;
   private _toast = null;
   private _flatlist = null;

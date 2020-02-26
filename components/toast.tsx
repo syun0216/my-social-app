@@ -1,8 +1,15 @@
-import React from 'react'
-import { Animated, StyleSheet, Easing } from 'react-native'
-import { deviceWidthDp, px2dpwh, px2dpw, isIphoneX, iPhoneXTop, iPhoneTop } from '../utils/commonUtils'
-import Colors from '../utils/colors'
-import Text from './unScalingText'
+import React from 'react';
+import { Animated, StyleSheet } from 'react-native';
+import {
+  deviceWidthDp,
+  px2dpwh,
+  spText,
+  isIphoneX,
+  iPhoneXTop,
+  iPhoneTop,
+} from '../utils/commonUtils';
+import Colors from '../utils/colors';
+import Text from './unScalingText';
 
 interface IToast {
   bgColor?: string;
@@ -12,7 +19,7 @@ interface IToast {
 
 interface IState {
   transY: Animated.Value;
-  msg: string
+  msg: string;
 }
 
 const styles = StyleSheet.create({
@@ -20,39 +27,38 @@ const styles = StyleSheet.create({
     width: deviceWidthDp,
     height: isIphoneX() ? px2dpwh(32) + iPhoneXTop : px2dpwh(32) + iPhoneTop,
     backgroundColor: 'rgba(229, 247, 169, 0.8)',
-    fontSize: px2dpw(14),
+    fontSize: spText(14),
     fontFamily: 'SourceSansPro-Semibold',
     position: 'absolute',
     top: 0,
     zIndex: 3,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   toastText: {
     color: Colors.mainPurple,
-    fontSize: px2dpw(14),
-    fontFamily: 'SourceSansPro-Semibold'
-  }
-})
+    fontSize: spText(14),
+    fontFamily: 'SourceSansPro-Semibold',
+  },
+});
 
 export default class Toast extends React.PureComponent<IToast, IState> {
-  
   public state: IState = {
     transY: new Animated.Value(0),
-    msg: ''
-  }
-  
+    msg: '',
+  };
+
   public show(msg = 'hello') {
     this.setState({
-      msg
-    })
+      msg,
+    });
     Animated.spring(this.state.transY, {
-      toValue: 1
-    }).start()
-    if(this.props.autoHide) {
+      toValue: 1,
+    }).start();
+    if (this.props.autoHide) {
       setTimeout(() => {
-        this.hide()
-      }, 2500)
+        this.hide();
+      }, 2500);
     }
   }
 
@@ -61,22 +67,41 @@ export default class Toast extends React.PureComponent<IToast, IState> {
       toValue: 0,
       // duration: 800,
       // easing: Easing.cubic
-    }).start()
+    }).start();
   }
 
   public render() {
     return (
-      <Animated.View style={[styles.toastContainer, {
-        transform: [{
-          translateY: this.state.transY.interpolate({
-            inputRange: [0, 1],
-            outputRange: [-(isIphoneX() ? px2dpwh(32) + iPhoneXTop : px2dpwh(32) + iPhoneTop), 0]
-          })
-        }],
-        backgroundColor: this.props.bgColor || 'rgba(229, 247, 169, 0.8)'
-      }]}>
-        <Text style={[styles.toastText, {color: this.props.textColor || Colors.mainPurple}]}>{this.state.msg}</Text>
+      <Animated.View
+        style={[
+          styles.toastContainer,
+          {
+            transform: [
+              {
+                translateY: this.state.transY.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [
+                    -(isIphoneX()
+                      ? px2dpwh(32) + iPhoneXTop
+                      : px2dpwh(32) + iPhoneTop),
+                    0,
+                  ],
+                }),
+              },
+            ],
+            backgroundColor: this.props.bgColor || 'rgba(229, 247, 169, 0.8)',
+          },
+        ]}
+      >
+        <Text
+          style={[
+            styles.toastText,
+            { color: this.props.textColor || Colors.mainPurple },
+          ]}
+        >
+          {this.state.msg}
+        </Text>
       </Animated.View>
-    )
+    );
   }
 }
