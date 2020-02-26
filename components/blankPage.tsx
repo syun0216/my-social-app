@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ViewProps } from 'react-native'
 //components
 import Text from '../components/unScalingText'
 import CustomSvg from '../components/customSvg'
@@ -9,7 +9,7 @@ import { px2dpw } from '../utils/commonUtils'
 
 interface IBlankPage {
   text: string;
-  style?: object;
+  style?: ViewProps['style'];
 }
 
 const styles = StyleSheet.create({

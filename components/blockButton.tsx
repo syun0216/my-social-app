@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, StyleSheet, ActivityIndicator, ViewProps } from 'react-native'
 import Text from '../components/unScalingText'
 //utils
 import { px2dpw, iPhoneXBottom, isIphoneX } from '../utils/commonUtils'
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
 interface IBlockButton {
   disabled?: boolean;
-  style?: object;
+  style?: ViewProps['style'];
   isLoading?: boolean;
   text?: string;
   clickFunc(): void;

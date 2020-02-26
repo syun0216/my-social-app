@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, ViewProps } from 'react-native'
 import SvgUri from 'expo-svg-uri'
 import { px2dpw, px2dpwh } from '../utils/commonUtils'
 
@@ -7,7 +7,7 @@ interface ICustomSvg {
   width: number,
   height: number,
   svg: any,
-  style?: object,
+  style?: ViewProps['style'],
   fill: string
 }
 
