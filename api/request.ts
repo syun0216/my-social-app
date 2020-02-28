@@ -1,11 +1,12 @@
 import { AsyncStorage, Platform } from 'react-native';
 import AppStorage from '../cache/appCache';
 
-const baseUrl =
+const baseUrl: string =
   Platform.OS === 'ios'
     ? 'http://localhost:3000/api/v1'
     : 'http://10.0.2.2:3000/api/v1';
-const timeoutSeconds = 20;
+const timeoutSeconds: number = 20;
+
 export default class BaseRequest {
   static async getCacheInfo() {
     let res = await AsyncStorage.getItem('storage_key_user_data');
@@ -15,7 +16,7 @@ export default class BaseRequest {
     return res;
   }
   /// POST方法
-  static async postData(url, params = null) {
+  static async postData(url, params: Params = null): Promise<any> {
     let res: any = await AppStorage.getUser();
     if (res) {
       res = JSON.parse(res);
@@ -58,7 +59,7 @@ export default class BaseRequest {
   }
 
   /// POST方法
-  static async postJSONData(url, params = null) {
+  static async postJSONData(url: string, params: Params = null): Promise<any> {
     let res: any = await AppStorage.getUser();
     if (res) {
       res = JSON.parse(res);
@@ -101,7 +102,7 @@ export default class BaseRequest {
   }
 
   /// Get方法
-  static async getData(url) {
+  static async getData(url: string): Promise<any> {
     // console.log(`${baseUrl}${url}`)
     let res: any = await AppStorage.getUser();
     if (res) {
@@ -131,7 +132,7 @@ export default class BaseRequest {
   }
 
   /// delete方法
-  static async deleteData(url) {
+  static async deleteData(url: string): Promise<any> {
     let res: any = await AppStorage.getUser();
     if (res) {
       res = JSON.parse(res);

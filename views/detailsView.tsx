@@ -7,6 +7,8 @@ import {
   TextInput,
   Animated,
   AsyncStorage,
+  LayoutChangeEvent,
+  LayoutRectangle,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 //styles
@@ -49,20 +51,25 @@ type State = {
   isLoading: boolean;
   isViewAll: boolean;
 };
-export default class DetailsView extends React.PureComponent<PropTypes, State> {
-  private _infoIcon = require('../assets/info-outline.svg');
-  private _infoActiveIcon = require('../assets/info.svg');
-  private _peopleIcon = require('../assets/people-outline.svg');
-  private _peopleActiveIcon = require('../assets/people.svg');
-  private _commentIcon = require('../assets/comment-outline.svg');
-  private _commentActiveIcon = require('../assets/comment.svg');
 
+type layoutObj = {
+  [key: number]: any;
+};
+
+const _infoIcon: NodeRequire = require('../assets/info-outline.svg');
+const _infoActiveIcon: NodeRequire = require('../assets/info.svg');
+const _peopleIcon: NodeRequire = require('../assets/people-outline.svg');
+const _peopleActiveIcon: NodeRequire = require('../assets/people.svg');
+const _commentIcon: NodeRequire = require('../assets/comment-outline.svg');
+const _commentActiveIcon: NodeRequire = require('../assets/comment.svg');
+
+export default class DetailsView extends React.PureComponent<PropTypes, State> {
   private _toast = null;
 
   private _commentText: string = '';
   private _commentInputRef = null;
   private _scrollViewRef = null;
-  private _layoutObj: any = {};
+  private _layoutObj: layoutObj = {};
 
   public state = {
     eventInfo: null,
@@ -212,14 +219,14 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
     });
   }
 
-  private _tabChange(idx) {
+  private _tabChange(idx: number) {
     // console.log('idx :', idx);
     const { x, y } = this._layoutObj[idx];
     // console.log(x, y)
     this._scrollViewRef.scrollTo({ x, y: y - px2dpwh(48), animated: true });
   }
 
-  private _getViewLayout(e, viewType) {
+  private _getViewLayout(e: LayoutChangeEvent, viewType: number) {
     // console.log(e)
     if (!this._layoutObj[viewType]) {
       this._layoutObj[viewType] = {};
@@ -300,22 +307,22 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
   private _renderTabView() {
     const tabData = [
       {
-        svg: this._infoIcon,
-        activeSvg: this._infoActiveIcon,
+        svg: _infoIcon,
+        activeSvg: _infoActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
         label: 'Details',
       },
       {
-        svg: this._peopleIcon,
-        activeSvg: this._peopleActiveIcon,
+        svg: _peopleIcon,
+        activeSvg: _peopleActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
         label: 'Participants',
       },
       {
-        svg: this._commentIcon,
-        activeSvg: this._commentActiveIcon,
+        svg: _commentIcon,
+        activeSvg: _commentActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
         label: 'Comments',
@@ -341,7 +348,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
     return (
       <View
         style={DetailStyle.descContainer}
-        onLayout={e => this._getViewLayout(e, 0)}
+        onLayout={(e: LayoutChangeEvent) => this._getViewLayout(e, 0)}
       >
         <ScrollView
           showsHorizontalScrollIndicator={false}

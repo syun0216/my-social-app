@@ -97,7 +97,7 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
     });
     try {
       console.log(this._loginParams);
-      const res: any = await userLogin(this._loginParams);
+      const res: loginModel = await userLogin(this._loginParams);
       if (res.error) {
         this._toast.show(res.error);
       } else {

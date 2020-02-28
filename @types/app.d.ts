@@ -4,6 +4,10 @@ interface IBasic {
   message?: string;
 }
 
+type Params = {
+  [key: string]: any;
+} | null;
+
 interface loginData {
   username: string;
   password: string;
@@ -22,7 +26,7 @@ interface loginInfoModel {
 }
 
 interface eventListModel extends IBasic {
-  hasMore: boolean;
+  hasMore?: boolean;
   events: eventItemModel[];
 }
 

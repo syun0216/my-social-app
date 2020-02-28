@@ -279,7 +279,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
 
   private async _getChannels() {
     try {
-      const res: any = await getChannels();
+      const res: channelListModel = await getChannels();
       if (!res.error) {
         this.setState({
           channelList: [

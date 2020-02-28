@@ -4,7 +4,9 @@ import AppStorage from '../cache/appCache';
 import { deviceWidthDp, deviceHeightDp } from '../utils/commonUtils';
 import colors from '../utils/colors';
 
-export default class initView extends React.PureComponent<any, any> {
+type PropTypes = any;
+type State = any;
+export default class initView extends React.PureComponent<PropTypes, State> {
   public async componentDidMount() {
     AppStorage.removeAll();
     let userData = await AppStorage.getUser();

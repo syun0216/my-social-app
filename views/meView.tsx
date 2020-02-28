@@ -29,17 +29,18 @@ type PropTypes = any;
 
 type State = {
   isLoading: boolean;
-  userInfo: null;
-  userEvent: null;
+  userInfo: userInfo | null;
+  userEvent: eventListModel | null;
 };
-export default class MeView extends React.PureComponent<PropTypes, State> {
-  private _likeIcon = require('../assets/like-outline.svg');
-  private _likeActiveIcon = require('../assets/like.svg');
-  private _checkIcon = require('../assets/check-outline.svg');
-  private _checkActiveIcon = require('../assets/check.svg');
-  private _pastIcon = require('../assets/past-outline.svg');
-  private _pastActiveIcon = require('../assets/past.svg');
 
+const _likeIcon = require('../assets/like-outline.svg');
+const _likeActiveIcon = require('../assets/like.svg');
+const _checkIcon = require('../assets/check-outline.svg');
+const _checkActiveIcon = require('../assets/check.svg');
+const _pastIcon = require('../assets/past-outline.svg');
+const _pastActiveIcon = require('../assets/past.svg');
+
+export default class MeView extends React.PureComponent<PropTypes, State> {
   public state = {
     isLoading: true,
     userInfo: null,
@@ -151,22 +152,22 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
     const { userInfo } = this.state;
     const tabData = [
       {
-        svg: this._likeIcon,
-        activeSvg: this._likeActiveIcon,
+        svg: _likeIcon,
+        activeSvg: _likeActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
         label: `${userInfo.likes_count} Likes`,
       },
       {
-        svg: this._checkIcon,
-        activeSvg: this._checkActiveIcon,
+        svg: _checkIcon,
+        activeSvg: _checkActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
         label: `${userInfo.goings_count} goings`,
       },
       {
-        svg: this._pastIcon,
-        activeSvg: this._pastActiveIcon,
+        svg: _pastIcon,
+        activeSvg: _pastActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
         label: `${userInfo.past_count} Past`,
@@ -245,7 +246,7 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
                     <CustomSvg
                       style={SearchViewStyle.listItemBottomSvg}
                       fill={Colors.deepGreen}
-                      svg={this._checkActiveIcon}
+                      svg={_checkActiveIcon}
                       width={14}
                       height={11}
                     />
@@ -261,7 +262,7 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
                     <CustomSvg
                       style={SearchViewStyle.listItemBottomSvg}
                       fill={Colors.lighterPurple}
-                      svg={this._checkIcon}
+                      svg={_checkIcon}
                       width={14}
                       height={11}
                     />
@@ -278,7 +279,7 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
                     <CustomSvg
                       style={SearchViewStyle.listItemBottomSvg}
                       fill={Colors.mainRed}
-                      svg={this._likeActiveIcon}
+                      svg={_likeActiveIcon}
                       width={14}
                       height={11}
                     />
@@ -294,7 +295,7 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
                     <CustomSvg
                       style={SearchViewStyle.listItemBottomSvg}
                       fill={Colors.lighterPurple}
-                      svg={this._likeIcon}
+                      svg={_likeIcon}
                       width={14}
                       height={11}
                     />
