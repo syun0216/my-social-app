@@ -50,6 +50,22 @@ interface eventItemModel {
   goings_count: number;
   me_likes: boolean;
   me_going: boolean;
+  channel: {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  creator: {
+    id: number;
+    username: string;
+    password: string;
+    email: string;
+    salt: string;
+    avatar: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 interface channelListModel extends IBasic {

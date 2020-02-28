@@ -44,8 +44,8 @@ type State = {
   posLeft: Animated.AnimatedValue;
   isSearching: boolean;
   isSearchingSubmiting: boolean;
-  channelList: Array<channelInfoModel>;
-  curChannel: Array<string>;
+  channelList: channelInfoModel[];
+  curChannel: string[];
   curTime: string;
   userInfo: userInfo | null;
   listCount: number;
@@ -56,6 +56,11 @@ type State = {
   beforeDateFormat: Date;
   afterDateFormat: Date;
   dateType: string;
+};
+
+type timeStampObj = {
+  before: '';
+  after: '';
 };
 export default class SearchView extends React.PureComponent<PropTypes, State> {
   private _i18n = i18n['en'].searchText;
@@ -101,7 +106,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
     }).start();
   }
 
-  private _setCurChannel(idx) {
+  private _setCurChannel(idx: number) {
     // console.log(channel)
     let { curChannel, channelList } = this.state;
     if (channelList[idx].name === 'ALL') {
@@ -127,11 +132,10 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
           .filter(v => curChannel.includes(v.name))
           .map(v => v.id)
           .join(',');
-    console.log('---', this._requestExtraParams);
     console.log('this.state.curChannel :', this.state.curChannel);
   }
 
-  private _setCurTime(time) {
+  private _setCurTime(time: string) {
     if (time === 'LATER') {
       this.setState({
         isTimeselectorShow: !this.state.isTimeselectorShow,
@@ -142,10 +146,12 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
       curTime: time,
       isSearching: true,
     });
-    const _getTimestampObj: any = this._getTimeTrans(time, 'timestamp');
+    const _getTimestampObj: timeStampObj = this._getTimeTrans(
+      time,
+      'timestamp'
+    ) as timeStampObj;
     this._requestExtraParams.before = _getTimestampObj.before;
     this._requestExtraParams.after = _getTimestampObj.after;
-    console.log('---', this._requestExtraParams);
   }
 
   private _searchWithCondition() {
@@ -174,7 +180,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
     this._flatlist.outSideRefresh();
   }
 
-  private _getTimeTrans(timeName, type = 'string') {
+  private _getTimeTrans(timeName: string, type: string = 'string') {
     const _moment = moment();
     const m = _moment.month();
     const d = _moment.date();
@@ -322,7 +328,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
       curTime,
       curChannel,
     } = this.state;
-    let btnSubTitle = '';
+    let btnSubTitle: string = '';
     if (curChannel.length > 0) {
       btnSubTitle = curChannel.includes('ALL')
         ? 'All activities'
@@ -411,7 +417,14 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
       thisMonth,
       later,
     } = this._i18n;
-    const btnArr = [anytime, today, tomorrow, thisWeek, thisMonth, later];
+    const btnArr: string[] = [
+      anytime,
+      today,
+      tomorrow,
+      thisWeek,
+      thisMonth,
+      later,
+    ];
     return (
       <View style={SearchViewStyle.dateContainer}>
         <Text style={SearchViewStyle.commonTitle}>{date}</Text>

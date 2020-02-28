@@ -54,11 +54,11 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
   }
 
   private async _getInfo() {
-    const resUserInfo: any = await getUserInfo();
-    const resEvent: any = await getUserEvents('liked');
+    const resUserInfo: userInfo = await getUserInfo();
+    const resEvent: eventListModel = await getUserEvents('liked');
     this.setState({
       userInfo: resUserInfo,
-      userEvent: resEvent.events,
+      userEvent: resEvent,
       isLoading: false,
     });
   }
@@ -74,9 +74,9 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
   }
 
   private async _getEventByTypes(type) {
-    const resEvent: any = await getUserEvents(type);
+    const resEvent: eventListModel = await getUserEvents(type);
     this.setState({
-      userEvent: resEvent.events,
+      userEvent: resEvent,
     });
     // console.log(resEvent)
   }
@@ -180,19 +180,22 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
 
   _renderEventList() {
     const { userEvent } = this.state;
-    if (userEvent.length === 0) {
+    const { events } = userEvent;
+    if (events.length === 0) {
       return (
         <BlankPage style={{ height: px2dpwh(300) }} text="No activity found" />
       );
     }
     return (
       <View>
-        {userEvent.map((item, idx) => this._renderListItem(item, idx))}
+        {userEvent.map((item: eventItemModel, idx: number) =>
+          this._renderListItem(item, idx)
+        )}
       </View>
     );
   }
 
-  private _renderListItem(item, index) {
+  private _renderListItem(item: eventItemModel, index: number) {
     return (
       <TouchableOpacity
         activeOpacity={0.8}

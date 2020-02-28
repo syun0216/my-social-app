@@ -3,6 +3,9 @@
 ### 安装
 
 ```bash
+# 全局安装expo
+npm install --global expo-cli
+# 项目根目录运行
 npm install 或者 yarn install
 ```
 
@@ -96,7 +99,7 @@ interface ICommonList {
 ### 额外
 
 ✅ 列表添加滚动到底部按钮  
-✅toast 和侧边栏动画设计  
+✅ toast 和侧边栏动画设计  
 ✅ 详情页锚点滚动设置  
 ✅ 对登录页输入框进行了 KeyboardAvoidingView 滚动包裹
 
