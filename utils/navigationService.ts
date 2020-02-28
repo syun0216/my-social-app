@@ -1,8 +1,12 @@
 import {
   NavigationActions,
+  // eslint-disable-next-line no-unused-vars
   StackActions,
+  // eslint-disable-next-line no-unused-vars
   NavigationParams,
+  // eslint-disable-next-line no-unused-vars
   NavigationNavigateActionPayload,
+  // eslint-disable-next-line no-unused-vars
   NavigationScreenProp,
 } from 'react-navigation';
 

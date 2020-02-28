@@ -6,15 +6,6 @@ import Text from '../components/unScalingText';
 import { px2dpw, spText } from '../utils/commonUtils';
 import Colors from '../utils/colors';
 
-interface IRadiusButton {
-  text: string;
-  defaultStyle?: object;
-  activeStyle?: object;
-  textStyle?: object;
-  textActiveStyle?: object;
-  clickFunc?: any;
-}
-
 const styles = StyleSheet.create({
   btnContainer: {
     borderWidth: 1,
@@ -40,7 +31,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const radiusButton = (props: IRadiusButton): React.ReactElement => (
+type PropTypes = {
+  text: string;
+  defaultStyle?: {};
+  activeStyle?: {};
+  textStyle?: {};
+  textActiveStyle?: {};
+  clickFunc?: () => void;
+};
+
+const radiusButton = (props: PropTypes): React.ReactElement => (
   <TouchableOpacity
     onPress={props.clickFunc}
     activeOpacity={0.8}
@@ -51,13 +51,5 @@ const radiusButton = (props: IRadiusButton): React.ReactElement => (
     </Text>
   </TouchableOpacity>
 );
-
-radiusButton.defaultProps = {
-  defaultStyle: {},
-  activeStyle: {},
-  textStyle: {},
-  textActiveStyle: {},
-  clickFunc: () => {},
-};
 
 export default memo(radiusButton);

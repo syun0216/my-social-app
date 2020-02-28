@@ -13,11 +13,6 @@ import Colors from '../utils/colors';
 import CustomSvg from './customSvg';
 import { useNavigation } from '@react-navigation/native';
 
-interface ICommonHeader {
-  leftElement: React.ReactNode;
-  avatar?: string | any;
-}
-
 const styles = StyleSheet.create({
   headerContainer: {
     width: deviceWidthDp,
@@ -51,7 +46,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const commonHeader = (props: ICommonHeader): React.ReactElement => {
+interface PropTypes {
+  leftElement: React.ReactNode;
+  avatar?: string;
+}
+
+const commonHeader = (props: PropTypes): React.ReactElement => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
@@ -69,16 +69,16 @@ const commonHeader = (props: ICommonHeader): React.ReactElement => {
         >
           <Image
             style={styles.headerRightIcon}
-            source={{ uri: props.avatar || '' }}
+            source={
+              props.avatar
+                ? { uri: props.avatar }
+                : require('../assets/avatar.png')
+            }
           />
         </TouchableOpacity>
       </View>
     </View>
   );
-};
-
-commonHeader.defaultProps = {
-  avatar: require('../assets/avatar.png'),
 };
 
 export default memo(commonHeader);

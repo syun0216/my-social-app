@@ -7,11 +7,6 @@ import CustomSvg from '../components/customSvg';
 import Colors from '../utils/colors';
 import { px2dpw, spText } from '../utils/commonUtils';
 
-interface IBlankPage {
-  text: string;
-  style?: object;
-}
-
 const styles = StyleSheet.create({
   blankContainer: {
     flex: 1,
@@ -30,7 +25,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const blankPage = ({ style, text }: IBlankPage): React.ReactElement => (
+type PropTypes = {
+  text: string;
+  style?: {};
+};
+
+const blankPage = ({ style, text }: PropTypes): React.ReactElement => (
   <View style={[styles.blankContainer, style]}>
     <CustomSvg
       style={styles.blankIcon}
@@ -42,9 +42,5 @@ const blankPage = ({ style, text }: IBlankPage): React.ReactElement => (
     <Text style={styles.blankText}>{text}</Text>
   </View>
 );
-
-blankPage.defaultProps = {
-  style: {},
-};
 
 export default memo(blankPage);

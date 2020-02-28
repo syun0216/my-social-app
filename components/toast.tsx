@@ -11,17 +11,6 @@ import {
 import Colors from '../utils/colors';
 import Text from './unScalingText';
 
-interface IToast {
-  bgColor?: string;
-  textColor?: string;
-  autoHide?: boolean;
-}
-
-interface IState {
-  transY: Animated.Value;
-  msg: string;
-}
-
 const styles = StyleSheet.create({
   toastContainer: {
     width: deviceWidthDp,
@@ -42,8 +31,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Toast extends React.PureComponent<IToast, IState> {
-  public state: IState = {
+type PropTypes = {
+  bgColor?: string;
+  textColor?: string;
+  autoHide?: boolean;
+};
+
+type State = {
+  transY: Animated.Value;
+  msg: string;
+};
+
+export default class Toast extends React.PureComponent<PropTypes, State> {
+  public state: State = {
     transY: new Animated.Value(0),
     msg: '',
   };
@@ -65,8 +65,6 @@ export default class Toast extends React.PureComponent<IToast, IState> {
   public hide() {
     Animated.spring(this.state.transY, {
       toValue: 0,
-      // duration: 800,
-      // easing: Easing.cubic
     }).start();
   }
 

@@ -7,8 +7,8 @@ import {
   TextInput,
   Animated,
   AsyncStorage,
+  // eslint-disable-next-line no-unused-vars
   LayoutChangeEvent,
-  LayoutRectangle,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 //styles

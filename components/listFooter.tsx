@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Platform,
 } from 'react-native';
 import { httpStatus } from '../api/apis';
 import Colors from '../utils/colors';
@@ -20,15 +19,15 @@ const styles = StyleSheet.create({
   },
 });
 
-interface IListFooter {
+type PropTypes = {
   loadingStatus: number;
   errorToDo: () => void;
-}
+};
 
 const ListFooter = ({
   loadingStatus,
   errorToDo,
-}: IListFooter): React.ReactElement => {
+}: PropTypes): React.ReactElement => {
   switch (loadingStatus) {
     case httpStatus.LOADING: {
       return (
@@ -56,11 +55,9 @@ const ListFooter = ({
     case httpStatus.NO_MORE_DATA: {
       return (
         <View style={[styles.commonContainer]}>
-          {/*<View style={{width:_winWidth*0.3,height:1,marginLeft:10,marginRight:20,backgroundColor:'#959595'}}></View>*/}
           <View>
             <Text style={{ color: Colors.mainGray }}>no more data~</Text>
           </View>
-          {/*<View style={{width:GLOBAL_PARAMS._winWidth*0.3,height:1,marginLeft:20,marginRight:10,backgroundColor:'#959595'}}></View>*/}
         </View>
       );
     }

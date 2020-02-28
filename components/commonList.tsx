@@ -20,7 +20,7 @@ import AppStorage from '../cache/appCache';
 //navigation
 import * as RootNavigation from '../router/rootNavigation';
 
-let requestParams = {
+let requestParams: { nextOffset: number; currentOffset: number } = {
   nextOffset: 0,
   currentOffset: 0,
 };

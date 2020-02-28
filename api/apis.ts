@@ -1,17 +1,22 @@
 import request from './request';
 
-interface loginData {
-  username: string;
-  password: string;
-}
-
-export const httpCode = {
+export const httpCode: {
+  success: number;
+  invalidCode: number;
+  notFound: number;
+} = {
   success: 200,
   invalidCode: 403,
   notFound: 404,
 };
 
-export const httpStatus = {
+export const httpStatus: {
+  LOADING: number;
+  LOAD_SUCCESS: number;
+  LOAD_FAILED: number;
+  NO_MORE_DATA: number;
+  NO_DATA: number;
+} = {
   LOADING: 1,
   LOAD_SUCCESS: 2,
   LOAD_FAILED: 3,
@@ -32,7 +37,7 @@ export function getChannels(): Promise<channelListModel> {
 }
 
 export function getEvents(params: Params): Promise<eventListModel> {
-  let query = Object.keys(params).reduce((acm, val) => {
+  let query: string = Object.keys(params).reduce((acm, val) => {
     if (params[val] !== null) {
       return (acm += `${val}=${params[val]}&`);
     } else {

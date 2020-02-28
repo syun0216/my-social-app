@@ -3,6 +3,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  // eslint-disable-next-line no-unused-vars
   ViewProps,
 } from 'react-native';
 import Text from '../components/unScalingText';
@@ -27,16 +28,16 @@ const styles = StyleSheet.create({
   },
 });
 
-interface IBlockButton {
+type PropTypes = {
   disabled?: boolean;
   style?: ViewProps['style'];
   isLoading?: boolean;
   text?: string;
   clickFunc(): void;
   children?: React.ReactNode;
-}
+};
 
-const blockButton = (props: IBlockButton): React.ReactElement => (
+const blockButton = (props: PropTypes): React.ReactElement => (
   <TouchableOpacity
     disabled={props.disabled}
     onPress={props.clickFunc}

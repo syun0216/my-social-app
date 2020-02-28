@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { View, ViewProps } from 'react-native';
 import SvgUri from 'expo-svg-uri';
 import { px2dpw, px2dpwh } from '../utils/commonUtils';

@@ -1,23 +1,10 @@
 import React, { useState, memo } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { View, TouchableOpacity, StyleSheet, ViewProps } from 'react-native';
 import Colors from '../utils/colors';
 import { px2dpwh, deviceWidthDp, px2dpw, spText } from '../utils/commonUtils';
 import Text from './unScalingText';
 import CustomSvg from './customSvg';
-
-interface ITabItem {
-  svg: any;
-  activeSvg: any;
-  svgStyle?: ViewProps['style'];
-  svgWidth: number;
-  svgHeight: number;
-  label: string;
-}
-
-interface ICommonTab {
-  tabData: ITabItem[];
-  callback?: (idx: number) => void;
-}
 
 const styles = StyleSheet.create({
   tabContainer: {
@@ -60,7 +47,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const commonTab = (props: ICommonTab): React.ReactElement => {
+type PropTypes = {
+  tabData: ITabItem[];
+  callback?: (idx: number) => void;
+};
+
+type ITabItem = {
+  svg: NodeRequire;
+  activeSvg: NodeRequire;
+  svgStyle?: ViewProps['style'];
+  svgWidth: number;
+  svgHeight: number;
+  label: string;
+};
+
+const commonTab = (props: PropTypes): React.ReactElement => {
   const [tabIdx, setTabIdx] = useState(0);
 
   const setTabInner = idx => {
@@ -70,7 +71,7 @@ const commonTab = (props: ICommonTab): React.ReactElement => {
 
   return (
     <View style={styles.tabContainer}>
-      {props.tabData.map((item, idx) => (
+      {props.tabData.map((item: ITabItem, idx: number) => (
         <View style={styles.tabItem} key={idx}>
           <TouchableOpacity
             onPress={() => setTabInner(idx)}
