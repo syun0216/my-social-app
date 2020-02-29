@@ -7,6 +7,7 @@ import {
   TextInput,
   Animated,
   AsyncStorage,
+  KeyboardAvoidingView,
   // eslint-disable-next-line no-unused-vars
   LayoutChangeEvent,
 } from 'react-native';
@@ -214,10 +215,9 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
   }
 
   private _toggleCommentInput(status: boolean) {
+    status ? this._commentInputRef.focus() : this._commentInputRef.blur();
     Animated.spring(this.state.commentInputTranY, {
       toValue: status ? 1 : 0,
-      // duration: 800,
-      // easing: Easing.cubic
     }).start();
   }
 
@@ -247,19 +247,21 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
     return (
       <View style={DetailStyle.mainContainer}>
         {this._renderHeader()}
-        <ScrollView
-          ref={ref => (this._scrollViewRef = ref)}
-          stickyHeaderIndices={[1]}
-          style={{ marginBottom: px2dph(56) }}
-        >
-          {this._renderTopIntro()}
-          {this._renderTabView()}
-          {this._renderInfoView()}
-          {this._renderParticipantView()}
-          {this._renderCommentView()}
-        </ScrollView>
-        {this._renderBottomBar()}
-        {this._renderBottomInput()}
+        <KeyboardAvoidingView enabled={true} behavior="position">
+          <ScrollView
+            ref={ref => (this._scrollViewRef = ref)}
+            stickyHeaderIndices={[1]}
+            style={{ marginBottom: px2dph(56) }}
+          >
+            {this._renderTopIntro()}
+            {this._renderTabView()}
+            {this._renderInfoView()}
+            {this._renderParticipantView()}
+            {this._renderCommentView()}
+          </ScrollView>
+          {this._renderBottomBar()}
+          {this._renderBottomInput()}
+        </KeyboardAvoidingView>
         <Toast ref={t => (this._toast = t)} autoHide={true} />
       </View>
     );
@@ -673,7 +675,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
                   outputRange: [
                     0,
                     -(isIphoneXAboveModel()
-                      ? iPhoneXBottom + px2dph(56)
+                      ? iPhoneXBottom + px2dph(56) - 20
                       : px2dph(56)),
                   ],
                 }),
