@@ -4,7 +4,7 @@ import {
   deviceWidthDp,
   px2dph,
   spText,
-  isIphoneX,
+  isIphoneXAboveModel,
   iPhoneXTop,
   iPhoneTop,
 } from '../utils/commonUtils';
@@ -14,7 +14,9 @@ import Text from './unScalingText';
 const styles = StyleSheet.create({
   toastContainer: {
     width: deviceWidthDp,
-    height: isIphoneX() ? px2dph(32) + iPhoneXTop : px2dph(32) + iPhoneTop,
+    height: isIphoneXAboveModel()
+      ? px2dph(32) + iPhoneXTop
+      : px2dph(32) + iPhoneTop,
     backgroundColor: 'rgba(229, 247, 169, 0.8)',
     fontSize: spText(14),
     fontFamily: 'SourceSansPro-Semibold',
@@ -79,7 +81,7 @@ export default class Toast extends React.PureComponent<PropTypes, State> {
                 translateY: this.state.transY.interpolate({
                   inputRange: [0, 1],
                   outputRange: [
-                    -(isIphoneX()
+                    -(isIphoneXAboveModel()
                       ? px2dph(32) + iPhoneXTop
                       : px2dph(32) + iPhoneTop),
                     0,

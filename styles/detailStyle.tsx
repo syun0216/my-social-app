@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import {
   px2dpw,
   px2dph,
-  isIphoneX,
+  isIphoneXAboveModel,
   iPhoneTop,
   iPhoneXTop,
   spText,
@@ -12,7 +12,9 @@ import Colors from '../utils/colors';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingTop: isIphoneX() ? px2dph(40) + iPhoneXTop : px2dph(40) + iPhoneTop,
+    paddingTop: isIphoneXAboveModel()
+      ? px2dph(40) + iPhoneXTop
+      : px2dph(40) + iPhoneTop,
     backgroundColor: Colors.mainWhite,
   },
   topIntroContainer: {
@@ -278,7 +280,7 @@ export default StyleSheet.create({
   },
   bottomBar: {
     flexDirection: 'row',
-    height: px2dph(56),
+    // height: px2dph(56),
     position: 'absolute',
     bottom: 0,
     left: 0,

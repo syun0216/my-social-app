@@ -4,7 +4,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import {
   deviceWidthDp,
   px2dpw,
-  isIphoneX,
+  isIphoneXAboveModel,
   iPhoneXTop,
   iPhoneTop,
   px2dph,
@@ -12,11 +12,12 @@ import {
 import Colors from '../utils/colors';
 import CustomSvg from './customSvg';
 import { useNavigation } from '@react-navigation/native';
+//components
+import { TopWrapper } from '../components/iPhoneXAboveModelWrapper';
 
 const styles = StyleSheet.create({
   headerContainer: {
     width: deviceWidthDp,
-    height: isIphoneX() ? iPhoneXTop + px2dph(40) : iPhoneTop + px2dph(40),
     backgroundColor: Colors.mainPurple,
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
     paddingLeft: px2dpw(19),
     paddingRight: px2dpw(14),
     height: px2dph(40),
-    marginTop: isIphoneX() ? iPhoneXTop : iPhoneTop,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -54,30 +54,32 @@ interface PropTypes {
 const commonHeader = (props: PropTypes): React.ReactElement => {
   const navigation = useNavigation();
   return (
-    <View style={styles.headerContainer}>
-      <View style={styles.headerInner}>
-        {props.leftElement}
-        <CustomSvg
-          fill={Colors.mainGreen}
-          width={23}
-          height={27}
-          svg={require('../assets/logo-cat.svg')}
-        />
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Me')}
-          style={styles.headerRight}
-        >
-          <Image
-            style={styles.headerRightIcon}
-            source={
-              props.avatar
-                ? { uri: props.avatar }
-                : require('../assets/avatar.png')
-            }
+    <TopWrapper height={px2dph(40)} style={styles.headerContainer}>
+      {style => (
+        <View style={[style, styles.headerInner]}>
+          {props.leftElement}
+          <CustomSvg
+            fill={Colors.mainGreen}
+            width={23}
+            height={27}
+            svg={require('../assets/logo-cat.svg')}
           />
-        </TouchableOpacity>
-      </View>
-    </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Me')}
+            style={styles.headerRight}
+          >
+            <Image
+              style={styles.headerRightIcon}
+              source={
+                props.avatar
+                  ? { uri: props.avatar }
+                  : require('../assets/avatar.png')
+              }
+            />
+          </TouchableOpacity>
+        </View>
+      )}
+    </TopWrapper>
   );
 };
 

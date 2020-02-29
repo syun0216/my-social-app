@@ -20,9 +20,14 @@ import CommonTab from '../components/commonTab';
 import RadiusButton from '../components/radiusButton';
 import Loading from '../components/loading';
 import Toast from '../components/toast';
+import { BottomWrapper } from '../components/iPhoneXAboveModelWrapper';
 //utils
 import Colors from '../utils/colors';
-import { px2dph, isIphoneX, iPhoneXBottom } from '../utils/commonUtils';
+import {
+  px2dph,
+  isIphoneXAboveModel,
+  iPhoneXBottom,
+} from '../utils/commonUtils';
 //api
 import {
   getEventsWithEventId,
@@ -577,60 +582,80 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
     const { isGoing, isLike } = this.state;
     return (
       <View style={DetailStyle.bottomBar}>
-        <View style={DetailStyle.bottomBarLeft}>
-          <TouchableOpacity
-            onPress={() => this._toggleCommentInput(true)}
-            style={DetailStyle.bottomBarLeftBtn}
-          >
-            <Icons.CommentSingleIcon
-              style={DetailStyle.bottomBarLeftIcon}
-              fill={Colors.deepPurple}
-              width={24}
-              height={24}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this._postLike()}
-            style={DetailStyle.bottomBarLeftBtn}
-          >
-            {isLike ? (
-              <Icons.LikeActiveIcon
-                fill={Colors.mainGreen}
-                width={24}
-                height={24}
-              />
-            ) : (
-              <Icons.LikeIcon fill={Colors.deepPurple} width={24} height={24} />
-            )}
-          </TouchableOpacity>
-        </View>
-        {isGoing ? (
-          <TouchableOpacity
-            onPress={() => this._postParticipanet()}
-            style={DetailStyle.bottomBarRight}
-          >
-            <Icons.CheckActiveIcon
-              style={DetailStyle.bottomBarRightIcon}
-              fill={Colors.mainPurple}
-              width={22}
-              height={22}
-            />
-            <Text style={DetailStyle.bottomBarRightText}>I am going</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => this._postParticipanet()}
-            style={DetailStyle.bottomBarRight}
-          >
-            <Icons.CheckIcon
-              style={DetailStyle.bottomBarRightIcon}
-              fill={Colors.mainBlack}
-              width={22}
-              height={22}
-            />
-            <Text style={DetailStyle.bottomBarRightText}>Join</Text>
-          </TouchableOpacity>
-        )}
+        <BottomWrapper
+          height={px2dph(56)}
+          style={{ backgroundColor: Colors.mainPurple, flex: 1 }}
+        >
+          {style => (
+            <View style={[style, DetailStyle.bottomBarLeft]}>
+              <TouchableOpacity
+                onPress={() => this._toggleCommentInput(true)}
+                style={DetailStyle.bottomBarLeftBtn}
+              >
+                <Icons.CommentSingleIcon
+                  style={DetailStyle.bottomBarLeftIcon}
+                  fill={Colors.deepPurple}
+                  width={24}
+                  height={24}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this._postLike()}
+                style={DetailStyle.bottomBarLeftBtn}
+              >
+                {isLike ? (
+                  <Icons.LikeActiveIcon
+                    fill={Colors.mainGreen}
+                    width={24}
+                    height={24}
+                  />
+                ) : (
+                  <Icons.LikeIcon
+                    fill={Colors.deepPurple}
+                    width={24}
+                    height={24}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
+          )}
+        </BottomWrapper>
+        <BottomWrapper
+          height={px2dph(56)}
+          style={{ backgroundColor: Colors.mainGreen }}
+        >
+          {style => (
+            <>
+              {isGoing ? (
+                <TouchableOpacity
+                  onPress={() => this._postParticipanet()}
+                  style={[style, DetailStyle.bottomBarRight]}
+                >
+                  <Icons.CheckActiveIcon
+                    style={DetailStyle.bottomBarRightIcon}
+                    fill={Colors.mainPurple}
+                    width={22}
+                    height={22}
+                  />
+                  <Text style={DetailStyle.bottomBarRightText}>I am going</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => this._postParticipanet()}
+                  style={[style, DetailStyle.bottomBarRight]}
+                >
+                  <Icons.CheckIcon
+                    style={DetailStyle.bottomBarRightIcon}
+                    fill={Colors.mainBlack}
+                    width={22}
+                    height={22}
+                  />
+                  <Text style={DetailStyle.bottomBarRightText}>Join</Text>
+                </TouchableOpacity>
+              )}
+            </>
+          )}
+        </BottomWrapper>
       </View>
     );
   }
@@ -647,7 +672,9 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
                   inputRange: [0, 1],
                   outputRange: [
                     0,
-                    -(isIphoneX() ? iPhoneXBottom + px2dph(56) : px2dph(56)),
+                    -(isIphoneXAboveModel()
+                      ? iPhoneXBottom + px2dph(56)
+                      : px2dph(56)),
                   ],
                 }),
               },

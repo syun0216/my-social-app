@@ -5,6 +5,8 @@ import {
   px2dpw,
   px2dph,
   spText,
+  isIphoneXAboveModel,
+  iPhoneXTop,
 } from '../utils/commonUtils';
 import Colors from '../utils/colors';
 export default StyleSheet.create({
@@ -22,7 +24,7 @@ export default StyleSheet.create({
     bottom: 0,
   },
   logoContainer: {
-    marginTop: px2dpw(69),
+    marginTop: isIphoneXAboveModel ? px2dpw(69) + iPhoneXTop : px2dpw(69),
     width: deviceWidthDp,
     justifyContent: 'center',
     alignItems: 'center',
@@ -50,7 +52,7 @@ export default StyleSheet.create({
   },
   fillinContainer: {
     width: deviceWidthDp,
-    marginTop: Platform.OS === 'ios' ? px2dph(118) : px2dph(100),
+    marginTop: px2dph(100),
     alignItems: 'center',
   },
   fillinItem: {

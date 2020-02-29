@@ -3,7 +3,7 @@ import {
   px2dpw,
   deviceWidthDp,
   deviceHeightDp,
-  isIphoneX,
+  isIphoneXAboveModel,
   iPhoneTop,
   iPhoneXTop,
   px2dph,
@@ -24,7 +24,7 @@ export default StyleSheet.create({
     bottom: 0,
     width: px2dpw(240),
     backgroundColor: Colors.deepPurple,
-    paddingTop: isIphoneX() ? iPhoneXTop : iPhoneTop,
+    paddingTop: isIphoneXAboveModel() ? iPhoneXTop : iPhoneTop,
   },
   searchItem: {
     flexDirection: 'row',
@@ -52,7 +52,9 @@ export default StyleSheet.create({
   contentContainer: {
     backgroundColor: Colors.mainWhite,
     flex: 1,
-    paddingTop: isIphoneX() ? px2dph(40) + iPhoneXTop : px2dph(40) + iPhoneTop,
+    paddingTop: isIphoneXAboveModel()
+      ? px2dph(40) + iPhoneXTop
+      : px2dph(40) + iPhoneTop,
     width: deviceWidthDp,
     position: 'absolute',
     zIndex: 2,
