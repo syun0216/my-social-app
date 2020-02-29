@@ -19,7 +19,7 @@ import SearchViewStyle from '../styles/searchViewStyle';
 import MeStyle from '../styles/meStyle';
 //utils
 import Colors from '../utils/colors';
-import { px2dpwh } from '../utils/commonUtils';
+import { px2dph } from '../utils/commonUtils';
 //api
 import { getUserInfo, getUserEvents } from '../api/apis';
 //icons
@@ -30,15 +30,15 @@ type PropTypes = any;
 type State = {
   isLoading: boolean;
   userInfo: userInfo | null;
-  userEvent: eventListModel | null;
+  userEvent: eventItemModel[] | null;
 };
 
-const _likeIcon = require('../assets/like-outline.svg');
-const _likeActiveIcon = require('../assets/like.svg');
-const _checkIcon = require('../assets/check-outline.svg');
-const _checkActiveIcon = require('../assets/check.svg');
-const _pastIcon = require('../assets/past-outline.svg');
-const _pastActiveIcon = require('../assets/past.svg');
+const _likeIcon: NodeRequire = require('../assets/like-outline.svg');
+const _likeActiveIcon: NodeRequire = require('../assets/like.svg');
+const _checkIcon: NodeRequire = require('../assets/check-outline.svg');
+const _checkActiveIcon: NodeRequire = require('../assets/check.svg');
+const _pastIcon: NodeRequire = require('../assets/past-outline.svg');
+const _pastActiveIcon: NodeRequire = require('../assets/past.svg');
 
 export default class MeView extends React.PureComponent<PropTypes, State> {
   public state = {
@@ -58,7 +58,7 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
     const resEvent: eventListModel = await getUserEvents('liked');
     this.setState({
       userInfo: resUserInfo,
-      userEvent: resEvent,
+      userEvent: resEvent.events,
       isLoading: false,
     });
   }
@@ -76,7 +76,7 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
   private async _getEventByTypes(type) {
     const resEvent: eventListModel = await getUserEvents(type);
     this.setState({
-      userEvent: resEvent,
+      userEvent: resEvent.events,
     });
     // console.log(resEvent)
   }
@@ -180,10 +180,9 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
 
   _renderEventList() {
     const { userEvent } = this.state;
-    const { events } = userEvent;
-    if (events.length === 0) {
+    if (userEvent.length === 0) {
       return (
-        <BlankPage style={{ height: px2dpwh(300) }} text="No activity found" />
+        <BlankPage style={{ height: px2dph(300) }} text="No activity found" />
       );
     }
     return (
@@ -225,7 +224,7 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
           <View style={SearchViewStyle.listItemWrapper}>
             <View style={SearchViewStyle.listItemWrapperLeft}>
               <Text style={SearchViewStyle.listItemTitle}>{item.name}</Text>
-              <View style={{ flexDirection: 'row', marginBottom: px2dpwh(12) }}>
+              <View style={{ flexDirection: 'row', marginBottom: px2dph(12) }}>
                 <TimeIcon
                   style={SearchViewStyle.listItemSubTitleSvg}
                   fill={Colors.mainPurple}

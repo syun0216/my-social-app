@@ -3,7 +3,7 @@ import {
   deviceWidthDp,
   deviceHeightDp,
   px2dpw,
-  px2dpwh,
+  px2dph,
   spText,
 } from '../utils/commonUtils';
 import Colors from '../utils/colors';
@@ -50,7 +50,7 @@ export default StyleSheet.create({
   },
   fillinContainer: {
     width: deviceWidthDp,
-    marginTop: Platform.OS === 'ios' ? px2dpwh(118) : px2dpwh(100),
+    marginTop: Platform.OS === 'ios' ? px2dph(118) : px2dph(100),
     alignItems: 'center',
   },
   fillinItem: {

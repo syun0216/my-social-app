@@ -21,7 +21,7 @@ import CommonList from '../components/commonList';
 import i18n from '../language/i18n';
 //utils
 import Colors from '../utils/colors';
-import { px2dpw, px2dpwh } from '../utils/commonUtils';
+import { px2dpw, px2dph } from '../utils/commonUtils';
 //api
 import { getChannels, getEvents } from '../api/apis';
 //cache
@@ -613,7 +613,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
           <View style={SearchViewStyle.listItemWrapper}>
             <View style={SearchViewStyle.listItemWrapperLeft}>
               <Text style={SearchViewStyle.listItemTitle}>{item.name}</Text>
-              <View style={{ flexDirection: 'row', marginBottom: px2dpwh(12) }}>
+              <View style={{ flexDirection: 'row', marginBottom: px2dph(12) }}>
                 <TimeIcon
                   style={SearchViewStyle.listItemSubTitleSvg}
                   fill={Colors.mainPurple}

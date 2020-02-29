@@ -30,7 +30,12 @@ interface eventListModel extends IBasic {
   events: eventItemModel[];
 }
 
+interface eventDetailsModel extends IBasic {
+  event?: eventItemModel;
+}
+
 interface eventItemModel {
+  event: any;
   id: number;
   name: string;
   creator_id: number;
@@ -99,14 +104,15 @@ interface likeItemModal {
 interface participantsItemModel {
   id: number;
   username: string;
+  users: any;
 }
 
 interface participantsModel {
-  users: participantsItemModel[];
+  users?: participantsItemModel[];
 }
 
 interface commentsModel extends IBasic {
-  comments: commentItemModel[];
+  comments?: commentItemModel[];
 }
 
 interface commentItemModel {

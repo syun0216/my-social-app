@@ -14,7 +14,7 @@ import BlankPage from './blankPage';
 import Loading from './loading';
 //language
 import colors from '../utils/colors';
-import { px2dpw, px2dpwh } from '../utils/commonUtils';
+import { px2dpw, px2dph } from '../utils/commonUtils';
 //cache
 import AppStorage from '../cache/appCache';
 //navigation
@@ -331,7 +331,7 @@ class CommonList extends Component<ICommonList, IState> {
         }}
       >
         <Image
-          style={{ width: px2dpw(60), height: px2dpwh(60) }}
+          style={{ width: px2dpw(60), height: px2dph(60) }}
           resizeMode="cover"
           source={require('../assets/toTop.png')}
         />

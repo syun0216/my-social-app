@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { View, ViewProps } from 'react-native';
 import SvgUri from 'expo-svg-uri';
-import { px2dpw, px2dpwh } from '../utils/commonUtils';
+import { px2dpw, px2dph } from '../utils/commonUtils';
 
 interface ICustomSvg {
   width: number;
@@ -16,7 +16,7 @@ const customSvg = (props: ICustomSvg): React.ReactElement => (
   <View style={props.style}>
     <SvgUri
       width={px2dpw(props.width)}
-      height={px2dpwh(props.height)}
+      height={px2dph(props.height)}
       source={props.svg}
       fill={props.fill}
       fillAll={true}

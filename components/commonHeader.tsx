@@ -7,7 +7,7 @@ import {
   isIphoneX,
   iPhoneXTop,
   iPhoneTop,
-  px2dpwh,
+  px2dph,
 } from '../utils/commonUtils';
 import Colors from '../utils/colors';
 import CustomSvg from './customSvg';
@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 const styles = StyleSheet.create({
   headerContainer: {
     width: deviceWidthDp,
-    height: isIphoneX() ? iPhoneXTop + px2dpwh(40) : iPhoneTop + px2dpwh(40),
+    height: isIphoneX() ? iPhoneXTop + px2dph(40) : iPhoneTop + px2dph(40),
     backgroundColor: Colors.mainPurple,
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     width: deviceWidthDp,
     paddingLeft: px2dpw(19),
     paddingRight: px2dpw(14),
-    height: px2dpwh(40),
+    height: px2dph(40),
     marginTop: isIphoneX() ? iPhoneXTop : iPhoneTop,
     flexDirection: 'row',
     justifyContent: 'space-between',

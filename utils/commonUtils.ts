@@ -18,9 +18,9 @@ const uiWidthPx: number = 320;
 const uiHeightPx: number = 572;
 // 像素密度
 const defaultDensity = 2;
-const w2 = uiWidthPx / defaultDensity;
+const w2: number = uiWidthPx / defaultDensity;
 //px转换成dp
-const h2 = uiHeightPx / defaultDensity;
+const h2: number = uiHeightPx / defaultDensity;
 
 export function isIphoneX(): boolean {
   return (
@@ -42,11 +42,11 @@ export function px2dpw(uiElementPx: number) {
   return (uiElementPx * deviceWidthDp) / uiWidthPx;
 }
 
-export function px2dpwh(uiElementPx: number) {
+export function px2dph(uiElementPx: number) {
   return (uiElementPx * deviceHeightDp) / uiHeightPx;
 }
 
-export function spText(size: number): number {
+export function spText(size: number) {
   let scaleWidth = deviceWidthDp / w2;
   let scaleHeight = deviceHeightDp / h2;
   let scale = Math.min(scaleWidth, scaleHeight);

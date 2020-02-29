@@ -6,7 +6,7 @@ import {
   isIphoneX,
   iPhoneTop,
   iPhoneXTop,
-  px2dpwh,
+  px2dph,
   spText,
 } from '../utils/commonUtils';
 import Colors from '../utils/colors';
@@ -52,9 +52,7 @@ export default StyleSheet.create({
   contentContainer: {
     backgroundColor: Colors.mainWhite,
     flex: 1,
-    paddingTop: isIphoneX()
-      ? px2dpwh(40) + iPhoneXTop
-      : px2dpwh(40) + iPhoneTop,
+    paddingTop: isIphoneX() ? px2dph(40) + iPhoneXTop : px2dph(40) + iPhoneTop,
     width: deviceWidthDp,
     position: 'absolute',
     zIndex: 2,
@@ -127,19 +125,19 @@ export default StyleSheet.create({
   },
   searchResContainer: {
     width: '100%',
-    // height: px2dpwh(68),
+    // height: px2dph(68),
     justifyContent: 'center',
     backgroundColor: Colors.lightGray,
     paddingLeft: px2dpw(27),
     paddingRight: px2dpw(15),
-    paddingTop: px2dpwh(14),
-    paddingBottom: px2dpwh(11),
-    marginBottom: px2dpwh(5),
+    paddingTop: px2dph(14),
+    paddingBottom: px2dph(11),
+    marginBottom: px2dph(5),
   },
   searchResInner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: px2dpwh(8),
+    marginBottom: px2dph(8),
   },
   searchResInnerText: {
     fontSize: spText(16),
@@ -162,7 +160,7 @@ export default StyleSheet.create({
   listItemContainer: {
     backgroundColor: Colors.mainWhite,
     paddingLeft: px2dpw(16),
-    paddingTop: px2dpwh(16),
+    paddingTop: px2dph(16),
   },
   listItemWrapper: {
     flexDirection: 'row',
@@ -178,7 +176,7 @@ export default StyleSheet.create({
     height: px2dpw(64),
   },
   listItemInner: {
-    paddingBottom: px2dpwh(18),
+    paddingBottom: px2dph(18),
     paddingRight: px2dpw(16),
     borderBottomWidth: 1,
     borderBottomColor: Colors.lighterGray,
@@ -186,7 +184,7 @@ export default StyleSheet.create({
   listItemTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: px2dpwh(8),
+    marginBottom: px2dph(8),
     alignItems: 'center',
   },
   listItemTopAvatar: {
@@ -212,7 +210,7 @@ export default StyleSheet.create({
     fontFamily: 'SourceSansPro-Semibold',
     fontSize: spText(18),
     color: Colors.deepPurple,
-    marginBottom: px2dpwh(8),
+    marginBottom: px2dph(8),
   },
   listItemSubtitle: {
     color: Colors.mainPurple,
@@ -226,7 +224,7 @@ export default StyleSheet.create({
     fontFamily: 'SourceSansPro-Regular',
     fontSize: spText(14),
     color: Colors.mainBlack,
-    marginBottom: px2dpwh(12),
+    marginBottom: px2dph(12),
   },
   listItemBottom: {
     flexDirection: 'row',
@@ -246,7 +244,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: Colors.mainWhite,
     width: px2dpw(208),
-    height: px2dpwh(35),
+    height: px2dph(35),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -285,7 +283,7 @@ export default StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: px2dpwh(150),
+    height: px2dph(150),
     zIndex: 4,
   },
 });

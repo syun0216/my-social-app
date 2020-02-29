@@ -22,7 +22,7 @@ import Loading from '../components/loading';
 import Toast from '../components/toast';
 //utils
 import Colors from '../utils/colors';
-import { px2dpwh, isIphoneX, iPhoneXBottom } from '../utils/commonUtils';
+import { px2dph, isIphoneX, iPhoneXBottom } from '../utils/commonUtils';
 //api
 import {
   getEventsWithEventId,
@@ -41,9 +41,9 @@ import * as Icons from '../components/icon';
 type PropTypes = any;
 type State = {
   eventInfo: eventItemModel | null;
-  participantInfo: participantsModel | null;
-  likesInfo: null;
-  commentsInfo: null;
+  participantInfo: participantsItemModel[] | null;
+  likesInfo: likeItemModal[] | null;
+  commentsInfo: commentItemModel[] | null;
   userInfo: userInfo | null;
   commentInputTranY: Animated.AnimatedValue;
   isGoing: boolean;
@@ -101,10 +101,12 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
 
   private async _getInfo() {
     const { id } = this.props.route.params;
-    const resEvent: any = await getEventsWithEventId(id);
-    const resParticipant: any = await getEventParticipantWithEventId(id);
-    const resLikes: any = await getLikesWithEventId(id);
-    const resComments: any = await getCommentWithEventId(id);
+    const resEvent: eventDetailsModel = await getEventsWithEventId(id);
+    const resParticipant: participantsModel = await getEventParticipantWithEventId(
+      id
+    );
+    const resLikes: likeModel = await getLikesWithEventId(id);
+    const resComments: commentsModel = await getCommentWithEventId(id);
     this.setState({
       eventInfo: resEvent.event,
       participantInfo: resParticipant.users,
@@ -117,10 +119,9 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
   }
 
   private async _getEventInfo() {
-    const resEvent: any = await getEventsWithEventId(
+    const resEvent: eventDetailsModel = await getEventsWithEventId(
       this.props.route.params.id
     );
-    console.log('resComments', resEvent);
     this.setState({
       eventInfo: resEvent.event,
       isGoing: resEvent.event.me_going,
@@ -129,7 +130,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
   }
 
   private async _getParticipantInfo() {
-    const resParticipant: any = await getEventParticipantWithEventId(
+    const resParticipant: participantsModel = await getEventParticipantWithEventId(
       this.props.route.params.id
     );
     this.setState({
@@ -138,7 +139,9 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
   }
 
   private async _getLikeInfo() {
-    const resLike: any = await getLikesWithEventId(this.props.route.params.id);
+    const resLike: likeModel = await getLikesWithEventId(
+      this.props.route.params.id
+    );
     this.setState({
       likesInfo: resLike.users,
     });
@@ -149,7 +152,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
   }
 
   private async _getCommentsInfo() {
-    const resComments: any = await getCommentWithEventId(
+    const resComments: commentsModel = await getCommentWithEventId(
       this.props.route.params.id
     );
     this.setState({
@@ -220,19 +223,15 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
   }
 
   private _tabChange(idx: number) {
-    // console.log('idx :', idx);
     const { x, y } = this._layoutObj[idx];
-    // console.log(x, y)
-    this._scrollViewRef.scrollTo({ x, y: y - px2dpwh(48), animated: true });
+    this._scrollViewRef.scrollTo({ x, y: y - px2dph(48), animated: true });
   }
 
   private _getViewLayout(e: LayoutChangeEvent, viewType: number) {
-    // console.log(e)
     if (!this._layoutObj[viewType]) {
       this._layoutObj[viewType] = {};
     }
     this._layoutObj[viewType] = { ...e.nativeEvent.layout };
-    // console.log(this._layoutObj)
   }
 
   public render() {
@@ -246,7 +245,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
         <ScrollView
           ref={ref => (this._scrollViewRef = ref)}
           stickyHeaderIndices={[1]}
-          style={{ marginBottom: px2dpwh(56) }}
+          style={{ marginBottom: px2dph(56) }}
         >
           {this._renderTopIntro()}
           {this._renderTabView()}
@@ -449,7 +448,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
         <View
           style={[
             DetailStyle.commonLeftTitleContainer,
-            { marginBottom: px2dpwh(8) },
+            { marginBottom: px2dph(8) },
           ]}
         >
           <View style={DetailStyle.commonLeftDivider} />
@@ -648,7 +647,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
                   inputRange: [0, 1],
                   outputRange: [
                     0,
-                    -(isIphoneX() ? iPhoneXBottom + px2dpwh(56) : px2dpwh(56)),
+                    -(isIphoneX() ? iPhoneXBottom + px2dph(56) : px2dph(56)),
                   ],
                 }),
               },

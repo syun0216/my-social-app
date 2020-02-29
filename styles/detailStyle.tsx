@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import {
   px2dpw,
-  px2dpwh,
+  px2dph,
   isIphoneX,
   iPhoneTop,
   iPhoneXTop,
@@ -12,21 +12,19 @@ import Colors from '../utils/colors';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingTop: isIphoneX()
-      ? px2dpwh(40) + iPhoneXTop
-      : px2dpwh(40) + iPhoneTop,
+    paddingTop: isIphoneX() ? px2dph(40) + iPhoneXTop : px2dph(40) + iPhoneTop,
     backgroundColor: Colors.mainWhite,
   },
   topIntroContainer: {
     paddingLeft: px2dpw(16),
     paddingRight: px2dpw(16),
-    paddingTop: px2dpwh(18),
-    paddingBottom: px2dpwh(24),
+    paddingTop: px2dph(18),
+    paddingBottom: px2dph(24),
   },
   channelBtn: {
     borderWidth: 1,
     borderColor: Colors.lightestPurple,
-    marginBottom: px2dpwh(15),
+    marginBottom: px2dph(15),
   },
   channelBtnText: {
     fontFamily: 'SourceSansPro-Regular',
@@ -37,7 +35,7 @@ export default StyleSheet.create({
     fontFamily: 'SourceSansPro-Semibold',
     fontSize: spText(20),
     color: Colors.deepPurple,
-    marginBottom: px2dpwh(24),
+    marginBottom: px2dph(24),
   },
   introAvatarContainer: {
     flexDirection: 'row',
@@ -52,7 +50,7 @@ export default StyleSheet.create({
     fontFamily: 'SourceSansPro-Regular',
     fontSize: spText(14),
     color: Colors.mainBlack,
-    marginBottom: px2dpwh(4),
+    marginBottom: px2dph(4),
   },
   introAvatarSubtitle: {
     fontFamily: 'SourceSansPro-Regular',
@@ -60,24 +58,24 @@ export default StyleSheet.create({
     color: Colors.mainGray,
   },
   infoContainer: {
-    paddingTop: px2dpwh(16),
-    paddingLeft: px2dpwh(16),
-    paddingBottom: px2dpwh(16),
+    paddingTop: px2dph(16),
+    paddingLeft: px2dph(16),
+    paddingBottom: px2dph(16),
     backgroundColor: Colors.deepGrayBg,
     borderBottomWidth: 1,
     borderColor: Colors.lighterGray,
   },
   descContainer: {
-    paddingBottom: px2dpwh(19.5),
+    paddingBottom: px2dph(19.5),
     borderBottomWidth: 1,
     borderBottomColor: Colors.lighterGray,
   },
   scrollImgContainer: {
-    marginBottom: px2dpwh(12),
+    marginBottom: px2dph(12),
   },
   scrollImg: {
     width: px2dpw(180),
-    height: px2dpwh(100),
+    height: px2dph(100),
     borderRadius: px2dpw(8),
     marginRight: px2dpw(12),
   },
@@ -91,7 +89,7 @@ export default StyleSheet.create({
     color: Colors.mainBlack,
   },
   viewAllContainer: {
-    height: px2dpwh(57),
+    height: px2dph(57),
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -99,7 +97,7 @@ export default StyleSheet.create({
   },
   viewAllInner: {
     position: 'relative',
-    height: px2dpwh(57),
+    height: px2dph(57),
   },
   viewAllBtn: {
     position: 'absolute',
@@ -113,19 +111,19 @@ export default StyleSheet.create({
     fontFamily: 'SourceSansPro-Semibold',
   },
   dateContainer: {
-    paddingTop: px2dpwh(16.5),
-    paddingBottom: px2dpwh(16.5),
+    paddingTop: px2dph(16.5),
+    paddingBottom: px2dph(16.5),
     borderBottomColor: Colors.lighterGray,
     borderBottomWidth: 1,
   },
   commonLeftTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: px2dpwh(16),
+    marginBottom: px2dph(16),
   },
   commonLeftDivider: {
-    height: px2dpwh(16),
-    width: px2dpwh(4),
+    height: px2dph(16),
+    width: px2dph(4),
     backgroundColor: Colors.mainPurple,
     borderRadius: px2dpw(2),
     marginRight: px2dpw(6),
@@ -141,7 +139,7 @@ export default StyleSheet.create({
   dateContentItem: {
     position: 'relative',
     flex: 1,
-    height: px2dpwh(74),
+    height: px2dph(74),
     paddingLeft: px2dpw(13),
   },
   dateContentItemDivider: {
@@ -151,7 +149,7 @@ export default StyleSheet.create({
   dateContentTimeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: px2dpwh(6),
+    marginBottom: px2dph(6),
   },
   dateContentTimeIcon: {
     marginRight: px2dpw(4),
@@ -175,30 +173,30 @@ export default StyleSheet.create({
     fontFamily: 'SourceSansPro-Regular',
     fontSize: spText(10),
     color: Colors.deepGreen,
-    lineHeight: px2dpwh(25),
+    lineHeight: px2dph(25),
   },
   whereContainer: {
-    paddingTop: px2dpwh(16.5),
+    paddingTop: px2dph(16.5),
   },
   whereTitle: {
     fontFamily: 'SourceSansPro-Semibold',
     fontSize: spText(14),
     color: Colors.mainBlack,
-    marginBottom: px2dpwh(2),
+    marginBottom: px2dph(2),
   },
   whereSubTitle: {
     fontFamily: 'SourceSansPro-Regular',
     fontSize: spText(12),
     color: Colors.mainBlack,
-    marginBottom: px2dpwh(5),
+    marginBottom: px2dph(5),
   },
   whereLocation: {
     width: px2dpw(288),
-    height: px2dpwh(88),
+    height: px2dph(88),
     borderRadius: px2dpw(8),
   },
   participantContainer: {
-    paddingTop: px2dpwh(10),
+    paddingTop: px2dph(10),
     paddingLeft: px2dpw(16),
     backgroundColor: Colors.deepGrayBg,
     borderBottomWidth: 1,
@@ -207,7 +205,7 @@ export default StyleSheet.create({
   participantItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: px2dpwh(52.5),
+    height: px2dph(52.5),
   },
   participantItemDivider: {
     borderBottomWidth: 1,
@@ -238,14 +236,14 @@ export default StyleSheet.create({
     paddingLeft: px2dpw(16),
     paddingRight: px2dpw(16),
     paddingBottom: px2dpw(16),
-    paddingTop: px2dpwh(26),
+    paddingTop: px2dph(26),
     borderBottomWidth: 1,
     borderColor: Colors.lighterGray,
   },
   commentItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: px2dpwh(16),
+    marginBottom: px2dph(16),
   },
   commentAvatar: {
     width: px2dpw(32),
@@ -259,7 +257,7 @@ export default StyleSheet.create({
   commentTopContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: px2dpwh(4),
+    marginBottom: px2dph(4),
   },
   commentTopName: {
     fontFamily: 'SourceSansPro-Regular',
@@ -280,7 +278,7 @@ export default StyleSheet.create({
   },
   bottomBar: {
     flexDirection: 'row',
-    height: px2dpwh(56),
+    height: px2dph(56),
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -314,9 +312,9 @@ export default StyleSheet.create({
   },
   bottomInputContainer: {
     flexDirection: 'row',
-    height: px2dpwh(56),
+    height: px2dph(56),
     position: 'absolute',
-    bottom: -px2dpwh(56),
+    bottom: -px2dph(56),
     left: 0,
     right: 0,
     zIndex: 3,

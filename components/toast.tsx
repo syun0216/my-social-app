@@ -2,7 +2,7 @@ import React from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import {
   deviceWidthDp,
-  px2dpwh,
+  px2dph,
   spText,
   isIphoneX,
   iPhoneXTop,
@@ -14,7 +14,7 @@ import Text from './unScalingText';
 const styles = StyleSheet.create({
   toastContainer: {
     width: deviceWidthDp,
-    height: isIphoneX() ? px2dpwh(32) + iPhoneXTop : px2dpwh(32) + iPhoneTop,
+    height: isIphoneX() ? px2dph(32) + iPhoneXTop : px2dph(32) + iPhoneTop,
     backgroundColor: 'rgba(229, 247, 169, 0.8)',
     fontSize: spText(14),
     fontFamily: 'SourceSansPro-Semibold',
@@ -80,8 +80,8 @@ export default class Toast extends React.PureComponent<PropTypes, State> {
                   inputRange: [0, 1],
                   outputRange: [
                     -(isIphoneX()
-                      ? px2dpwh(32) + iPhoneXTop
-                      : px2dpwh(32) + iPhoneTop),
+                      ? px2dph(32) + iPhoneXTop
+                      : px2dph(32) + iPhoneTop),
                     0,
                   ],
                 }),

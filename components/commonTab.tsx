@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { View, TouchableOpacity, StyleSheet, ViewProps } from 'react-native';
 import Colors from '../utils/colors';
-import { px2dpwh, deviceWidthDp, px2dpw, spText } from '../utils/commonUtils';
+import { px2dph, deviceWidthDp, px2dpw, spText } from '../utils/commonUtils';
 import Text from './unScalingText';
 import CustomSvg from './customSvg';
 
@@ -12,25 +12,25 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: Colors.lighterGray,
-    height: px2dpwh(48),
+    height: px2dph(48),
     backgroundColor: Colors.mainWhite,
     width: deviceWidthDp,
   },
   tabItem: {
     flex: 1,
     flexDirection: 'row',
-    height: px2dpwh(48),
+    height: px2dph(48),
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
   },
   tabItemDivider: {
-    height: px2dpwh(12),
+    height: px2dph(12),
     width: 1,
     backgroundColor: Colors.lighterGray,
     position: 'absolute',
     right: 0,
-    top: px2dpwh(18),
+    top: px2dph(18),
   },
   tabItemIcon: {
     marginRight: px2dpw(6.2),
