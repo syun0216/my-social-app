@@ -63,7 +63,6 @@ type timeStampObj = {
   after: '';
 };
 export default class SearchView extends React.PureComponent<PropTypes, State> {
-  private _i18n = i18n['en'].searchText;
   private _toast = null;
   private _flatlist = null;
 
@@ -194,28 +193,28 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
       .endOf('month');
     if (type === 'string') {
       switch (timeName) {
-        case 'ANYTIME':
+        case i18n.t('searchText.anytime'):
           return '';
-        case 'TODAY':
+        case i18n.t('searchText.today'):
           return ` ${dFunc(d)}/${mFunc(m)}`;
-        case 'TOMORROW':
+        case i18n.t('searchText.tomorrow'):
           return ` ${dFunc(d + 1)}/${mFunc(m)}`;
-        case 'THIS WEEK':
+        case i18n.t('searchText.thisWeek'):
           return ` from ${dFunc(weekStart.date())}/${mFunc(
             weekStart.month()
           )} to ${dFunc(weekEnd.date())}/${mFunc(weekEnd.month())}`;
-        case 'THIS MONTH':
+        case i18n.t('searchText.thisMonth'):
           return ` from ${dFunc(monthStart.date())}/${mFunc(
             monthStart.month()
           )} to ${dFunc(monthEnd.date())}/${mFunc(monthEnd.month())}`;
       }
     } else if (type === 'timestamp') {
       switch (timeName) {
-        case 'ANYTIME':
+        case i18n.t('searchText.anytime'):
           return { before: '', after: '' };
-        case 'TODAY':
+        case i18n.t('searchText.today'):
           return { before: _moment.valueOf(), after: _moment.valueOf() };
-        case 'TOMORROW':
+        case i18n.t('searchText.tomorrow'):
           return {
             before: moment(new Date())
               .add(1, 'days')
@@ -224,9 +223,9 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
               .add(1, 'days')
               .valueOf(),
           };
-        case 'THIS WEEK':
+        case i18n.t('searchText.thisWeek'):
           return { before: weekStart.valueOf(), after: weekEnd.valueOf() };
-        case 'THIS MONTH':
+        case i18n.t('searchText.thisMonth'):
           return { before: monthStart.valueOf(), after: monthEnd.valueOf() };
       }
     }
@@ -286,11 +285,22 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
   private async _getChannels() {
     try {
       const res: channelListModel = await getChannels();
+      console.log('res', res);
       if (!res.error) {
         this.setState({
           channelList: [
-            { id: null, name: 'ALL', createdAt: '', updatedAt: '' },
-          ].concat(res.channels),
+            {
+              id: null,
+              name: i18n.t('searchText.all'),
+              createdAt: '',
+              updatedAt: '',
+            },
+          ].concat(
+            res.channels.map(item => ({
+              ...item,
+              name: i18n.t(`searchText.${item.name.toLowerCase()}`),
+            }))
+          ),
         });
       } else if (res.error === 'invalid_token') {
         AppStorage.removeUser();
@@ -331,7 +341,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
     let btnSubTitle: string = '';
     if (curChannel.length > 0) {
       btnSubTitle = curChannel.includes('ALL')
-        ? 'All activities'
+        ? i18n.t('searchText.allActivities')
         : curChannel.join(',');
     }
     if (curTime) {
@@ -355,7 +365,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
                 fill={Colors.deepPurple}
               />
               <Text style={SearchViewStyle.searchTitle}>
-                {this._i18n.searchTitle}
+                {i18n.t('searchText.searchTitle')}
               </Text>
             </View>
             {isSearching ? (
@@ -380,7 +390,6 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
             ? this._renderSearchResult()
             : null}
           {this._renderEventList()}
-          {/* <BlankPage text="No activity found"/> */}
         </Animated.View>
         <Toast
           ref={t => (this._toast = t)}
@@ -408,26 +417,19 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
 
   private _renderDateView() {
     const { curTime } = this.state;
-    const {
-      date,
-      anytime,
-      today,
-      tomorrow,
-      thisWeek,
-      thisMonth,
-      later,
-    } = this._i18n;
     const btnArr: string[] = [
-      anytime,
-      today,
-      tomorrow,
-      thisWeek,
-      thisMonth,
-      later,
+      i18n.t('searchText.anytime'),
+      i18n.t('searchText.today'),
+      i18n.t('searchText.tomorrow'),
+      i18n.t('searchText.thisWeek'),
+      i18n.t('searchText.thisMonth'),
+      i18n.t('searchText.later'),
     ];
     return (
       <View style={SearchViewStyle.dateContainer}>
-        <Text style={SearchViewStyle.commonTitle}>{date}</Text>
+        <Text style={SearchViewStyle.commonTitle}>
+          {i18n.t('searchText.date')}
+        </Text>
         <View style={SearchViewStyle.divider} />
         <View style={SearchViewStyle.commonContainer}>
           {btnArr.map((item, idx) => (
@@ -494,10 +496,11 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
   private _renderChannelView() {
     const { channelList, curChannel } = this.state;
     if (channelList.length === 0) return;
-    const { channel } = this._i18n;
     return (
       <View style={SearchViewStyle.channelView}>
-        <Text style={SearchViewStyle.commonTitle}>{channel}</Text>
+        <Text style={SearchViewStyle.commonTitle}>
+          {i18n.t('searchText.channel')}
+        </Text>
         <View style={[SearchViewStyle.divider, { width: px2dpw(50) }]} />
         <View style={SearchViewStyle.commonContainer}>
           {channelList.map((item, idx) => (
@@ -542,7 +545,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
     let searchTextTips = 'Searched For ';
     if (curChannel.length) {
       searchTextTips += curChannel.includes('ALL')
-        ? 'All activities'
+        ? i18n.t('searchText.allActivities')
         : curChannel.join(',');
     }
     if (curTime) {
@@ -607,7 +610,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
             <RadiusButton
               textStyle={SearchViewStyle.listItemTopBtnText}
               defaultStyle={SearchViewStyle.listItemTopBtn}
-              text={item.channel.name}
+              text={i18n.t(`searchText.${item.channel.name.toLowerCase()}`)}
             />
           </View>
           <View style={SearchViewStyle.listItemWrapper}>
@@ -641,7 +644,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
                       height={11}
                     />
                     <Text style={SearchViewStyle.listItemBottomText}>
-                      I am going!
+                      {i18n.t('searchText.iAmGoing')}
                     </Text>
                   </TouchableOpacity>
                 ) : (
@@ -672,7 +675,7 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
                       height={11}
                     />
                     <Text style={SearchViewStyle.listItemBottomText}>
-                      I like it!
+                      {i18n.t('searchText.iLikeIt')}
                     </Text>
                   </TouchableOpacity>
                 ) : (

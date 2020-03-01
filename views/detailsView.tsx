@@ -43,6 +43,8 @@ import {
 } from '../api/apis';
 //icons
 import * as Icons from '../components/icon';
+//language
+import i18n from '../language/i18n';
 
 type PropTypes = any;
 type State = {
@@ -59,7 +61,7 @@ type State = {
 };
 
 type layoutObj = {
-  [key: number]: any;
+  [key: string]: any;
 };
 
 const _infoIcon: NodeRequire = require('../assets/info-outline.svg');
@@ -317,21 +319,21 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
         activeSvg: _infoActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
-        label: 'Details',
+        label: i18n.t('detailText.tab1'),
       },
       {
         svg: _peopleIcon,
         activeSvg: _peopleActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
-        label: 'Participants',
+        label: i18n.t('detailText.tab2'),
       },
       {
         svg: _commentIcon,
         activeSvg: _commentActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
-        label: 'Comments',
+        label: i18n.t('detailText.tab3'),
       },
     ];
     return (
@@ -389,7 +391,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
                   clickFunc={() => this._toggleViewAll(true)}
                   defaultStyle={DetailStyle.viewAllBtn}
                   textStyle={DetailStyle.viewAllBtnText}
-                  text="VIEW ALL"
+                  text={i18n.t('detailText.viewAllText')}
                 />
               </View>
             </LinearGradient>
@@ -405,7 +407,9 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
       <View style={DetailStyle.dateContainer}>
         <View style={DetailStyle.commonLeftTitleContainer}>
           <View style={DetailStyle.commonLeftDivider} />
-          <Text style={DetailStyle.commonLeftTitle}>When</Text>
+          <Text style={DetailStyle.commonLeftTitle}>
+            {i18n.t('detailText.whenText')}
+          </Text>
         </View>
         <View style={DetailStyle.dateContent}>
           <View
@@ -459,7 +463,9 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
           ]}
         >
           <View style={DetailStyle.commonLeftDivider} />
-          <Text style={DetailStyle.commonLeftTitle}>Where</Text>
+          <Text style={DetailStyle.commonLeftTitle}>
+            {i18n.t('detailText.whereText')}
+          </Text>
         </View>
         <Text style={DetailStyle.whereTitle}>{eventInfo.location}</Text>
         <Text style={DetailStyle.whereSubTitle}>
@@ -494,7 +500,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
               height={9.8}
             />
             <Text style={DetailStyle.participantCountText}>
-              {eventInfo.goings_count} going
+              {eventInfo.goings_count} {i18n.t('detailText.going')}
             </Text>
           </View>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
@@ -516,7 +522,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
               height={9.8}
             />
             <Text style={DetailStyle.participantCountText}>
-              {eventInfo.likes_count} likes
+              {eventInfo.likes_count} {i18n.t('detailText.likes')}
             </Text>
           </View>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
@@ -639,7 +645,9 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
                     width={22}
                     height={22}
                   />
-                  <Text style={DetailStyle.bottomBarRightText}>I am going</Text>
+                  <Text style={DetailStyle.bottomBarRightText}>
+                    {i18n.t('detailText.iAmGoing')}
+                  </Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -652,7 +660,9 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
                     width={22}
                     height={22}
                   />
-                  <Text style={DetailStyle.bottomBarRightText}>Join</Text>
+                  <Text style={DetailStyle.bottomBarRightText}>
+                    {i18n.t('detailText.joinText')}
+                  </Text>
                 </TouchableOpacity>
               )}
             </>
@@ -696,7 +706,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
           <TextInput
             ref={ti => (this._commentInputRef = ti)}
             style={DetailStyle.bottomInput}
-            placeholder="Leave your comment here"
+            placeholder={i18n.t('detailText.commentPlaceholder')}
             placeholderTextColor={Colors.lightestPurple}
             clearButtonMode="while-editing"
             onChangeText={comment => this._getCommentText(comment)}

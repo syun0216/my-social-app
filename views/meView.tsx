@@ -24,6 +24,8 @@ import { px2dph } from '../utils/commonUtils';
 import { getUserInfo, getUserEvents } from '../api/apis';
 //icons
 import { HomeIcon, EmailIcon, TimeIcon } from '../components/icon';
+//language
+import i18n from '../language/i18n';
 
 type PropTypes = any;
 
@@ -156,21 +158,21 @@ export default class MeView extends React.PureComponent<PropTypes, State> {
         activeSvg: _likeActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
-        label: `${userInfo.likes_count} Likes`,
+        label: `${userInfo.likes_count} ${i18n.t('meText.likes')}`,
       },
       {
         svg: _checkIcon,
         activeSvg: _checkActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
-        label: `${userInfo.goings_count} goings`,
+        label: `${userInfo.goings_count} ${i18n.t('meText.going')}`,
       },
       {
         svg: _pastIcon,
         activeSvg: _pastActiveIcon,
         svgWidth: 18,
         svgHeight: 18,
-        label: `${userInfo.past_count} Past`,
+        label: `${userInfo.past_count} ${i18n.t('meText.past')}`,
       },
     ];
     return (

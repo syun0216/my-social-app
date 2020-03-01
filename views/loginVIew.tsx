@@ -32,8 +32,6 @@ type State = {
   isSubmiting: boolean;
 };
 export default class LoginView extends React.PureComponent<PropTypes, State> {
-  private _i18n = i18n['en'].loginViewText;
-
   private _loginParams: loginData = {
     username: '',
     password: '',
@@ -147,7 +145,7 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
             isLoading={isSubmiting}
             clickFunc={() => this._loginWithData()}
             style={LoginStyle.submitBtn}
-            text={this._i18n.loginText}
+            text={i18n.t('loginViewText.submitBtn')}
           />
         </LinearGradient>
         <Toast
@@ -163,8 +161,12 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
   private _renderLogoView() {
     return (
       <View style={LoginStyle.logoContainer}>
-        <Text style={LoginStyle.logoSubtitle}>{this._i18n.subtitle}</Text>
-        <Text style={LoginStyle.logoTitle}>{this._i18n.title}</Text>
+        <Text style={LoginStyle.logoSubtitle}>
+          {i18n.t('loginViewText.subtitle')}
+        </Text>
+        <Text style={LoginStyle.logoTitle}>
+          {i18n.t('loginViewText.title')}
+        </Text>
         <LogoIcon
           width={42}
           height={42}
@@ -199,7 +201,7 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
             autoFocus={false}
             allowFontScaling={false}
             underlineColorAndroid="transparent"
-            placeholder={this._i18n.emailPlaceholder}
+            placeholder={i18n.t('loginViewText.emailPlaceholder')}
             placeholderTextColor={Colors.lighterPurple}
             onChangeText={username => this._getUserName(username)}
             onFocus={() => this._getUsernameInputFocusAction()}
@@ -227,7 +229,7 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
             allowFontScaling={false}
             secureTextEntry={true}
             underlineColorAndroid="transparent"
-            placeholder={this._i18n.pswPlaceholder}
+            placeholder={i18n.t('loginViewText.pswPlaceholder')}
             placeholderTextColor={Colors.lighterPurple}
             onChangeText={password => this._getPassword(password)}
             onFocus={() => this._getPasswordInputFocusAction()}
