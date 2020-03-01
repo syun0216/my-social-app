@@ -48,8 +48,8 @@ export default {
     joinText: 'join',
     commentPlaceholder: 'Leave your comment here',
     iAmGoing: 'I am going',
-    going: '想去',
-    likes: '喜欢',
+    going: 'going',
+    likes: 'likes',
   },
   meText: {
     likes: 'Likes',
