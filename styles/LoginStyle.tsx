@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   deviceWidthDp,
   deviceHeightDp,
@@ -56,8 +56,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   fillinItem: {
-    paddingLeft: px2dpw(13.3),
-    paddingRight: px2dpw(13.3),
+    paddingHorizontal: px2dpw(13.3),
     backgroundColor: 'transparent',
     width: px2dpw(240),
     height: px2dpw(40),

@@ -18,8 +18,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.mainWhite,
   },
   topIntroContainer: {
-    paddingLeft: px2dpw(16),
-    paddingRight: px2dpw(16),
+    paddingHorizontal: px2dpw(16),
     paddingTop: px2dph(18),
     paddingBottom: px2dph(24),
   },
@@ -60,9 +59,8 @@ export default StyleSheet.create({
     color: Colors.mainGray,
   },
   infoContainer: {
-    paddingTop: px2dph(16),
+    paddingVertical: px2dph(16),
     paddingLeft: px2dph(16),
-    paddingBottom: px2dph(16),
     backgroundColor: Colors.deepGrayBg,
     borderBottomWidth: 1,
     borderColor: Colors.lighterGray,
@@ -113,8 +111,7 @@ export default StyleSheet.create({
     fontFamily: 'SourceSansPro-Semibold',
   },
   dateContainer: {
-    paddingTop: px2dph(16.5),
-    paddingBottom: px2dph(16.5),
+    paddingVertical: px2dph(16.5),
     borderBottomColor: Colors.lighterGray,
     borderBottomWidth: 1,
   },
@@ -235,8 +232,7 @@ export default StyleSheet.create({
   },
   participantCountMoreIcon: {},
   commentContainer: {
-    paddingLeft: px2dpw(16),
-    paddingRight: px2dpw(16),
+    paddingHorizontal: px2dpw(16),
     paddingBottom: px2dpw(16),
     paddingTop: px2dph(26),
     borderBottomWidth: 1,
