@@ -38,6 +38,8 @@ export default {
     iLikeIt: '喜欢',
   },
   blankText: '暂无活动~',
+  errorTitle: '加载失败',
+  errorSubTitle: '加载失败, 请点击重试',
   detailText: {
     tab1: '详情',
     tab2: '参与者',

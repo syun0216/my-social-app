@@ -38,6 +38,8 @@ export default {
     iLikeIt: 'I like it!',
   },
   blankText: 'No activity found',
+  errorTitle: 'Load Error',
+  errorSubTitle: 'Load error, please try again.',
   detailText: {
     tab1: 'Details',
     tab2: 'Participants',

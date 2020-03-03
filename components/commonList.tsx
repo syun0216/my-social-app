@@ -12,6 +12,7 @@ import { httpStatus } from '../api/apis';
 import ListFooter from './listFooter';
 import BlankPage from './blankPage';
 import Loading from './loading';
+import ErrorPage from './errorPage';
 //language
 import colors from '../utils/colors';
 import { px2dpw, px2dph } from '../utils/commonUtils';
@@ -33,7 +34,7 @@ const {
   NO_MORE_DATA,
 } = httpStatus;
 
-interface ICommonList {
+type PropTypes = {
   requestFunc: (params) => Promise<any>;
   renderItem: (item: any, index: number) => React.ReactElement;
   renderHeader?: () => React.ReactElement;
@@ -50,22 +51,22 @@ interface ICommonList {
   getScrollTop?: (x: number) => void; //获取滚动高度
   style?: ViewProps['style'];
   errorCallback?: () => void;
-}
+};
 
-interface IState {
+type State = {
   listData: any[];
   firstPageLoading: number;
   nextPageLoading: number;
   refreshing: boolean;
   showToTop: boolean;
   isError: boolean;
-}
+};
 
-class CommonList extends Component<ICommonList, IState> {
+class CommonList extends Component<PropTypes, State> {
   private _timer = null;
   private _flatlist = null;
 
-  public state: IState = {
+  public state = {
     listData: [], //列表数据
     firstPageLoading: LOADING, //首屏加载状态
     nextPageLoading: LOADING, //上拉加载更多状态
@@ -251,9 +252,17 @@ class CommonList extends Component<ICommonList, IState> {
    */
   _onErrorRequestFirstPage() {
     // this.props.showLoading&& this.props.showLoading();
-    this.init();
-    this._requestFirstPage();
-    this.props.errorCallback && this.props.errorCallback();
+    this.setState(
+      {
+        isError: false,
+        firstPageLoading: LOADING,
+      },
+      () => {
+        this.init();
+        this._requestFirstPage();
+        this.props.errorCallback && this.props.errorCallback();
+      }
+    );
   }
 
   /**
@@ -421,7 +430,8 @@ class CommonList extends Component<ICommonList, IState> {
     const Blank = () => (
       <BlankPage text={blankBtnMessage || 'No activity found'} />
     );
-    if (isError) return null;
+    if (isError)
+      return <ErrorPage retryFunc={() => this._onErrorRequestFirstPage()} />;
     return (
       <View style={[{ flex: 1, position: 'relative' }, style]}>
         {showToTop && this._renderToTop()}

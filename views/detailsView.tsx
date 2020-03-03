@@ -21,6 +21,7 @@ import CommonTab from '../components/commonTab';
 import RadiusButton from '../components/radiusButton';
 import Loading from '../components/loading';
 import Toast from '../components/toast';
+import ErrorPage from '../components/errorPage';
 import { BottomWrapper } from '../components/iPhoneXAboveModelWrapper';
 //utils
 import Colors from '../utils/colors';
@@ -57,6 +58,7 @@ type State = {
   isGoing: boolean;
   isLike: boolean;
   isLoading: boolean;
+  isError: boolean;
   isViewAll: boolean;
 };
 
@@ -89,6 +91,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
     isGoing: false,
     isLike: false,
     isLoading: true,
+    isError: false,
     isViewAll: false,
   };
 
@@ -109,21 +112,27 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
 
   private async _getInfo() {
     const { id } = this.props.route.params;
-    const resEvent: eventDetailsModel = await getEventsWithEventId(id);
-    const resParticipant: participantsModel = await getEventParticipantWithEventId(
-      id
-    );
-    const resLikes: likeModel = await getLikesWithEventId(id);
-    const resComments: commentsModel = await getCommentWithEventId(id);
-    this.setState({
-      eventInfo: resEvent.event,
-      participantInfo: resParticipant.users,
-      likesInfo: resLikes.users,
-      commentsInfo: resComments.comments,
-      isGoing: resEvent.event.me_going,
-      isLike: resEvent.event.me_likes,
-      isLoading: false,
-    });
+    try {
+      const resEvent: eventDetailsModel = await getEventsWithEventId(id);
+      const resParticipant: participantsModel = await getEventParticipantWithEventId(
+        id
+      );
+      const resLikes: likeModel = await getLikesWithEventId(id);
+      const resComments: commentsModel = await getCommentWithEventId(id);
+      this.setState({
+        eventInfo: resEvent.event,
+        participantInfo: resParticipant.users,
+        likesInfo: resLikes.users,
+        commentsInfo: resComments.comments,
+        isGoing: resEvent.event.me_going,
+        isLike: resEvent.event.me_likes,
+        isLoading: false,
+      });
+    } catch (err) {
+      this.setState({
+        isError: true,
+      });
+    }
   }
 
   private async _getEventInfo() {
@@ -241,11 +250,20 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
     this._layoutObj[viewType] = { ...e.nativeEvent.layout };
   }
 
+  private _onErrorToRetryFirstPageData() {
+    this._getInfo();
+  }
+
   public render() {
     return this.state.isLoading ? <Loading /> : this._renderMainView();
   }
 
   private _renderMainView() {
+    const { isError } = this.state;
+    if (isError)
+      return (
+        <ErrorPage retryFunc={() => this._onErrorToRetryFirstPageData()} />
+      );
     return (
       <View style={DetailStyle.mainContainer}>
         {this._renderHeader()}
