@@ -1,20 +1,11 @@
-import { AsyncStorage, Platform } from 'react-native';
-import AppStorage from '../cache/appCache';
+import AppStorage from '../cache/appStorage';
+//config
+import projectConfig from '../config';
 
-const baseUrl: string =
-  Platform.OS === 'ios'
-    ? 'http://localhost:3000/api/v1'
-    : 'http://10.0.2.2:3000/api/v1';
+const baseUrl: string = projectConfig.dev.API_PREFIX;
 const timeoutSeconds: number = 20;
 
 export default class BaseRequest {
-  static async getCacheInfo() {
-    let res = await AsyncStorage.getItem('storage_key_user_data');
-    if (res) {
-      res = JSON.parse(res);
-    }
-    return res;
-  }
   /// POST方法
   static async postData(url, params: Params = null): Promise<any> {
     let res: any = await AppStorage.getUser();

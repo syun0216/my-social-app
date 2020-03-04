@@ -1,4 +1,5 @@
-import request from './request';
+// eslint-disable-next-line no-unused-vars
+import request from '../utils/request';
 
 export const httpCode: {
   success: number;
@@ -25,75 +26,120 @@ export const httpStatus: {
 };
 
 export function userLogin(data: loginData): Promise<loginModel> {
-  return request.postJSONData('/auth/token', data);
+  return request({
+    url: '/auth/token',
+    method: 'post',
+    headers: {
+      post: {
+        'Content-Type': 'application/json',
+      },
+    },
+    data,
+  });
 }
 
 export function deleteToken(): Promise<any> {
-  return request.deleteData('/auth/token');
+  return request({
+    url: '/auth/token',
+    method: 'delete',
+  });
 }
 
 export function getChannels(): Promise<channelListModel> {
-  return request.getData('/channels');
+  return request({
+    url: '/channels',
+    method: 'get',
+  });
 }
 
 export function getEvents(params: Params): Promise<eventListModel> {
-  let query: string = Object.keys(params).reduce((acm, val) => {
-    if (params[val] !== null) {
-      return (acm += `${val}=${params[val]}&`);
-    } else {
-      return (acm += '');
-    }
-  }, '?');
-  query = query.slice(0, query.length - 1);
-  return request.getData(`/events${query}`);
+  return request({
+    url: `/events`,
+    method: 'get',
+    params,
+  });
 }
 
 export function getEventsWithEventId(
   event_id: number
 ): Promise<eventItemModel> {
-  return request.getData(`/events/${event_id}`);
+  return request({
+    url: `/events/${event_id}`,
+    method: 'get',
+  });
 }
 
 export function getEventParticipantWithEventId(
   event_id: number
 ): Promise<participantsItemModel> {
-  return request.getData(`/events/${event_id}/participants`);
+  return request({
+    url: `/events/${event_id}/participants`,
+    method: 'get',
+  });
 }
 
 export function postEventParticipantWithEventId(event_id): Promise<any> {
-  return request.postData(`/events/${event_id}/participants`);
+  return request({
+    url: `/events/${event_id}/participants`,
+    method: 'post',
+  });
 }
 
 export function deleteEventParticipantWithEventId(event_id): Promise<any> {
-  return request.deleteData(`/events/${event_id}/participants`);
+  return request({
+    url: `/events/${event_id}/participants`,
+    method: 'delete',
+  });
 }
 
 export function getCommentWithEventId(event_id): Promise<commentsModel> {
-  return request.getData(`/events/${event_id}/comments`);
+  return request({
+    url: `/events/${event_id}/comments`,
+    method: 'get',
+  });
 }
 
 export function postCommentWithEventId(event_id, comment): Promise<any> {
-  return request.postData(`/events/${event_id}/comments`, {
-    comment,
+  return request({
+    url: `/events/${event_id}/comments`,
+    method: 'post',
+    data: {
+      comment,
+    },
   });
 }
 
 export function getLikesWithEventId(event_id): Promise<likeModel> {
-  return request.getData(`/events/${event_id}/likes`);
+  return request({
+    url: `/events/${event_id}/likes`,
+    method: 'get',
+  });
 }
 
 export function postLikeWithEventId(event_id): Promise<any> {
-  return request.postData(`/events/${event_id}/likes`);
+  return request({
+    url: `/events/${event_id}/likes`,
+    method: 'post',
+  });
 }
 
 export function deleteLikeWithEventId(event_id): Promise<any> {
-  return request.deleteData(`/events/${event_id}/likes`);
+  return request({
+    url: `/events/${event_id}/likes`,
+    method: 'delete',
+  });
 }
 
 export function getUserInfo(): Promise<userInfo> {
-  return request.getData(`/user`);
+  return request({
+    url: `/user`,
+    method: 'get',
+  });
 }
 
 export function getUserEvents(type): Promise<eventListModel> {
-  return request.getData(`/user/events?type=${type}`);
+  return request({
+    url: `/user/events?type=${type}`,
+    method: 'get',
+  });
 }
