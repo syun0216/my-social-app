@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@types/jest": "^25.1.3",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
     "@types/react-navigation": "^3.4.0",
@@ -46,7 +48,18 @@
     "eslint": "^6.8.0",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-react": "^7.18.3",
+    "husky": "^4.2.3",
+    "jest-expo": "^36.0.1",
+    "lint-staged": "^10.0.8",
     "typescript": "~3.6.3"
   },
-  "private": true
+  "private": true,
+  "lint-staged": {
+    "*.{ts,tsx}": []
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
 }
