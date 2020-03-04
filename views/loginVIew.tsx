@@ -18,10 +18,10 @@ import Colors from '../utils/colors';
 //language
 import i18n from '../language/i18n';
 import { deviceHeightDp } from '../utils/commonUtils';
-//api
-import { userLogin } from '../api/apis';
+//service
+import { userLogin } from '../service/apis';
 //cache
-import AppStorage from '../cache/appCache';
+import AppStorage from '../cache/appStorage';
 //icons
 import { LogoIcon, UserIcon, PasswordIcon } from '../components/icon';
 
@@ -95,7 +95,7 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
     });
     try {
       console.log(this._loginParams);
-      const res: loginModel = await userLogin(this._loginParams);
+      const res: any = await userLogin(this._loginParams);
       if (res.error) {
         this._toast.show(res.error);
       } else {

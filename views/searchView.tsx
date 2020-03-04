@@ -22,10 +22,10 @@ import i18n from '../language/i18n';
 //utils
 import Colors from '../utils/colors';
 import { px2dpw, px2dph } from '../utils/commonUtils';
-//api
-import { getChannels, getEvents } from '../api/apis';
+//service
+import { getChannels, getEvents } from '../service/apis';
 //cache
-import AppStorage from '../cache/appCache';
+import AppStorage from '../cache/appStorage';
 //icons
 import {
   SearchIcon,
@@ -154,10 +154,12 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
   }
 
   private _searchWithCondition() {
-    this._flatlist.outSideRefresh(() => {
-      this._toggleSearch();
-      this.setState({ isSearchingSubmiting: true });
-    });
+    this._flatlist &&
+      this._flatlist.outSideRefresh &&
+      this._flatlist.outSideRefresh(() => {
+        this._toggleSearch();
+        this.setState({ isSearchingSubmiting: true });
+      });
   }
 
   private _clearSearch() {

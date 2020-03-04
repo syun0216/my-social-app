@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { httpStatus } from '../api/apis';
+import { httpStatus } from '../service/apis';
 import Colors from '../utils/colors';
 
 const styles = StyleSheet.create({

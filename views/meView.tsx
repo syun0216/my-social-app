@@ -20,8 +20,8 @@ import MeStyle from '../styles/meStyle';
 //utils
 import Colors from '../utils/colors';
 import { px2dph } from '../utils/commonUtils';
-//api
-import { getUserInfo, getUserEvents } from '../api/apis';
+//service
+import { getUserInfo, getUserEvents } from '../service/apis';
 //icons
 import { HomeIcon, EmailIcon, TimeIcon } from '../components/icon';
 //language

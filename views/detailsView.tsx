@@ -30,7 +30,7 @@ import {
   isIphoneXAboveModel,
   iPhoneXBottom,
 } from '../utils/commonUtils';
-//api
+//service
 import {
   getEventsWithEventId,
   getEventParticipantWithEventId,
@@ -41,7 +41,7 @@ import {
   postCommentWithEventId,
   deleteEventParticipantWithEventId,
   deleteLikeWithEventId,
-} from '../api/apis';
+} from '../service/apis';
 //icons
 import * as Icons from '../components/icon';
 //language

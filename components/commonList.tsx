@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { httpStatus } from '../api/apis';
+import { httpStatus } from '../service/apis';
 //components
 import ListFooter from './listFooter';
 import BlankPage from './blankPage';
@@ -17,7 +17,7 @@ import ErrorPage from './errorPage';
 import colors from '../utils/colors';
 import { px2dpw, px2dph } from '../utils/commonUtils';
 //cache
-import AppStorage from '../cache/appCache';
+import AppStorage from '../cache/appStorage';
 //navigation
 import * as RootNavigation from '../router/rootNavigation';
 
@@ -118,7 +118,6 @@ class CommonList extends Component<PropTypes, State> {
     if (Object.keys(extraParams).length > 0) {
       _requestParams = Object.assign(_requestParams, extraParams);
     }
-    console.log('_requestParams :', _requestParams);
     this.props.requestFunc(_requestParams).then(
       (data: any) => {
         if (data.error) {
