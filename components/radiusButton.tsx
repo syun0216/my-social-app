@@ -1,5 +1,11 @@
 import React, { memo } from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  TouchableOpacityProps,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
 // components
 import Text from '../components/unScalingText';
 //utils
@@ -33,10 +39,10 @@ const styles = StyleSheet.create({
 
 type PropTypes = {
   text: string;
-  defaultStyle?: {};
-  activeStyle?: {};
-  textStyle?: {};
-  textActiveStyle?: {};
+  defaultStyle?: TouchableOpacityProps['style'];
+  activeStyle?: TouchableOpacityProps['style'];
+  textStyle?: StyleProp<TextStyle>;
+  textActiveStyle?: StyleProp<TextStyle>;
   clickFunc?: () => void;
 };
 
@@ -44,9 +50,15 @@ const radiusButton = (props: PropTypes): React.ReactElement => (
   <TouchableOpacity
     onPress={props.clickFunc}
     activeOpacity={0.8}
-    style={[styles.btnContainer, props.defaultStyle]}
+    style={[styles.btnContainer, props.defaultStyle || {}]}
   >
-    <Text style={[styles.btnText, props.textStyle, props.textActiveStyle]}>
+    <Text
+      style={[
+        styles.btnText,
+        props.textStyle || {},
+        props.textActiveStyle || {},
+      ]}
+    >
       {props.text}
     </Text>
   </TouchableOpacity>

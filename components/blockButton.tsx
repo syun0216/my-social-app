@@ -3,7 +3,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  // eslint-disable-next-line no-unused-vars
   ViewProps,
 } from 'react-native';
 import Text from '../components/unScalingText';

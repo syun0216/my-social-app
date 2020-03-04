@@ -1,5 +1,4 @@
 import React, { useState, memo } from 'react';
-// eslint-disable-next-line no-unused-vars
 import { View, TouchableOpacity, StyleSheet, ViewProps } from 'react-native';
 import Colors from '../utils/colors';
 import { px2dph, deviceWidthDp, px2dpw, spText } from '../utils/commonUtils';

@@ -1,14 +1,7 @@
 import React, { memo } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 //utils
-import {
-  deviceWidthDp,
-  px2dpw,
-  isIphoneXAboveModel,
-  iPhoneXTop,
-  iPhoneTop,
-  px2dph,
-} from '../utils/commonUtils';
+import { deviceWidthDp, px2dpw, px2dph } from '../utils/commonUtils';
 import Colors from '../utils/colors';
 import CustomSvg from './customSvg';
 import { useNavigation } from '@react-navigation/native';
@@ -48,6 +41,7 @@ const styles = StyleSheet.create({
 
 interface PropTypes {
   leftElement: React.ReactNode;
+  rightElement?: React.ReactNode;
   avatar?: string;
 }
 
@@ -64,19 +58,23 @@ const commonHeader = (props: PropTypes): React.ReactElement => {
             height={27}
             svg={require('../assets/logo-cat.svg')}
           />
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Me')}
-            style={styles.headerRight}
-          >
-            <Image
-              style={styles.headerRightIcon}
-              source={
-                props.avatar
-                  ? { uri: props.avatar }
-                  : require('../assets/avatar.png')
-              }
-            />
-          </TouchableOpacity>
+          {props.rightElement ? (
+            props.rightElement
+          ) : (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Me')}
+              style={styles.headerRight}
+            >
+              <Image
+                style={styles.headerRightIcon}
+                source={
+                  props.avatar
+                    ? { uri: props.avatar }
+                    : require('../assets/avatar.png')
+                }
+              />
+            </TouchableOpacity>
+          )}
         </View>
       )}
     </TopWrapper>

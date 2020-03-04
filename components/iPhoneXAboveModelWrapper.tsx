@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, ViewProps } from 'react-native';
 import {
   isIphoneXAboveModel,
   iPhoneXTop,
@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
 });
 
 type PropTypes = {
-  style?: {};
+  style?: ViewProps['style'];
   height: number;
   children(style: {}): React.ReactNode;
 };
 
-const TopWrapper = (props: PropTypes) => (
+const TopWrapper = memo((props: PropTypes) => (
   <View
     style={[
       styles.wrapperContainer,
@@ -45,9 +45,9 @@ const TopWrapper = (props: PropTypes) => (
   >
     {props.children([styles.wrapperInner, { height: props.height }])}
   </View>
-);
+));
 
-const BottomWrapper = (props: PropTypes) => (
+const BottomWrapper = memo((props: PropTypes) => (
   <View
     style={[
       styles.wrapperContainer,
@@ -62,6 +62,6 @@ const BottomWrapper = (props: PropTypes) => (
   >
     {props.children([styles.wrapperInner, { height: props.height }])}
   </View>
-);
+));
 
 export { TopWrapper, BottomWrapper };

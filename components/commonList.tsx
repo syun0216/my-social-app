@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  ViewProps,
 } from 'react-native';
 import { httpStatus } from '../service/apis';
 //components
