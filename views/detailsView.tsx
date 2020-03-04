@@ -15,13 +15,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 //styles
 import DetailStyle from '../styles/detailStyle';
 //components
-import Text from '../components/unScalingText';
-import CommonHeader from '../components/commonHeader';
-import CommonTab from '../components/commonTab';
-import RadiusButton from '../components/radiusButton';
-import Loading from '../components/loading';
-import Toast from '../components/toast';
-import ErrorPage from '../components/errorPage';
+import {
+  Text,
+  CommonHeader,
+  CommonTab,
+  RadiusButton,
+  Loading,
+  Toast,
+  ErrorPage,
+} from '../components';
 import { BottomWrapper } from '../components/iPhoneXAboveModelWrapper';
 //utils
 import Colors from '../utils/colors';

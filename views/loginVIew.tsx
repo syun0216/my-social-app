@@ -7,9 +7,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 // components
-import Text from '../components/unScalingText';
-import BlockButton from '../components/blockButton';
-import Toast from '../components/toast';
+import { Text, BlockButton, Toast } from '../components';
 // styles
 import LoginStyle from '../styles/loginStyle';
 // utils

@@ -11,12 +11,14 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 // styles
 import SearchViewStyle from '../styles/searchViewStyle';
 //components
-import Text from '../components/unScalingText';
-import RadiusButton from '../components/radiusButton';
-import BlockButton from '../components/blockButton';
-import CommonHeader from '../components/commonHeader';
-import Toast from '../components/toast';
-import CommonList from '../components/commonList';
+import {
+  CommonHeader,
+  Text,
+  CommonList,
+  BlockButton,
+  Toast,
+  RadiusButton,
+} from '../components';
 // languages
 import i18n from '../language/i18n';
 //utils

@@ -11,3 +11,4 @@ export { default as Loading } from './loading';
 export { default as RadiusButton } from './radiusButton';
 export { default as Toast } from './toast';
 export { default as Text } from './unScalingText';
+export { default as ErrorPage } from './errorPage';

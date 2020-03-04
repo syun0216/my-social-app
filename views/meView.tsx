@@ -7,13 +7,15 @@ import {
   AsyncStorage,
 } from 'react-native';
 //components
-import CommonHeader from '../components/commonHeader';
-import CustomSvg from '../components/customSvg';
-import Text from '../components/unScalingText';
-import CommonTab from '../components/commonTab';
-import BlankPage from '../components/blankPage';
-import Loading from '../components/loading';
-import RadiusButton from '../components/radiusButton';
+import {
+  CommonHeader,
+  CustomSvg,
+  Text,
+  CommonTab,
+  BlankPage,
+  Loading,
+  RadiusButton,
+} from '../components';
 // styles
 import SearchViewStyle from '../styles/searchViewStyle';
 import MeStyle from '../styles/meStyle';
