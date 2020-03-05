@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { inject } from 'mobx-react';
 // components
 import { Text, BlockButton, Toast } from '../components';
 // styles
@@ -29,6 +30,8 @@ type State = {
   isPasswordInputFocus: boolean;
   isSubmiting: boolean;
 };
+
+@inject('basicMobx')
 export default class LoginView extends React.PureComponent<PropTypes, State> {
   private _loginParams: loginData = {
     username: '',
@@ -92,12 +95,12 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
       isSubmiting: true,
     });
     try {
-      console.log(this._loginParams);
       const res: any = await userLogin(this._loginParams);
       if (res.error) {
         this._toast.show(res.error);
       } else {
         AppStorage.setUser(res);
+        this.props.basicMobx.setUserInfo(res);
         this.props.navigation.replace('Search');
       }
       this.setState({

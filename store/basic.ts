@@ -1,21 +1,21 @@
-import { observable, action, decorate } from "mobx"
+import { observable, action, decorate } from 'mobx';
 
 class BasicMobx {
-  public userInfo = null
+  public userInfo: loginModel = null;
 
-  public setUserInfo(userInfo) {
-    this.userInfo = userInfo
+  public setUserInfo(userInfo: loginModel) {
+    this.userInfo = userInfo;
   }
 
   public getUserInfo() {
-    return this.userInfo
+    return this.userInfo;
   }
 }
 
 decorate(BasicMobx, {
   userInfo: observable,
   setUserInfo: action.bound,
-  getUserInfo: action.bound
-})
+  getUserInfo: action.bound,
+});
 
 export default BasicMobx;

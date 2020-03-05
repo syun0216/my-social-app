@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { inject } from 'mobx-react';
 //utils
 import { deviceWidthDp, px2dpw, px2dph } from '../utils/commonUtils';
 import Colors from '../utils/colors';
@@ -43,42 +44,54 @@ interface PropTypes {
   leftElement: React.ReactNode;
   rightElement?: React.ReactNode;
   avatar?: string;
+  basicMobx?: basicMobxProps;
 }
 
-const commonHeader = (props: PropTypes): React.ReactElement => {
-  const navigation = useNavigation();
-  return (
-    <TopWrapper height={px2dph(40)} style={styles.headerContainer}>
-      {style => (
-        <View style={[style, styles.headerInner]}>
-          {props.leftElement}
-          <CustomSvg
-            fill={Colors.mainGreen}
-            width={23}
-            height={27}
-            svg={require('../assets/logo-cat.svg')}
-          />
-          {props.rightElement ? (
-            props.rightElement
-          ) : (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Me')}
-              style={styles.headerRight}
-            >
-              <Image
-                style={styles.headerRightIcon}
-                source={
-                  props.avatar
-                    ? { uri: props.avatar }
-                    : require('../assets/avatar.png')
-                }
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-      )}
-    </TopWrapper>
-  );
-};
+const commonHeader = inject('basicMobx')(
+  (props: PropTypes): React.ReactElement => {
+    const navigation = useNavigation();
+    let avatar: string = '';
+    if (
+      props.basicMobx &&
+      props.basicMobx.userInfo &&
+      props.basicMobx.userInfo.user &&
+      props.basicMobx.userInfo.user.avatar
+    ) {
+      avatar = props.basicMobx.userInfo.user.avatar;
+    }
+    return (
+      <TopWrapper height={px2dph(40)} style={styles.headerContainer}>
+        {style => (
+          <View style={[style, styles.headerInner]}>
+            {props.leftElement}
+            <CustomSvg
+              fill={Colors.mainGreen}
+              width={23}
+              height={27}
+              svg={require('../assets/logo-cat.svg')}
+            />
+            {props.rightElement ? (
+              props.rightElement
+            ) : (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Me')}
+                style={styles.headerRight}
+              >
+                <Image
+                  style={styles.headerRightIcon}
+                  source={
+                    avatar !== ''
+                      ? { uri: avatar }
+                      : require('../assets/avatar.png')
+                  }
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+      </TopWrapper>
+    );
+  }
+);
 
 export default memo(commonHeader);

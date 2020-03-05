@@ -49,7 +49,6 @@ type State = {
   channelList: channelInfoModel[];
   curChannel: string[];
   curTime: string;
-  userInfo: userInfo | null;
   listCount: number;
   isTimeselectorShow: boolean;
   isTimePickerShow: boolean;
@@ -84,7 +83,6 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
     channelList: [],
     curChannel: ['ALL'],
     curTime: 'ANYTIME',
-    userInfo: null,
     listCount: 0,
     isTimeselectorShow: false,
     isTimePickerShow: false,
@@ -96,7 +94,6 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
   };
 
   public componentDidMount() {
-    this._getUserInfo();
     this._getChannels();
   }
 
@@ -316,16 +313,6 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
     }
   }
 
-  private async _getUserInfo() {
-    let res: any = await AsyncStorage.getItem('storage_key_user_data');
-    if (res) {
-      res = JSON.parse(res);
-    }
-    this.setState({
-      userInfo: res.user || {},
-    });
-  }
-
   public render() {
     return this._renderMainView();
   }
@@ -530,18 +517,12 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
   }
 
   private _renderHeaderView() {
-    const { userInfo } = this.state;
     const leftElement = (
       <TouchableOpacity onPress={() => this._toggleSearch()}>
         <SearchIcon fill={Colors.deepPurple} width={25} height={25} />
       </TouchableOpacity>
     );
-    return (
-      <CommonHeader
-        leftElement={leftElement}
-        avatar={userInfo ? userInfo.avatar : ''}
-      />
-    );
+    return <CommonHeader leftElement={leftElement} />;
   }
 
   private _renderSearchResult() {

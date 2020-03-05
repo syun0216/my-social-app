@@ -55,7 +55,6 @@ type State = {
   participantInfo: participantsItemModel[] | null;
   likesInfo: likeItemModal[] | null;
   commentsInfo: commentItemModel[] | null;
-  userInfo: userInfo | null;
   commentInputTranY: Animated.AnimatedValue;
   isGoing: boolean;
   isLike: boolean;
@@ -88,7 +87,6 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
     participantInfo: null,
     likesInfo: null,
     commentsInfo: null,
-    userInfo: null,
     commentInputTranY: new Animated.Value(0),
     isGoing: false,
     isLike: false,
@@ -99,17 +97,6 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
 
   public componentDidMount() {
     this._getInfo();
-    this._getUserInfo();
-  }
-
-  private async _getUserInfo() {
-    let res: any = await AsyncStorage.getItem('storage_key_user_data');
-    if (res) {
-      res = JSON.parse(res);
-    }
-    this.setState({
-      userInfo: res.user,
-    });
   }
 
   private async _getInfo() {
@@ -290,18 +277,12 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
   }
 
   private _renderHeader() {
-    const { userInfo } = this.state;
     const leftElement = (
       <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
         <Icons.HomeIcon fill={Colors.deepPurple} width={22} height={20} />
       </TouchableOpacity>
     );
-    return (
-      <CommonHeader
-        leftElement={leftElement}
-        avatar={userInfo ? userInfo.avatar : ''}
-      />
-    );
+    return <CommonHeader leftElement={leftElement} />;
   }
 
   private _renderTopIntro() {
