@@ -1,12 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  Animated,
-  AsyncStorage,
-} from 'react-native';
+import { View, TouchableOpacity, Image, Animated } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 // styles
 import SearchViewStyle from '../styles/searchViewStyle';

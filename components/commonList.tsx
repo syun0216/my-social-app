@@ -8,7 +8,7 @@ import {
   Image,
   ViewProps,
 } from 'react-native';
-import { httpStatus } from '../service/apis';
+import { HTTP_STATUS } from '../constants/http';
 //components
 import ListFooter from './listFooter';
 import BlankPage from './blankPage';
@@ -33,7 +33,7 @@ const {
   LOAD_FAILED,
   NO_DATA,
   NO_MORE_DATA,
-} = httpStatus;
+} = HTTP_STATUS;
 
 type PropTypes = {
   requestFunc: (params) => Promise<any>;

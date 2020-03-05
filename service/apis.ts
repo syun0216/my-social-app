@@ -1,30 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import request from '../utils/request';
 
-export const httpCode: {
-  success: number;
-  invalidCode: number;
-  notFound: number;
-} = {
-  success: 200,
-  invalidCode: 403,
-  notFound: 404,
-};
-
-export const httpStatus: {
-  LOADING: number;
-  LOAD_SUCCESS: number;
-  LOAD_FAILED: number;
-  NO_MORE_DATA: number;
-  NO_DATA: number;
-} = {
-  LOADING: 1,
-  LOAD_SUCCESS: 2,
-  LOAD_FAILED: 3,
-  NO_MORE_DATA: 4,
-  NO_DATA: 5,
-};
-
 export function userLogin(data: loginData): Promise<loginModel> {
   return request({
     url: '/auth/token',

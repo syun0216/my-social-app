@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { httpStatus } from '../service/apis';
+import { HTTP_STATUS } from '../constants/http';
 import Colors from '../utils/colors';
 
 const styles = StyleSheet.create({
@@ -29,7 +29,7 @@ const ListFooter = ({
   errorToDo,
 }: PropTypes): React.ReactElement => {
   switch (loadingStatus) {
-    case httpStatus.LOADING: {
+    case HTTP_STATUS.LOADING: {
       return (
         <View style={styles.commonContainer}>
           <ActivityIndicator
@@ -40,7 +40,7 @@ const ListFooter = ({
         </View>
       );
     }
-    case httpStatus.LOAD_FAILED: {
+    case HTTP_STATUS.LOAD_FAILED: {
       return (
         <TouchableOpacity
           style={styles.commonContainer}
@@ -52,7 +52,7 @@ const ListFooter = ({
         </TouchableOpacity>
       );
     }
-    case httpStatus.NO_MORE_DATA: {
+    case HTTP_STATUS.NO_MORE_DATA: {
       return (
         <View style={[styles.commonContainer]}>
           <View>
@@ -67,7 +67,7 @@ const ListFooter = ({
 };
 
 ListFooter.defaultProps = {
-  loadingStatus: httpStatus.LOADING,
+  loadingStatus: HTTP_STATUS.LOADING,
 };
 
 export default memo(ListFooter);
