@@ -42,6 +42,7 @@
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
     "@types/react-navigation": "^3.4.0",
+    "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "babel-preset-expo": "~8.0.0",
@@ -51,11 +52,14 @@
     "husky": "^4.2.3",
     "jest-expo": "^36.0.1",
     "lint-staged": "^10.0.8",
+    "react-test-renderer": "^16.13.0",
     "typescript": "~3.6.3"
   },
   "private": true,
   "lint-staged": {
-    "*.{ts,tsx}": []
+    "*.{ts,tsx}": [
+      "npm run test"
+    ]
   },
   "husky": {
     "hooks": {

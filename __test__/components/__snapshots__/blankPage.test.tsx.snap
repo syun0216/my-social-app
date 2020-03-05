@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FAFAFA",
+        "flex": 1,
+        "justifyContent": "center",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "marginBottom": 25.78125,
+      }
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    style={
+      Object {
+        "color": "#BABABA",
+        "fontFamily": "SourceSansPro-Regular",
+        "fontSize": 33,
+      }
+    }
+  >
+    Hello world
+  </Text>
+</View>
+`;
