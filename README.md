@@ -27,6 +27,11 @@ components
 ├── commonList.tsx #公用的滚动列表
 ├── commonTab.tsx #公用的tab
 ├── customSvg.tsx #公用的svg生成组件
+├── errorPage.tsx #公用的errorPage
+├── icon.tsx #图标
+├── index.ts #export组件
+├── iPhoneXAboveModelWrapper.tsx #计算iPhonex机型的头部和底部
+├── icon.tsx #图标
 ├── listFooter.tsx #列表底部加载显示器
 ├── loading.tsx #页面加载是loading指示器
 ├── radiusButton.tsx #圆形按钮
