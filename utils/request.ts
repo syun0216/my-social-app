@@ -2,7 +2,10 @@ import config from '../config';
 // eslint-disable-next-line no-unused-vars
 import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
 import qs from 'qs';
+//cache
 import AppStorage from '../cache/appStorage';
+//navigation
+import * as RootNavigation from '../router/rootNavigation';
 
 const service: AxiosInstance = axios.create({
   baseURL: config.dev.API_PREFIX,
@@ -42,6 +45,8 @@ export const request = async (config: AxiosRequestConfig = {}) => {
     return res;
   } catch (error) {
     console.log('error', error);
+    AppStorage.removeUser();
+    RootNavigation.replace('Login', {});
   }
 };
 

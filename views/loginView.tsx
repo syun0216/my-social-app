@@ -106,7 +106,6 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
       this.setState({
         isSubmiting: false,
       });
-      console.log(res);
     } catch (err) {
       this.setState({
         isSubmiting: false,

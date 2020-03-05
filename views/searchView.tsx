@@ -130,7 +130,6 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
           .filter(v => curChannel.includes(v.name))
           .map(v => v.id)
           .join(',');
-    console.log('this.state.curChannel :', this.state.curChannel);
   }
 
   private _setCurTime(time: string) {
@@ -252,7 +251,6 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
   private _dateChange(event, selectedDate) {
     const mFunc = m => (m + 1 < 10 ? `0${m + 1}` : m + 1);
     const dFunc = d => (d < 10 ? `0${d}` : d);
-    console.log(moment(selectedDate).valueOf());
     if (this.state.dateType === 'before') {
       this.setState({
         beforeDate:
@@ -274,7 +272,6 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
       });
       this._requestExtraParams.after = moment(selectedDate).valueOf();
     }
-    console.log('this._requestExtraParams :', this._requestExtraParams);
   }
 
   private _getListCount(count) {
@@ -286,7 +283,6 @@ export default class SearchView extends React.PureComponent<PropTypes, State> {
   private async _getChannels() {
     try {
       const res: channelListModel = await getChannels();
-      console.log('res', res);
       if (!res.error) {
         this.setState({
           channelList: [
