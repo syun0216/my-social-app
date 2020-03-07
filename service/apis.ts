@@ -1,6 +1,19 @@
 // eslint-disable-next-line no-unused-vars
 import request from '../utils/request';
 
+export function register(data: registerData): Promise<any> {
+  return request({
+    url: '/join',
+    method: 'post',
+    headers: {
+      post: {
+        'Content-Type': 'application/json',
+      },
+    },
+    data,
+  });
+}
+
 export function userLogin(data: loginData): Promise<loginModel> {
   return request({
     url: '/auth/token',

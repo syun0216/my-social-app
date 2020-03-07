@@ -4,6 +4,7 @@ export default {
     subtitle: 'FIND THE MOST LOVED ACTIVITIES',
     loginText: 'SIGN IN',
     emailPlaceholder: 'Email',
+    userPlaceholder: 'Username',
     pswPlaceholder: 'Password',
     registerBtn: 'Register',
     submitBtn: 'SIGN IN',
@@ -63,5 +64,12 @@ export default {
     registerBtn: 'Register',
     userName: 'Username',
     loginBtn: 'Login',
+  },
+  warningText: {
+    emailRequired: 'email is required',
+    passwordRequired: 'password is required',
+    usernameRequired: 'username is required',
+    loginError: 'login error',
+    registerError: 'register error',
   },
 };

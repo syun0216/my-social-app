@@ -84,4 +84,12 @@ export default StyleSheet.create({
   submitBtn: {
     position: 'relative',
   },
+  reginsterBtn: {
+    paddingHorizontal: 10,
+  },
+  registerBtnText: {
+    color: Colors.mainWhite,
+    fontSize: spText(14),
+    fontFamily: 'SourceSansPro-Regular',
+  },
 });

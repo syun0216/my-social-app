@@ -4,6 +4,7 @@ export default {
     subtitle: '寻找最喜欢的活动',
     loginText: '立即登录',
     emailPlaceholder: '邮箱',
+    userPlaceholder: '用户名',
     pswPlaceholder: '密码',
     registerBtn: '去注册',
     submitBtn: '立即登录',
@@ -63,5 +64,12 @@ export default {
     registerBtn: '立即注册',
     userName: '用户名',
     loginBtn: '去登录',
+  },
+  warningText: {
+    emailRequired: '请填写邮箱',
+    passwordRequired: '请填写密码',
+    usernameRequired: '请填写用户名',
+    loginError: '登录失败',
+    registerError: '注册失败',
   },
 };

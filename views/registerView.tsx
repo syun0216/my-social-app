@@ -1,62 +1,67 @@
 import React from 'react';
 import {
-  ImageBackground,
   View,
-  TextInput,
-  TouchableOpacity,
+  ImageBackground,
   KeyboardAvoidingView,
+  TouchableOpacity,
+  Image,
+  TextInput,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { inject } from 'mobx-react';
-// components
+import { LinearGradient } from 'expo-linear-gradient';
+//components
 import { Text, BlockButton, Toast } from '../components';
 // styles
-import LoginStyle from '../styles/loginStyle';
-// utils
+import RegisterStyles from '../styles/loginStyle';
+//utils
 import Colors from '../utils/colors';
-// import { deviceWidthDp, deviceHeightDp } from '../utils/commonUtils'
+import { deviceHeightDp } from '../utils/commonUtils';
 //language
 import i18n from '../language/i18n';
-import { deviceHeightDp } from '../utils/commonUtils';
-//service
-import { userLogin } from '../service/apis';
+//icons
+import { UserIcon, PasswordIcon, EmailIcon } from '../components/icon';
 //cache
 import AppStorage from '../cache/appStorage';
-//icons
-import { LogoIcon, UserIcon, PasswordIcon } from '../components/icon';
+//api
+import { register, userLogin } from '../service/apis';
 
-type PropTypes = any;
 type State = {
   isUsernameInputFocus: boolean;
   isPasswordInputFocus: boolean;
+  isEmailInputFocus: boolean;
   isSubmiting: boolean;
 };
 
 @inject('basicMobx')
-export default class LoginView extends React.PureComponent<PropTypes, State> {
-  private _loginParams: loginData = {
-    username: '',
-    password: '',
-  };
-
-  private _toast = null;
-
+export default class RegisterView extends React.PureComponent<any, State> {
   public state = {
     isUsernameInputFocus: false,
     isPasswordInputFocus: false,
+    isEmailInputFocus: false,
     isSubmiting: false,
+  };
+  private _toast = null;
+  private _registerParams: registerData = {
+    username: '',
+    password: '',
+    email: '',
+    avatar: 'https://coding.net/static/fruit_avatar/Fruit-19.png',
   };
 
   // logic
 
   private _getUserName(username) {
-    this._loginParams.username = username;
+    this._registerParams.username = username;
     // console.log('this._loginParams :', this._loginParams);
   }
 
   private _getPassword(password) {
-    this._loginParams.password = password;
+    this._registerParams.password = password;
     // console.log('this._loginParams :', this._loginParams);
+  }
+
+  private _getEmail(email) {
+    this._registerParams.email = email;
   }
 
   private _getUsernameInputFocusAction() {
@@ -70,6 +75,19 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
       isUsernameInputFocus: false,
     });
   }
+
+  private _getEmailInputFocusAction() {
+    this.setState({
+      isEmailInputFocus: true,
+    });
+  }
+
+  private _getEmailInputBlurAction() {
+    this.setState({
+      isEmailInputFocus: false,
+    });
+  }
+
   private _getPasswordInputFocusAction() {
     this.setState({
       isPasswordInputFocus: true,
@@ -82,8 +100,8 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
     });
   }
 
-  private async _loginWithData() {
-    const { username, password } = this._loginParams;
+  private async _registerWithData() {
+    const { username, password, email } = this._registerParams;
     if (username === '') {
       this._toast.show(i18n.t('warningText.usernameRequired'));
       return;
@@ -92,11 +110,13 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
       this._toast.show(i18n.t('warningText.passwordRequired'));
       return;
     }
-    this.setState({
-      isSubmiting: true,
-    });
+    if (email === '') {
+      this._toast.show(i18n.t('warningText.emailRequired'));
+      return;
+    }
     try {
-      const res: any = await userLogin(this._loginParams);
+      await register(this._registerParams);
+      const res: any = await userLogin(this._registerParams);
       if (res.error) {
         this._toast.show(res.error);
       } else {
@@ -112,27 +132,22 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
         isSubmiting: false,
       });
       console.log(err);
-      this._toast.show(i18n.t('warningText.loginError'));
+      this._toast.show(i18n.t('warningText.registerError'));
     }
   }
 
   public render() {
-    return this._renderMainView();
-  }
-
-  //views
-  private _renderMainView() {
     const { isSubmiting } = this.state;
     return (
       <ImageBackground
         source={require('../assets/Street-Dance-01.jpg')}
-        style={LoginStyle.loginBg}
+        style={RegisterStyles.loginBg}
       >
         <LinearGradient
           start={{ x: 0.0, y: 0.0 }}
           end={{ x: 0.0, y: 1.0 }}
           colors={[Colors.lightPurple, Colors.mainPurple]}
-          style={LoginStyle.linearGradientBg}
+          style={RegisterStyles.linearGradientBg}
         >
           <KeyboardAvoidingView
             style={{ flex: 1, height: deviceHeightDp, position: 'relative' }}
@@ -144,9 +159,9 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
           </KeyboardAvoidingView>
           <BlockButton
             isLoading={isSubmiting}
-            clickFunc={() => this._loginWithData()}
-            style={LoginStyle.submitBtn}
-            text={i18n.t('loginViewText.submitBtn')}
+            clickFunc={() => this._registerWithData()}
+            style={RegisterStyles.submitBtn}
+            text={i18n.t('registerText.registerBtn')}
           />
         </LinearGradient>
         <Toast
@@ -161,48 +176,46 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
 
   private _renderLogoView() {
     return (
-      <View style={LoginStyle.logoContainer}>
-        <Text style={LoginStyle.logoSubtitle}>
-          {i18n.t('loginViewText.subtitle')}
-        </Text>
-        <Text style={LoginStyle.logoTitle}>
-          {i18n.t('loginViewText.title')}
-        </Text>
-        <LogoIcon
-          width={42}
-          height={42}
-          style={LoginStyle.logoImg}
-          fill={Colors.mainGreen}
+      <View style={RegisterStyles.logoContainer}>
+        <Image
+          style={{ width: 60, height: 60, borderRadius: 30 }}
+          source={{
+            uri: 'https://coding.net/static/fruit_avatar/Fruit-19.png',
+          }}
         />
       </View>
     );
   }
 
   private _renderFillInView() {
-    const { isUsernameInputFocus, isPasswordInputFocus } = this.state;
+    const {
+      isUsernameInputFocus,
+      isPasswordInputFocus,
+      isEmailInputFocus,
+    } = this.state;
     return (
-      <View style={LoginStyle.fillinContainer}>
+      <View style={RegisterStyles.fillinContainer}>
         <View
           style={[
-            LoginStyle.fillinItem,
-            isUsernameInputFocus && LoginStyle.fillinActive,
+            RegisterStyles.fillinItem,
+            isUsernameInputFocus && RegisterStyles.fillinActive,
           ]}
         >
           <UserIcon
-            style={LoginStyle.fillinSvg}
+            style={RegisterStyles.fillinSvg}
             width={13.3}
             height={13.3}
             fill={Colors.lightestPurple}
           />
           <TextInput
-            style={LoginStyle.fillin}
+            style={RegisterStyles.fillin}
             clearButtonMode="while-editing"
             returnKeyType="done"
             multiline={false}
             autoFocus={false}
             allowFontScaling={false}
             underlineColorAndroid="transparent"
-            placeholder={i18n.t('loginViewText.userPlaceholder')}
+            placeholder={i18n.t('registerText.userName')}
             placeholderTextColor={Colors.lighterPurple}
             onChangeText={username => this._getUserName(username)}
             onFocus={() => this._getUsernameInputFocusAction()}
@@ -211,18 +224,45 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
         </View>
         <View
           style={[
-            LoginStyle.fillinItem,
-            isPasswordInputFocus && LoginStyle.fillinActive,
+            RegisterStyles.fillinItem,
+            isEmailInputFocus && RegisterStyles.fillinActive,
           ]}
         >
-          <PasswordIcon
-            style={LoginStyle.fillinSvg}
+          <EmailIcon
+            style={RegisterStyles.fillinSvg}
             width={13.3}
             height={13.3}
             fill={Colors.lightestPurple}
           />
           <TextInput
-            style={LoginStyle.fillin}
+            style={RegisterStyles.fillin}
+            clearButtonMode="while-editing"
+            returnKeyType="done"
+            multiline={false}
+            autoFocus={false}
+            allowFontScaling={false}
+            underlineColorAndroid="transparent"
+            placeholder={i18n.t('loginViewText.emailPlaceholder')}
+            placeholderTextColor={Colors.lighterPurple}
+            onChangeText={email => this._getEmail(email)}
+            onFocus={() => this._getEmailInputFocusAction()}
+            onBlur={() => this._getEmailInputBlurAction()}
+          />
+        </View>
+        <View
+          style={[
+            RegisterStyles.fillinItem,
+            isPasswordInputFocus && RegisterStyles.fillinActive,
+          ]}
+        >
+          <PasswordIcon
+            style={RegisterStyles.fillinSvg}
+            width={13.3}
+            height={13.3}
+            fill={Colors.lightestPurple}
+          />
+          <TextInput
+            style={RegisterStyles.fillin}
             clearButtonMode="while-editing"
             returnKeyType="done"
             multiline={false}
@@ -238,14 +278,13 @@ export default class LoginView extends React.PureComponent<PropTypes, State> {
           />
         </View>
         <TouchableOpacity
-          onPress={() => this.props.navigation.replace('Register')}
-          style={LoginStyle.reginsterBtn}
+          onPress={() => this.props.navigation.replace('Login')}
+          style={RegisterStyles.reginsterBtn}
         >
-          <Text style={LoginStyle.registerBtnText}>
-            {i18n.t('loginViewText.registerBtn')}
+          <Text style={RegisterStyles.registerBtnText}>
+            {i18n.t('registerText.loginBtn')}
           </Text>
         </TouchableOpacity>
-        {/* <TextInput style={LoginStyle.fillin}/> */}
       </View>
     );
   }

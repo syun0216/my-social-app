@@ -13,6 +13,11 @@ interface loginData {
   password: string;
 }
 
+interface registerData extends loginData {
+  email: string;
+  avatar: string;
+}
+
 interface loginModel extends IBasic {
   token: string;
   user: loginInfoModel;
