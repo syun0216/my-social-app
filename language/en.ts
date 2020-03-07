@@ -5,6 +5,7 @@ export default {
     loginText: 'SIGN IN',
     emailPlaceholder: 'Email',
     pswPlaceholder: 'Password',
+    registerBtn: 'Register',
     submitBtn: 'SIGN IN',
   },
   searchText: {
@@ -57,5 +58,10 @@ export default {
     likes: 'Likes',
     going: 'Going',
     past: 'Past',
+  },
+  registerText: {
+    registerBtn: 'Register',
+    userName: 'Username',
+    loginBtn: 'Login',
   },
 };

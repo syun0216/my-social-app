@@ -5,6 +5,7 @@ export default {
     loginText: '立即登录',
     emailPlaceholder: '邮箱',
     pswPlaceholder: '密码',
+    registerBtn: '去注册',
     submitBtn: '立即登录',
   },
   searchText: {
@@ -57,5 +58,10 @@ export default {
     likes: '点赞',
     going: '想去',
     past: '足迹',
+  },
+  registerText: {
+    registerBtn: '立即注册',
+    userName: '用户名',
+    loginBtn: '去登录',
   },
 };
