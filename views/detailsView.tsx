@@ -684,7 +684,7 @@ export default class DetailsView extends React.PureComponent<PropTypes, State> {
                 translateY: this.state.commentInputTranY.interpolate({
                   inputRange: [0, 1],
                   outputRange: [
-                    0,
+                    -1,
                     -(isIphoneXAboveModel()
                       ? iPhoneXBottom + px2dph(56) - 20
                       : px2dph(56)),

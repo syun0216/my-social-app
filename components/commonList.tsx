@@ -340,8 +340,8 @@ class CommonList extends Component<PropTypes, State> {
         }}
       >
         <Image
-          style={{ width: px2dpw(60), height: px2dph(60) }}
-          resizeMode="cover"
+          style={{ width: px2dpw(50), height: px2dph(50) }}
+          resizeMode="contain"
           source={require('../assets/toTop.png')}
         />
       </TouchableOpacity>

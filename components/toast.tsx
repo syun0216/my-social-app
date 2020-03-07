@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, StyleSheet } from 'react-native';
+import { View, Animated, StyleSheet } from 'react-native';
 import {
   deviceWidthDp,
   px2dph,
@@ -23,8 +23,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     zIndex: 3,
+    justifyContent: 'flex-end',
+  },
+  toastInnerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    height: px2dph(40),
   },
   toastText: {
     color: Colors.mainPurple,
@@ -93,14 +97,16 @@ export default class Toast extends React.PureComponent<PropTypes, State> {
           },
         ]}
       >
-        <Text
-          style={[
-            styles.toastText,
-            { color: this.props.textColor || Colors.mainPurple },
-          ]}
-        >
-          {this.state.msg}
-        </Text>
+        <View style={styles.toastInnerContainer}>
+          <Text
+            style={[
+              styles.toastText,
+              { color: this.props.textColor || Colors.mainPurple },
+            ]}
+          >
+            {this.state.msg}
+          </Text>
+        </View>
       </Animated.View>
     );
   }
